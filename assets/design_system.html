@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Design System — Premium Automotive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --accent: #7720D2;
+            --accent-light: #9B4DEB;
+            --accent-dark: #5A13A5;
+            --accent-glow: rgba(119, 32, 210, 0.4);
+            --bg: #EAEAE5;
+            --surface: #F5F5F2;
+            --text: #1C1C1C;
+            --text-muted: #78716c;
+            --border: #d6d3d1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        ::selection { background: var(--accent); color: white; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* ═══════════════════════════════════════
+           REVEAL ANIMATIONS (Digital Architect)
+           ═══════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .text-reveal-wrapper { overflow: hidden; display: inline-block; vertical-align: bottom; }
+        .text-reveal-content {
+            transform: translateY(110%);
+            opacity: 0;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease;
+            display: block;
+        }
+        .reveal-active .text-reveal-content { transform: translateY(0); opacity: 1; }
+
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-500 { transition-delay: 0.5s; }
+        .delay-700 { transition-delay: 0.7s; }
+
+        /* ═══════════════════════════════════════
+           FADESLIDE ANIMATION (Canvas / Lumina)
+           ═══════════════════════════════════════ */
+        @keyframes fadeSlideIn {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+        }
+        .animate-on-scroll { animation-play-state: paused !important; }
+        .animate-on-scroll.animate { animation-play-state: running !important; }
+
+        /* ═══════════════════════════════════════
+           BEAM BORDERS (Canvas) — Purple
+           ═══════════════════════════════════════ */
+        .beam-border-v {
+            position: absolute; top: 0; bottom: 0; left: 0; width: 1px;
+            background: rgba(119, 32, 210, 0.08); overflow: hidden; z-index: 10;
+        }
+        .beam-border-v::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+            transform: translateY(-100%);
+            animation: beam-drop 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            opacity: 0.6;
+        }
+        .beam-border-h {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+            background: rgba(119, 32, 210, 0.08); overflow: hidden; z-index: 10;
+        }
+        .beam-border-h::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            transform: translateX(-100%);
+            animation: beam-slide 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            animation-delay: 2.5s;
+            opacity: 0.6;
+        }
+        @keyframes beam-drop {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100%); opacity: 0; }
+        }
+        @keyframes beam-slide {
+            0% { transform: translateX(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* ═══════════════════════════════════════
+           BEAM FALL (Lumina) — Purple
+           ═══════════════════════════════════════ */
+        @keyframes beam-fall {
+            0% { transform: translateY(-100%); opacity: 0; }
+            5% { opacity: 0.5; }
+            50% { opacity: 1; }
+            95% { opacity: 0.5; }
+            100% { transform: translateY(120vh); opacity: 0; }
+        }
+        .animate-beam-1 { animation: beam-fall 6s linear infinite; }
+        .animate-beam-2 { animation: beam-fall 8s linear infinite; animation-delay: 2s; }
+        .animate-beam-3 { animation: beam-fall 7s linear infinite; animation-delay: 4s; }
+
+        /* ═══════════════════════════════════════
+           FLOATING CARDS (Canvas)
+           ═══════════════════════════════════════ */
+        .floating-card {
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), z-index 0s, box-shadow 0.5s ease;
+            will-change: transform;
+        }
+        .floating-card:hover {
+            transform: scale(1.05) translateY(-8px) !important;
+            z-index: 50;
+            box-shadow: 0 25px 60px -12px rgba(119, 32, 210, 0.25);
+        }
+
+        /* ═══════════════════════════════════════
+           GRADIENT BUTTON (Lumina) — Purple
+           ═══════════════════════════════════════ */
+        .button-custom {
+            cursor: pointer; position: relative; display: inline-flex;
+            align-items: center; justify-content: center; overflow: hidden;
+            transition: all 0.25s ease;
+            background: radial-gradient(65.28% 65.28% at 50% 100%, rgba(155, 77, 235, 0.8) 0%, rgba(155, 77, 235, 0) 100%), linear-gradient(0deg, var(--accent), var(--accent));
+            border-radius: 9999px; border: none; padding: 10px 24px; min-height: 44px;
+        }
+        .button-custom::before {
+            content: ""; position: absolute; inset: 1px;
+            background: linear-gradient(178deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%);
+            border-radius: 9999px; z-index: 0;
+        }
+        .button-custom::after {
+            content: ""; position: absolute; inset: 2px;
+            background: radial-gradient(65.28% 65.28% at 50% 100%, rgba(155, 77, 235, 0.8) 0%, rgba(155, 77, 235, 0) 100%), linear-gradient(0deg, var(--accent), var(--accent));
+            border-radius: 9999px; z-index: 0;
+        }
+        .button-custom:hover { transform: scale(1.03); box-shadow: 0 0 40px var(--accent-glow); }
+        .inner { z-index: 2; gap: 6px; position: relative; color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 0.875rem; font-weight: 600; }
+
+        /* Particle Animation */
+        .points_wrapper { overflow: hidden; width: 100%; height: 100%; pointer-events: none; position: absolute; z-index: 1; }
+        .points_wrapper .point {
+            bottom: -10px; position: absolute; pointer-events: none;
+            width: 2px; height: 2px; background-color: #fff; border-radius: 9999px;
+            animation: floating-points infinite ease-in-out;
+        }
+        @keyframes floating-points { 0% { transform: translateY(0); } 85% { opacity: 0; } 100% { transform: translateY(-55px); opacity: 0; } }
+        .points_wrapper .point:nth-child(1) { left: 10%; opacity: 1; animation-duration: 2.35s; animation-delay: 0.2s; }
+        .points_wrapper .point:nth-child(2) { left: 30%; opacity: 0.7; animation-duration: 2.5s; animation-delay: 0.5s; }
+        .points_wrapper .point:nth-child(3) { left: 25%; opacity: 0.8; animation-duration: 2.2s; animation-delay: 0.1s; }
+        .points_wrapper .point:nth-child(4) { left: 44%; opacity: 0.6; animation-duration: 2.05s; }
+        .points_wrapper .point:nth-child(5) { left: 50%; opacity: 1; animation-duration: 1.9s; }
+        .points_wrapper .point:nth-child(6) { left: 75%; opacity: 0.5; animation-duration: 1.5s; animation-delay: 1.5s; }
+        .points_wrapper .point:nth-child(7) { left: 88%; opacity: 0.9; animation-duration: 2.2s; animation-delay: 0.2s; }
+
+        /* ═══════════════════════════════════════
+           CARD STACK (Lumina)
+           ═══════════════════════════════════════ */
+        .card-stack-item {
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+        }
+
+        /* ═══════════════════════════════════════
+           CAROUSEL (Digital Architect)
+           ═══════════════════════════════════════ */
+        .carousel-slide { position: absolute; inset: 0; transition: opacity 1.5s ease-in-out; opacity: 0; overflow: hidden; }
+        .carousel-slide.active { opacity: 1; }
+        .carousel-slide img { transform: scale(1); transition: transform 10s ease-out; }
+        .carousel-slide.active img { transform: scale(1.1); }
+
+        /* ═══════════════════════════════════════
+           MARQUEE (Digital Architect)
+           ═══════════════════════════════════════ */
+        .marquee-container { display: flex; overflow: hidden; user-select: none; }
+        .marquee-content {
+            flex-shrink: 0; display: flex; justify-content: space-around;
+            min-width: 100%; animation: scroll 40s linear infinite;
+        }
+        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+        /* ═══════════════════════════════════════
+           NAV & UTILITIES
+           ═══════════════════════════════════════ */
+        .nav-load { opacity: 0; transform: translateY(-10px); transition: all 0.8s ease-out; }
+        .nav-load.loaded { opacity: 1; transform: translateY(0); }
+        iconify-icon { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; }
+        .parallax-element { will-change: transform; }
+
+        /* ═══════════════════════════════════════
+           ROTATING BORDER BEAM (Canvas/Lumina) — Purple
+           ═══════════════════════════════════════ */
+        .shimmer-border {
+            --spread: 90deg;
+            --shimmer-color: var(--accent);
+        }
+        .shimmer-border .shimmer-ring {
+            background: conic-gradient(from calc(270deg - (var(--spread) * 0.5)), transparent 0, var(--shimmer-color) var(--spread), transparent var(--spread));
+        }
+
+        /* ═══════════════════════════════════════
+           GLOW PULSE
+           ═══════════════════════════════════════ */
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        .glow-bg { animation: glow-pulse 4s ease-in-out infinite; }
+
+        /* ═══════════════════════════════════════
+           SECTION DIVIDER BEAM
+           ═══════════════════════════════════════ */
+        .section-beam {
+            position: relative; overflow: hidden;
+        }
+        .section-beam::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            animation: beam-slide 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        /* ═══════════════════════════════════════
+           GRID BACKGROUND PATTERN
+           ═══════════════════════════════════════ */
+        .grid-bg-light {
+            background-image:
+                linear-gradient(to right, rgba(119,32,210,0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(119,32,210,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: { DEFAULT: '#7720D2', light: '#9B4DEB', dark: '#5A13A5', glow: 'rgba(119,32,210,0.4)' }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="antialiased min-h-screen pb-10">
+
+<!-- ╔══════════════════════════════════════════════════╗
+     ║  MAIN CONTAINER                                 ║
+     ╚══════════════════════════════════════════════════╝ -->
+<div class="max-w-[1400px] mx-auto border-x border-stone-300 relative bg-[#EAEAE5]">
+
+    <!-- Vertical Grid Guide Lines -->
+    <div class="absolute inset-0 pointer-events-none grid grid-cols-1 md:grid-cols-12 gap-0 z-0 h-full w-full">
+        <div class="hidden md:block md:col-span-3 border-r border-stone-300/40 h-full relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-[1px] h-48 bg-gradient-to-b from-transparent via-accent/30 to-transparent animate-beam-1"></div>
+        </div>
+        <div class="hidden md:block md:col-span-6 border-r border-stone-300/40 h-full relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-[1px] h-64 bg-gradient-to-b from-transparent via-accent/50 to-transparent animate-beam-2"></div>
+        </div>
+        <div class="hidden md:block md:col-span-3 h-full"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         NAVIGATION
+         ═══════════════════════════════════════ -->
+    <header class="relative z-50 border-b border-stone-300 sticky top-0 bg-[#EAEAE5]/95 backdrop-blur-md nav-load section-beam">
+        <div class="flex justify-between items-center px-4 md:px-6 py-5">
+            <div class="flex items-center gap-6">
+                <a class="text-xs font-medium tracking-widest uppercase hover:text-accent transition-colors" href="#hero">Hero</a>
+                <a class="text-xs font-medium tracking-widest uppercase hover:text-accent transition-colors" href="#typography">Typography</a>
+                <a class="text-xs font-medium tracking-widest uppercase hidden md:block hover:text-accent transition-colors" href="#colors">Colors</a>
+            </div>
+            <div class="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 group cursor-pointer">
+                <div class="w-7 h-7 rounded-full bg-accent flex items-center justify-center">
+                    <div class="w-2 h-2 bg-white rounded-full"></div>
+                </div>
+                <span class="font-bold tracking-tighter text-lg">SYSTEM</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <a class="text-xs font-medium tracking-widest uppercase hidden md:block hover:text-accent transition-colors" href="#components">Components</a>
+                <a class="text-xs font-medium tracking-widest uppercase hover:text-accent transition-colors" href="#motion">Motion</a>
+                <a class="text-xs font-medium tracking-widest uppercase hover:text-accent transition-colors" href="#icons">Icons</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  0) HERO SECTION                                ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section id="hero" class="relative z-10 grid grid-cols-1 md:grid-cols-12 border-b border-stone-300 min-h-[900px]">
+        <!-- Hero Carousel Area -->
+        <div class="col-span-1 md:col-span-9 border-b md:border-b-0 md:border-r border-stone-300 relative group overflow-hidden bg-stone-200">
+            <div class="w-full h-full relative" id="hero-carousel">
+                <div class="carousel-slide active">
+                    <img class="w-full h-full object-cover grayscale contrast-125 parallax-img" data-speed="0.05" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=80" alt="Hero"/>
+                </div>
+                <div class="carousel-slide">
+                    <img class="w-full h-full object-cover grayscale contrast-125 parallax-img" data-speed="0.05" src="https://images.unsplash.com/photo-1542362567-b07e54358753?w=1200&q=80" alt="Hero 2"/>
+                </div>
+                <div class="carousel-slide">
+                    <img class="w-full h-full object-cover grayscale contrast-125 parallax-img" data-speed="0.05" src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&q=80" alt="Hero 3"/>
+                </div>
+            </div>
+            <!-- Gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-stone-900/50 pointer-events-none"></div>
+            <!-- Purple glow accent -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-60"></div>
+            <div class="absolute bottom-0 left-0 w-[40%] h-[40%] bg-accent/10 blur-[100px] rounded-full pointer-events-none glow-bg"></div>
+
+            <!-- Hero Text -->
+            <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white mix-blend-difference z-20">
+                <h1 class="text-6xl md:text-8xl font-semibold tracking-tighter leading-none mb-2" id="hero-title">
+                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200">Design</span></span>
+                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300">System</span></span>
+                </h1>
+                <div class="mt-6 flex items-center gap-4 reveal delay-500 hero-badge">
+                    <span class="px-3 py-1 border border-white/40 rounded-full text-xs font-mono uppercase backdrop-blur-md">v1.0</span>
+                    <span class="px-3 py-1 border border-accent/60 rounded-full text-xs font-mono uppercase backdrop-blur-md text-accent-light" style="color: #9B4DEB">Premium</span>
+                    <span class="px-3 py-1 border border-white/40 rounded-full text-xs font-mono uppercase backdrop-blur-md">2026</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Column -->
+        <div class="col-span-1 md:col-span-3 grid grid-rows-3 h-full min-h-[400px]">
+            <div class="row-span-1 border-b border-stone-300 p-8 flex flex-col justify-between reveal delay-500 hero-stat group hover:bg-white transition-colors relative overflow-hidden">
+                <iconify-icon class="text-3xl text-stone-400 group-hover:text-accent transition-colors" icon="solar:layers-minimalistic-linear"></iconify-icon>
+                <div>
+                    <h2 class="text-5xl font-medium tracking-tighter">06</h2>
+                    <span class="text-xs font-mono text-stone-500 mt-1 block">SECTIONS</span>
+                </div>
+                <div class="absolute -top-4 -right-4 w-20 h-20 bg-accent/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            </div>
+            <div class="row-span-1 border-b border-stone-300 p-8 flex flex-col justify-between reveal delay-700 hero-stat group hover:bg-white transition-colors">
+                <iconify-icon class="text-3xl text-stone-400 group-hover:text-accent transition-colors" icon="solar:palette-linear"></iconify-icon>
+                <div>
+                    <h2 class="text-5xl font-medium tracking-tighter">09</h2>
+                    <span class="text-xs font-mono text-stone-500 mt-1 block">COLOR TOKENS</span>
+                </div>
+            </div>
+            <div class="row-span-1 p-8 flex flex-col justify-between reveal delay-700 hero-stat group hover:bg-white transition-colors relative overflow-hidden">
+                <iconify-icon class="text-3xl text-stone-400 group-hover:text-accent transition-colors" icon="solar:cup-star-linear"></iconify-icon>
+                <div>
+                    <h2 class="text-5xl font-medium tracking-tighter">24</h2>
+                    <span class="text-xs font-mono text-stone-500 mt-1 block">COMPONENTS</span>
+                </div>
+                <div class="absolute top-4 right-4">
+                    <iconify-icon class="text-stone-200 text-6xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" icon="solar:star-fall-linear" style="color: var(--accent); opacity: 0;"></iconify-icon>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Divider -->
+    <div class="border-b border-stone-300 overflow-hidden py-6 bg-stone-100/50 section-beam">
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Design System v1.0</span>
+                <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Premium Automotive</span>
+                <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Inter Typeface</span>
+                <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Accent #7720D2</span>
+                <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+            </div>
+            <div class="marquee-content">
+                <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Design System v1.0</span>
+                <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Premium Automotive</span>
+                <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Inter Typeface</span>
+                <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Accent #7720D2</span>
+                <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Typography Banner -->
+    <section class="relative z-10 py-32 border-b border-stone-300 overflow-hidden">
+        <div class="absolute inset-0 grid-bg-light pointer-events-none"></div>
+        <div class="flex flex-col items-center gap-2 reveal relative z-10">
+            <div class="flex items-center gap-4 md:gap-8">
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-stone-900">
+                    <span class="text-reveal-wrapper"><span class="text-reveal-content text-stone-900">Premium</span></span>
+                </h1>
+                <div class="w-12 h-12 md:w-20 md:h-20 border-2 border-accent rounded-full flex items-center justify-center mt-2 md:mt-4 bg-transparent hover:bg-accent hover:text-white transition-all duration-500 cursor-pointer group">
+                    <iconify-icon class="text-2xl md:text-4xl text-accent group-hover:text-white transition-colors" icon="solar:arrow-down-linear"></iconify-icon>
+                </div>
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-stone-900">
+                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-100 text-stone-900">Auto</span></span>
+                </h1>
+            </div>
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-stone-400">
+                <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200">Design</span></span>
+            </h1>
+        </div>
+        <div class="absolute top-1/2 left-0 w-full h-px bg-stone-300 -z-10"></div>
+        <div class="absolute top-[20%] right-[10%] w-32 h-32 bg-accent/10 rounded-full blur-3xl pointer-events-none glow-bg"></div>
+    </section>
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  1) TYPOGRAPHY                                  ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section id="typography" class="relative z-10 border-b border-stone-300">
+        <div class="p-8 md:p-12 border-b border-stone-300 bg-stone-100/50 relative overflow-hidden">
+            <span class="text-xs font-mono uppercase text-accent block mb-2">01 / Foundations</span>
+            <h2 class="text-4xl font-medium tracking-tight">Typography</h2>
+            <div class="absolute top-0 right-0 w-32 h-full opacity-10">
+                <div class="absolute inset-0 bg-gradient-to-l from-accent/30 to-transparent"></div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1">
+            <!-- H1 Display -->
+            <div class="grid grid-cols-1 md:grid-cols-12 border-b border-stone-300 p-8 md:p-12 items-baseline reveal">
+                <div class="col-span-3 text-xs font-mono text-stone-400 uppercase tracking-widest mb-4 md:mb-0">
+                    Display H1<br/><span class="text-accent/60">font-weight: 600</span>
+                </div>
+                <div class="col-span-7">
+                    <h1 class="text-6xl md:text-8xl font-semibold tracking-tighter leading-none text-stone-900">Proteção Premium</h1>
+                </div>
+                <div class="col-span-2 text-right text-xs font-mono text-stone-400">6rem / 1<br/>letter-spacing: -0.05em</div>
+            </div>
+            <!-- H2 -->
+            <div class="grid grid-cols-1 md:grid-cols-12 border-b border-stone-300 p-8 md:p-12 items-baseline reveal delay-100">
+                <div class="col-span-3 text-xs font-mono text-stone-400 uppercase tracking-widest mb-4 md:mb-0">
+                    Heading H2<br/><span class="text-accent/60">font-weight: 500</span>
+                </div>
+                <div class="col-span-7">
+                    <h2 class="text-5xl font-medium tracking-tighter text-stone-900">Estética Automotiva</h2>
+                </div>
+                <div class="col-span-2 text-right text-xs font-mono text-stone-400">3rem / tight</div>
+            </div>
+            <!-- H3 -->
+            <div class="grid grid-cols-1 md:grid-cols-12 border-b border-stone-300 p-8 md:p-12 items-baseline reveal delay-200">
+                <div class="col-span-3 text-xs font-mono text-stone-400 uppercase tracking-widest mb-4 md:mb-0">
+                    Heading H3<br/><span class="text-accent/60">font-weight: 500</span>
+                </div>
+                <div class="col-span-7">
+                    <h3 class="text-4xl font-medium tracking-tight text-stone-900">Vitrificação & PPF</h3>
+                </div>
+                <div class="col-span-2 text-right text-xs font-mono text-stone-400">2.25rem / tight</div>
+            </div>
+            <!-- H4 -->
+            <div class="grid grid-cols-1 md:grid-cols-12 border-b border-stone-300 p-8 md:p-12 items-baseline reveal delay-300">
+                <div class="col-span-3 text-xs font-mono text-stone-400 uppercase tracking-widest mb-4 md:mb-0">
+                    Heading H4<br/><span class="text-accent/60">font-weight: 600</span>
+                </div>
+                <div class="col-span-7">
+                    <h4 class="text-2xl font-semibold tracking-tight text-stone-900">Coating Cerâmico</h4>
+                </div>
+                <div class="col-span-2 text-right text-xs font-mono text-stone-400">1.5rem / tight</div>
+            </div>
+            <!-- Body Large -->
+            <div class="grid grid-cols-1 md:grid-cols-12 border-b border-stone-300 p-8 md:p-12 items-baseline reveal">
+                <div class="col-span-3 text-xs font-mono text-stone-400 uppercase tracking-widest mb-4 md:mb-0">Body Large</div>
+                <div class="col-span-7">
+                    <p class="text-lg leading-relaxed text-stone-800">Proteção de alta performance para veículos que merecem o melhor. Brilho intenso, hidrorepelência e durabilidade de até 10 anos.</p>
+                </div>
+                <div class="col-span-2 text-right text-xs font-mono text-stone-400">1.125rem / relaxed</div>
+            </div>
+            <!-- Body -->
+            <div class="grid grid-cols-1 md:grid-cols-12 border-b border-stone-300 p-8 md:p-12 items-baseline reveal">
+                <div class="col-span-3 text-xs font-mono text-stone-400 uppercase tracking-widest mb-4 md:mb-0">Body / Base</div>
+                <div class="col-span-7">
+                    <p class="text-base leading-relaxed text-stone-600">Texto padrão para parágrafos e descrições de conteúdo geral. Otimizado para leitura em passagens longas.</p>
+                </div>
+                <div class="col-span-2 text-right text-xs font-mono text-stone-400">1rem / relaxed</div>
+            </div>
+            <!-- Body Small -->
+            <div class="grid grid-cols-1 md:grid-cols-12 border-b border-stone-300 p-8 md:p-12 items-baseline reveal">
+                <div class="col-span-3 text-xs font-mono text-stone-400 uppercase tracking-widest mb-4 md:mb-0">Body Small</div>
+                <div class="col-span-7">
+                    <p class="text-sm leading-relaxed text-stone-500">Texto secundário para cards, legendas e informações complementares.</p>
+                </div>
+                <div class="col-span-2 text-right text-xs font-mono text-stone-400">0.875rem / relaxed</div>
+            </div>
+            <!-- Caption / Label -->
+            <div class="grid grid-cols-1 md:grid-cols-12 border-b border-stone-300 p-8 md:p-12 items-baseline reveal">
+                <div class="col-span-3 text-xs font-mono text-stone-400 uppercase tracking-widest mb-4 md:mb-0">Label / Caption</div>
+                <div class="col-span-7">
+                    <span class="text-xs font-mono uppercase tracking-widest text-stone-500">PREMIUM AUTOMOTIVE CARE — SINCE 2024</span>
+                </div>
+                <div class="col-span-2 text-right text-xs font-mono text-stone-400">0.75rem / widest</div>
+            </div>
+            <!-- Accent Gradient Text -->
+            <div class="grid grid-cols-1 md:grid-cols-12 p-8 md:p-12 items-baseline reveal">
+                <div class="col-span-3 text-xs font-mono text-stone-400 uppercase tracking-widest mb-4 md:mb-0">
+                    Transparent Text<br/><span class="text-accent/60">Signature Effect</span>
+                </div>
+                <div class="col-span-7">
+                    <h1 class="text-6xl md:text-8xl font-semibold tracking-tighter leading-none">
+                        <span class="text-stone-900">Brilho</span>
+                        <span class="text-stone-400">Total</span>
+                    </h1>
+                </div>
+                <div class="col-span-2 text-right text-xs font-mono text-stone-400">stone-900 + stone-400</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  2) COLORS & SURFACES                           ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section id="colors" class="relative z-10 border-b border-stone-300">
+        <div class="p-8 md:p-12 border-b border-stone-300 bg-stone-100/50 relative overflow-hidden">
+            <span class="text-xs font-mono uppercase text-accent block mb-2">02 / Foundations</span>
+            <h2 class="text-4xl font-medium tracking-tight">Colors & Surfaces</h2>
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4">
+            <!-- Accent Primary -->
+            <div class="col-span-1 p-8 md:p-12 border-r border-b border-stone-300 flex flex-col justify-between aspect-square reveal" style="background-color: var(--accent)">
+                <div class="text-white font-bold">Accent</div>
+                <div>
+                    <div class="font-mono text-xs text-white/70">#7720D2</div>
+                    <div class="font-mono text-xs text-white/50 mt-1">rgb(119, 32, 210)</div>
+                    <div class="font-mono text-xs text-white/50">hsl(269, 74%, 47%)</div>
+                </div>
+            </div>
+            <!-- Accent Light -->
+            <div class="col-span-1 p-8 md:p-12 border-r border-b border-stone-300 flex flex-col justify-between aspect-square reveal delay-100" style="background-color: var(--accent-light)">
+                <div class="text-white font-bold">Accent Light</div>
+                <div>
+                    <div class="font-mono text-xs text-white/70">#9B4DEB</div>
+                    <div class="font-mono text-xs text-white/50 mt-1">rgb(155, 77, 235)</div>
+                </div>
+            </div>
+            <!-- Accent Dark -->
+            <div class="col-span-1 p-8 md:p-12 border-r border-b border-stone-300 flex flex-col justify-between aspect-square reveal delay-200" style="background-color: var(--accent-dark)">
+                <div class="text-white font-bold">Accent Dark</div>
+                <div>
+                    <div class="font-mono text-xs text-white/70">#5A13A5</div>
+                    <div class="font-mono text-xs text-white/50 mt-1">rgb(90, 19, 165)</div>
+                </div>
+            </div>
+            <!-- Background -->
+            <div class="col-span-1 p-8 md:p-12 border-b border-stone-300 bg-[#EAEAE5] flex flex-col justify-between aspect-square reveal delay-300">
+                <div class="text-stone-900 font-bold">Background</div>
+                <div>
+                    <div class="font-mono text-xs text-stone-500">#EAEAE5</div>
+                    <div class="font-mono text-xs text-stone-400 mt-1">rgb(234, 234, 229)</div>
+                </div>
+            </div>
+            <!-- Stone 900 -->
+            <div class="col-span-1 p-8 md:p-12 border-r border-b border-stone-300 bg-stone-900 flex flex-col justify-between aspect-square reveal">
+                <div class="text-white font-bold">Stone 900</div>
+                <div class="font-mono text-xs text-stone-400">Primary Text<br/>Contrast: AAA</div>
+            </div>
+            <!-- White -->
+            <div class="col-span-1 p-8 md:p-12 border-r border-b border-stone-300 bg-white flex flex-col justify-between aspect-square reveal delay-100">
+                <div class="text-stone-900 font-bold">White</div>
+                <div class="font-mono text-xs text-stone-500">Surface / Cards</div>
+            </div>
+            <!-- Stone 300 -->
+            <div class="col-span-1 p-8 md:p-12 border-r border-b border-stone-300 bg-stone-300 flex flex-col justify-between aspect-square reveal delay-200">
+                <div class="text-stone-800 font-bold">Stone 300</div>
+                <div class="font-mono text-xs text-stone-600">Borders / Dividers</div>
+            </div>
+            <!-- Stone 500 -->
+            <div class="col-span-1 p-8 md:p-12 border-b border-stone-300 bg-stone-500 flex flex-col justify-between aspect-square reveal delay-300">
+                <div class="text-white font-bold">Stone 500</div>
+                <div class="font-mono text-xs text-stone-200">Muted Text</div>
+            </div>
+        </div>
+        <!-- Gradient Row -->
+        <div class="p-8 md:p-12 border-b border-stone-300 reveal">
+            <span class="text-xs font-mono text-accent uppercase tracking-widest block mb-6">Gradients</span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="h-24 rounded-lg" style="background: linear-gradient(135deg, var(--accent-dark), var(--accent-light))"></div>
+                <div class="h-24 rounded-lg" style="background: linear-gradient(135deg, var(--accent), transparent)"></div>
+                <div class="h-24 rounded-lg bg-stone-900" style="background: radial-gradient(circle at 30% 50%, var(--accent-glow), transparent 60%), linear-gradient(135deg, #1c1917, #292524)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  3) UI COMPONENTS                               ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section id="components" class="relative z-10 border-b border-stone-300">
+        <div class="p-8 md:p-12 border-b border-stone-300 bg-stone-100/50 relative overflow-hidden">
+            <span class="text-xs font-mono uppercase text-accent block mb-2">03 / UI Elements</span>
+            <h2 class="text-4xl font-medium tracking-tight">Components</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2">
+            <!-- Buttons -->
+            <div class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-stone-300">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-stone-900 mb-8">Buttons & Actions</h3>
+                <div class="space-y-8">
+                    <!-- Primary Button -->
+                    <div class="flex items-center gap-4 reveal">
+                        <button class="px-6 py-3 text-white rounded-md text-sm font-medium hover:opacity-90 transition-all flex items-center gap-2 group" style="background-color: var(--accent)">
+                            Primary Action
+                            <iconify-icon class="text-lg group-hover:translate-x-1 transition-transform" icon="solar:arrow-right-linear"></iconify-icon>
+                        </button>
+                        <span class="text-xs font-mono text-stone-400">Default</span>
+                    </div>
+                    <!-- Gradient Button with Particles (Lumina) -->
+                    <div class="flex items-center gap-4 reveal delay-100">
+                        <button class="button-custom" type="button">
+                            <div class="points_wrapper">
+                                <i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i>
+                            </div>
+                            <span class="inner">Gradient + Particles</span>
+                        </button>
+                        <span class="text-xs font-mono text-stone-400">Lumina</span>
+                    </div>
+                    <!-- Outline / Pill -->
+                    <div class="flex items-center gap-4 reveal delay-200">
+                        <a class="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest border-2 rounded-full px-8 py-3 transition-all hover:text-white" href="#" style="border-color: var(--accent); color: var(--accent)" onmouseenter="this.style.backgroundColor='var(--accent)';this.style.color='white'" onmouseleave="this.style.backgroundColor='transparent';this.style.color='var(--accent)'">
+                            Outline Pill
+                            <iconify-icon class="text-lg" icon="solar:arrow-right-linear"></iconify-icon>
+                        </a>
+                        <span class="text-xs font-mono text-stone-400">Outline</span>
+                    </div>
+                    <!-- Shimmer Border Button (Canvas/Lumina) -->
+                    <div class="flex items-center gap-4 reveal delay-300">
+                        <a class="group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden bg-transparent py-2.5 px-5 text-sm font-semibold text-stone-900 transition-all duration-300 hover:shadow-[0_0_30px_-5px_var(--accent-glow)]" href="#" style="--spread: 90deg; --shimmer-color: var(--accent);">
+                            <div class="absolute inset-0 -z-20 overflow-hidden">
+                                <div class="absolute inset-[-100%] w-[300%] h-[300%] animate-[spin_3s_linear_infinite]">
+                                    <div class="absolute inset-0" style="background: conic-gradient(from calc(270deg - 45deg), transparent 0, var(--accent) 90deg, transparent 90deg);"></div>
+                                </div>
+                            </div>
+                            <div class="absolute inset-[1px] -z-10 bg-[#EAEAE5] transition-colors duration-300 group-hover:bg-white"></div>
+                            Shimmer Border
+                        </a>
+                        <span class="text-xs font-mono text-stone-400">Canvas</span>
+                    </div>
+                    <!-- Link -->
+                    <div class="flex items-center gap-4 reveal">
+                        <a class="text-sm font-medium hover:text-accent border-b pb-0.5 transition-colors" href="#" style="border-color: var(--accent); color: var(--accent)">Text Link →</a>
+                        <span class="text-xs font-mono text-stone-400">Inline Link</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards & Badges -->
+            <div class="p-8 md:p-12">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-stone-900 mb-8">Cards, Badges & Inputs</h3>
+                <div class="space-y-8">
+                    <!-- Badge -->
+                    <div class="flex items-center gap-4 reveal">
+                        <span class="px-3 py-1 rounded-full text-xs font-mono uppercase backdrop-blur-md text-white" style="background-color: var(--accent)">Premium Badge</span>
+                        <span class="px-3 py-1 border rounded-full text-xs font-mono uppercase" style="border-color: var(--accent); color: var(--accent)">Outline Badge</span>
+                    </div>
+                    <!-- Input -->
+                    <div class="reveal delay-100">
+                        <div class="bg-white border border-stone-300 rounded-lg py-3 px-4 flex items-center gap-3 group hover:border-accent transition-colors focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/20">
+                            <iconify-icon class="text-stone-400 text-lg" icon="solar:magnifer-linear"></iconify-icon>
+                            <input class="bg-transparent border-none outline-none text-stone-900 text-sm w-full placeholder:text-stone-400" placeholder="Search components..." type="text"/>
+                        </div>
+                    </div>
+                    <!-- Tooltip -->
+                    <div class="flex items-center gap-4 reveal delay-200">
+                        <div class="relative group">
+                            <span class="text-sm text-stone-600 cursor-help border-b border-dashed border-stone-400">Hover for tooltip</span>
+                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap" style="background-color: var(--accent)">
+                                Tooltip component
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent" style="border-top-color: var(--accent)"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Small Card -->
+                    <div class="reveal delay-300">
+                        <div class="border border-stone-300 bg-white p-6 hover:bg-stone-50 transition-all group cursor-pointer hover:border-accent/30 hover:-translate-y-1 duration-300">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-xs font-mono text-stone-500">01</span>
+                                <div class="h-px w-8 bg-stone-300"></div>
+                                <span class="text-xs font-bold uppercase tracking-wider text-stone-900">Card</span>
+                            </div>
+                            <h4 class="text-xl font-medium tracking-tight mb-2 group-hover:translate-x-1 transition-transform">Vitrificação Automotiva</h4>
+                            <p class="text-stone-500 text-sm leading-relaxed">Proteção premium com coating cerâmico de alta durabilidade.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar Component -->
+        <div class="border-t border-stone-300 p-8 md:p-12 reveal">
+            <h3 class="text-sm font-bold uppercase tracking-widest text-stone-900 mb-8">Navbar Pattern</h3>
+            <div class="border border-stone-300 bg-white rounded-lg overflow-hidden">
+                <div class="flex justify-between items-center px-6 py-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full flex items-center justify-center" style="background-color: var(--accent)">
+                            <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                        </div>
+                        <span class="font-bold tracking-tighter">BRAND</span>
+                    </div>
+                    <div class="hidden md:flex items-center gap-6 text-xs font-medium tracking-widest uppercase text-stone-500">
+                        <a class="hover:text-accent transition-colors cursor-pointer">Home</a>
+                        <a class="hover:text-accent transition-colors cursor-pointer">Services</a>
+                        <a class="hover:text-accent transition-colors cursor-pointer">About</a>
+                    </div>
+                    <button class="px-4 py-2 text-white rounded-md text-xs font-medium" style="background-color: var(--accent)">Contact</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Component -->
+        <div class="border-t border-stone-300 p-8 md:p-12 reveal">
+            <h3 class="text-sm font-bold uppercase tracking-widest text-stone-900 mb-8">Section / Dark Variant</h3>
+            <div class="bg-stone-900 rounded-lg p-8 md:p-12 relative overflow-hidden">
+                <div class="absolute inset-0 opacity-30 grid-bg-light" style="background-image: linear-gradient(to right, rgba(119,32,210,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(119,32,210,0.08) 1px, transparent 1px);"></div>
+                <div class="absolute top-[30%] left-[20%] w-[30%] h-[30%] bg-accent/15 rounded-full blur-[80px] pointer-events-none glow-bg"></div>
+                <div class="relative z-10">
+                    <span class="text-xs font-mono uppercase tracking-widest text-accent mb-4 block">Dark Section</span>
+                    <h3 class="text-3xl md:text-4xl font-medium tracking-tight text-white mb-4">
+                        Proteção que <span class="text-stone-500">impressiona.</span>
+                    </h3>
+                    <p class="text-stone-400 text-sm max-w-lg leading-relaxed mb-6">Coating cerâmico de última geração com tecnologia de ponta para proteger seu veículo por até 5 anos.</p>
+                    <button class="button-custom" type="button">
+                        <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
+                        <span class="inner">Solicitar Orçamento</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Component -->
+        <div class="border-t border-stone-300 p-8 md:p-12 reveal">
+            <h3 class="text-sm font-bold uppercase tracking-widest text-stone-900 mb-8">Modal Pattern</h3>
+            <div class="bg-stone-900/80 backdrop-blur-md rounded-lg p-8 max-w-md mx-auto relative border border-stone-700">
+                <div class="absolute -top-px left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-accent to-transparent"></div>
+                <h4 class="text-white font-semibold text-lg mb-2">Confirmar Agendamento</h4>
+                <p class="text-stone-400 text-sm mb-6">Deseja confirmar o agendamento da vitrificação para o dia 15/04?</p>
+                <div class="flex gap-3">
+                    <button class="flex-1 py-2.5 text-sm font-medium text-white rounded-md" style="background-color: var(--accent)">Confirmar</button>
+                    <button class="flex-1 py-2.5 text-sm font-medium text-stone-400 border border-stone-700 rounded-md hover:bg-stone-800 transition-colors">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  4) LAYOUT & SPACING                            ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section id="layout" class="relative z-10 border-b border-stone-300">
+        <div class="p-8 md:p-12 border-b border-stone-300 bg-stone-100/50">
+            <span class="text-xs font-mono uppercase text-accent block mb-2">04 / Foundations</span>
+            <h2 class="text-4xl font-medium tracking-tight">Layout & Grid</h2>
+        </div>
+        <div class="p-8 md:p-12 relative">
+            <div class="grid grid-cols-12 gap-2 h-[120px] reveal">
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">1</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">2</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">3</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">4</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">5</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">6</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">7</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">8</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">9</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">10</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">11</div>
+                <div class="col-span-1 h-full rounded flex items-center justify-center text-[10px] font-mono text-stone-400" style="background-color: rgba(119,32,210,0.08)">12</div>
+            </div>
+            <p class="text-center text-xs font-mono text-stone-400 mt-4">12 Column Grid System — max-w-[1400px]</p>
+        </div>
+    </section>
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  5) ICONS                                       ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section id="icons" class="relative z-10 border-b border-stone-300">
+        <div class="p-8 md:p-12 border-b border-stone-300 bg-stone-100/50">
+            <span class="text-xs font-mono uppercase text-accent block mb-2">05 / Assets</span>
+            <h2 class="text-4xl font-medium tracking-tight">Iconography</h2>
+        </div>
+        <div class="p-8 md:p-12 grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-6 justify-items-center">
+            <div class="flex flex-col items-center gap-3 reveal group cursor-pointer">
+                <div class="w-14 h-14 rounded-lg border border-stone-300 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/5 transition-all">
+                    <iconify-icon class="text-2xl text-stone-800 group-hover:text-accent transition-colors" icon="solar:shield-check-linear"></iconify-icon>
+                </div>
+                <span class="text-[10px] font-mono text-stone-500">shield</span>
+            </div>
+            <div class="flex flex-col items-center gap-3 reveal delay-100 group cursor-pointer">
+                <div class="w-14 h-14 rounded-lg border border-stone-300 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/5 transition-all">
+                    <iconify-icon class="text-2xl text-stone-800 group-hover:text-accent transition-colors" icon="solar:star-bold-duotone"></iconify-icon>
+                </div>
+                <span class="text-[10px] font-mono text-stone-500">star</span>
+            </div>
+            <div class="flex flex-col items-center gap-3 reveal delay-200 group cursor-pointer">
+                <div class="w-14 h-14 rounded-lg border border-stone-300 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/5 transition-all">
+                    <iconify-icon class="text-2xl text-stone-800 group-hover:text-accent transition-colors" icon="solar:layers-minimalistic-linear"></iconify-icon>
+                </div>
+                <span class="text-[10px] font-mono text-stone-500">layers</span>
+            </div>
+            <div class="flex flex-col items-center gap-3 reveal delay-300 group cursor-pointer">
+                <div class="w-14 h-14 rounded-lg border border-stone-300 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/5 transition-all">
+                    <iconify-icon class="text-2xl text-stone-800 group-hover:text-accent transition-colors" icon="solar:arrow-right-up-linear"></iconify-icon>
+                </div>
+                <span class="text-[10px] font-mono text-stone-500">arrow</span>
+            </div>
+            <div class="flex flex-col items-center gap-3 reveal group cursor-pointer">
+                <div class="w-14 h-14 rounded-lg border border-stone-300 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/5 transition-all">
+                    <iconify-icon class="text-2xl text-stone-800 group-hover:text-accent transition-colors" icon="solar:check-circle-linear"></iconify-icon>
+                </div>
+                <span class="text-[10px] font-mono text-stone-500">check</span>
+            </div>
+            <div class="flex flex-col items-center gap-3 reveal delay-100 group cursor-pointer">
+                <div class="w-14 h-14 rounded-lg border border-stone-300 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/5 transition-all">
+                    <iconify-icon class="text-2xl text-stone-800 group-hover:text-accent transition-colors" icon="solar:phone-calling-linear"></iconify-icon>
+                </div>
+                <span class="text-[10px] font-mono text-stone-500">phone</span>
+            </div>
+            <div class="flex flex-col items-center gap-3 reveal delay-200 group cursor-pointer">
+                <div class="w-14 h-14 rounded-lg border border-stone-300 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/5 transition-all">
+                    <iconify-icon class="text-2xl text-stone-800 group-hover:text-accent transition-colors" icon="solar:calendar-linear"></iconify-icon>
+                </div>
+                <span class="text-[10px] font-mono text-stone-500">calendar</span>
+            </div>
+            <div class="flex flex-col items-center gap-3 reveal delay-300 group cursor-pointer">
+                <div class="w-14 h-14 rounded-lg border border-stone-300 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/5 transition-all">
+                    <iconify-icon class="text-2xl text-stone-800 group-hover:text-accent transition-colors" icon="solar:map-point-linear"></iconify-icon>
+                </div>
+                <span class="text-[10px] font-mono text-stone-500">location</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  6) MOTION & ANIMATION                          ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <section id="motion" class="relative z-10 border-b border-stone-300 overflow-hidden">
+        <div class="p-8 md:p-12 border-b border-stone-300 bg-stone-100/50">
+            <span class="text-xs font-mono uppercase text-accent block mb-2">06 / Interaction</span>
+            <h2 class="text-4xl font-medium tracking-tight">Motion & Animation</h2>
+        </div>
+
+        <!-- Marquee -->
+        <div class="py-12 border-b border-stone-300 bg-stone-100/50">
+            <div class="text-center text-xs font-mono text-stone-400 mb-4">Infinite Marquee — 40s linear</div>
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Motion System</span>
+                    <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                    <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Easing: cubic-bezier(0.16, 1, 0.3, 1)</span>
+                    <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                    <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Duration: 1.2s</span>
+                    <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                </div>
+                <div class="marquee-content">
+                    <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Motion System</span>
+                    <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                    <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Easing: cubic-bezier(0.16, 1, 0.3, 1)</span>
+                    <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                    <span class="text-sm font-mono uppercase tracking-widest text-stone-500 mx-8">Duration: 1.2s</span>
+                    <span class="text-sm font-mono uppercase tracking-widest mx-8" style="color: var(--accent)">•</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reveal Examples -->
+        <div class="p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-6 border border-stone-300 rounded bg-white reveal group hover:border-accent/30 transition-colors">
+                <span class="text-xs font-mono text-accent block mb-2">.reveal</span>
+                <h4 class="text-xl font-medium">Scroll Reveal</h4>
+                <p class="text-stone-500 text-xs mt-2">opacity: 0 → 1, translateY: 2rem → 0</p>
+            </div>
+            <div class="p-6 border border-stone-300 rounded bg-white reveal delay-200 group hover:border-accent/30 transition-colors">
+                <span class="text-xs font-mono text-accent block mb-2">.reveal .delay-200</span>
+                <h4 class="text-xl font-medium">Staggered Reveal</h4>
+                <p class="text-stone-500 text-xs mt-2">transition-delay: 0.2s</p>
+            </div>
+            <div class="p-6 border border-stone-300 rounded bg-white reveal delay-500 group hover:border-accent/30 transition-colors">
+                <span class="text-xs font-mono text-accent block mb-2">.reveal .delay-500</span>
+                <h4 class="text-xl font-medium">Long Delay</h4>
+                <p class="text-stone-500 text-xs mt-2">transition-delay: 0.5s</p>
+            </div>
+        </div>
+
+        <!-- Beam Animation -->
+        <div class="p-8 md:p-12 border-t border-stone-300 reveal">
+            <span class="text-xs font-mono text-accent block mb-6">Beam Border Animation</span>
+            <div class="relative h-40 border border-stone-300 rounded bg-white overflow-hidden">
+                <div class="beam-border-v" style="left: 25%;"></div>
+                <div class="beam-border-v" style="left: 50%;"></div>
+                <div class="beam-border-v" style="left: 75%;"></div>
+                <div class="beam-border-h"></div>
+                <div class="absolute inset-0 flex items-center justify-center text-xs font-mono text-stone-400">
+                    Beam borders animados — purple accent
+                </div>
+            </div>
+        </div>
+
+        <!-- FadeSlideIn -->
+        <div class="p-8 md:p-12 border-t border-stone-300 reveal">
+            <span class="text-xs font-mono text-accent block mb-6">FadeSlideIn + Blur (Canvas/Lumina)</span>
+            <div class="flex gap-6 flex-wrap">
+                <div class="w-20 h-20 rounded-lg flex items-center justify-center animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0s_both] animate" style="background-color: var(--accent)">
+                    <span class="text-white text-xs font-mono">0s</span>
+                </div>
+                <div class="w-20 h-20 bg-stone-300 rounded-lg flex items-center justify-center animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both] animate">
+                    <span class="text-stone-600 text-xs font-mono">0.2s</span>
+                </div>
+                <div class="w-20 h-20 bg-stone-300 rounded-lg flex items-center justify-center animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.4s_both] animate">
+                    <span class="text-stone-600 text-xs font-mono">0.4s</span>
+                </div>
+                <div class="w-20 h-20 bg-stone-300 rounded-lg flex items-center justify-center animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.6s_both] animate">
+                    <span class="text-stone-600 text-xs font-mono">0.6s</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Reveal -->
+        <div class="p-8 md:p-12 border-t border-stone-300 text-center">
+            <span class="text-xs font-mono text-accent block mb-8">Masked Text Reveal (Digital Architect)</span>
+            <h2 class="text-6xl md:text-8xl font-semibold tracking-tighter leading-none text-stone-900">
+                <span class="text-reveal-wrapper"><span class="text-reveal-content">Proteção</span></span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- ╔══════════════════════════════════════════════════╗
+         ║  FOOTER                                         ║
+         ╚══════════════════════════════════════════════════╝ -->
+    <footer class="relative z-10 bg-stone-900 text-stone-200 py-12 text-center overflow-hidden">
+        <div class="absolute inset-0 opacity-20 grid-bg-light" style="background-image: linear-gradient(to right, rgba(119,32,210,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(119,32,210,0.06) 1px, transparent 1px);"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] h-[60%] bg-accent/10 rounded-full blur-[120px] pointer-events-none glow-bg"></div>
+        <div class="relative z-10">
+            <span class="text-xs font-mono uppercase text-stone-600">Design System — Premium Automotive — #7720D2</span>
+        </div>
+        <div class="mt-8 text-center opacity-10 pointer-events-none select-none overflow-hidden relative z-10">
+            <span class="text-[10rem] md:text-[16rem] font-bold leading-none tracking-tighter whitespace-nowrap" style="color: var(--accent)">SYSTEM</span>
+        </div>
+    </footer>
+
+</div>
+
+<!-- ╔══════════════════════════════════════════════════╗
+     ║  SCRIPTS                                        ║
+     ╚══════════════════════════════════════════════════╝ -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Nav animation
+    setTimeout(() => {
+        const header = document.querySelector('header');
+        if (header) header.classList.add('loaded');
+    }, 100);
+
+    // Hero title text reveal
+    setTimeout(() => {
+        const heroTitle = document.getElementById('hero-title');
+        if (heroTitle) heroTitle.classList.add('reveal-active');
+    }, 500);
+
+    // Hero badges & stats
+    setTimeout(() => {
+        document.querySelectorAll('.hero-badge, .hero-stat').forEach(el => el.classList.add('active'));
+    }, 500);
+
+    // Scroll observer for .reveal elements
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                if (entry.target.querySelector('.text-reveal-content') || entry.target.tagName === 'H1' || entry.target.tagName === 'H2') {
+                    entry.target.classList.add('reveal-active');
+                }
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('h1, h2').forEach(el => {
+        if (el.querySelector('.text-reveal-content')) observer.observe(el);
+    });
+
+    // Scroll observer for .animate-on-scroll (Canvas/Lumina pattern)
+    const scrollIO = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                scrollIO.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => scrollIO.observe(el));
+
+    // Carousel
+    const slides = document.querySelectorAll('.carousel-slide');
+    let currentSlide = 0;
+    if (slides.length > 1) {
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+    }
+
+    // Parallax
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        document.querySelectorAll('.parallax-img').forEach(el => {
+            el.style.transform = `translateY(${scrolled * (el.dataset.speed || 0.1)}px)`;
+        });
+    });
+});
+</script>
+</body>
+</html>

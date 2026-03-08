@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Estética Automotiva Premium — Vitrificação & PPF</title>
+    <meta name="description" content="Proteção premium para veículos de alto padrão. Vitrificação automotiva, coating cerâmico e PPF com tecnologia de ponta."/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: { DEFAULT: '#7720D2', light: '#9B4DEB', dark: '#5A13A5', glow: 'rgba(119,32,210,0.4)' }
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        :root {
+            --accent: #7720D2;
+            --accent-light: #9B4DEB;
+            --accent-dark: #5A13A5;
+            --accent-glow: rgba(119, 32, 210, 0.4);
+            --bg: #EAEAE5;
+            --text: #1C1C1C;
+            --border: #d6d3d1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        ::selection { background: var(--accent); color: white; }
+
+        /* ═══════════════════════════════════════
+           OUTLINED TEXT EFFECT
+           ═══════════════════════════════════════ */
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--text);
+            transition: color 0.8s ease, -webkit-text-stroke-color 0.8s ease;
+        }
+        @media (min-width: 768px) {
+            .text-outline { -webkit-text-stroke-width: 2px; }
+        }
+        .text-outline-accent {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--accent);
+        }
+        @media (min-width: 768px) {
+            .text-outline-accent { -webkit-text-stroke-width: 2px; }
+        }
+
+        /* ═══════════════════════════════════════
+           REVEAL ANIMATION (Digital Architect)
+           ═══════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .text-reveal-wrapper { overflow: hidden; display: inline-block; vertical-align: bottom; }
+        .text-reveal-content {
+            transform: translateY(110%);
+            opacity: 0;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease;
+            display: block;
+        }
+        .reveal-active .text-reveal-content { transform: translateY(0); opacity: 1; }
+
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+        .delay-500 { transition-delay: 0.5s; }
+        .delay-600 { transition-delay: 0.6s; }
+        .delay-700 { transition-delay: 0.7s; }
+        .delay-800 { transition-delay: 0.8s; }
+        .delay-900 { transition-delay: 0.9s; }
+        .delay-1000 { transition-delay: 1s; }
+
+        /* ═══════════════════════════════════════
+           FADESLIDE + BLUR (Canvas/Lumina)
+           ═══════════════════════════════════════ */
+        @keyframes fadeSlideIn {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+        }
+        .fade-blur {
+            opacity: 0;
+            animation: fadeSlideIn 1s ease-out forwards;
+        }
+
+        /* ═══════════════════════════════════════
+           BEAM BORDERS (Canvas) — Purple
+           ═══════════════════════════════════════ */
+        .beam-border-v {
+            position: absolute; top: 0; bottom: 0; width: 1px;
+            background: rgba(119, 32, 210, 0.06); overflow: hidden; z-index: 5;
+        }
+        .beam-border-v::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+            transform: translateY(-100%);
+            animation: beam-drop 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            opacity: 0.6;
+        }
+        .beam-border-h {
+            position: absolute; left: 0; right: 0; height: 1px;
+            background: rgba(119, 32, 210, 0.06); overflow: hidden; z-index: 5;
+        }
+        .beam-border-h::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            transform: translateX(-100%);
+            animation: beam-slide 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            animation-delay: 2.5s;
+            opacity: 0.6;
+        }
+        @keyframes beam-drop {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100%); opacity: 0; }
+        }
+        @keyframes beam-slide {
+            0% { transform: translateX(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* ═══════════════════════════════════════
+           BEAM FALL (Lumina)
+           ═══════════════════════════════════════ */
+        @keyframes beam-fall {
+            0% { transform: translateY(-100%); opacity: 0; }
+            5% { opacity: 0.5; }
+            50% { opacity: 1; }
+            95% { opacity: 0.5; }
+            100% { transform: translateY(120vh); opacity: 0; }
+        }
+        .animate-beam-1 { animation: beam-fall 6s linear infinite; }
+        .animate-beam-2 { animation: beam-fall 8s linear infinite; animation-delay: 2s; }
+        .animate-beam-3 { animation: beam-fall 7s linear infinite; animation-delay: 4s; }
+
+        /* ═══════════════════════════════════════
+           GLOW PULSE
+           ═══════════════════════════════════════ */
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.08); }
+        }
+        .glow-bg { animation: glow-pulse 4s ease-in-out infinite; }
+
+        /* ═══════════════════════════════════════
+           GRADIENT BUTTON + PARTICLES (Lumina)
+           ═══════════════════════════════════════ */
+        .button-custom {
+            cursor: pointer; position: relative; display: inline-flex;
+            align-items: center; justify-content: center; overflow: hidden;
+            transition: all 0.3s ease;
+            background: radial-gradient(65% 65% at 50% 100%, rgba(155, 77, 235, 0.8) 0%, rgba(155, 77, 235, 0) 100%), linear-gradient(0deg, var(--accent), var(--accent));
+            border-radius: 9999px; border: none; padding: 14px 36px; min-height: 52px;
+        }
+        .button-custom::before {
+            content: ""; position: absolute; inset: 1px;
+            background: linear-gradient(178deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%);
+            border-radius: 9999px; z-index: 0;
+        }
+        .button-custom::after {
+            content: ""; position: absolute; inset: 2px;
+            background: radial-gradient(65% 65% at 50% 100%, rgba(155, 77, 235, 0.8) 0%, rgba(155, 77, 235, 0) 100%), linear-gradient(0deg, var(--accent), var(--accent));
+            border-radius: 9999px; z-index: 0;
+        }
+        .button-custom:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 60px var(--accent-glow), 0 12px 40px rgba(119, 32, 210, 0.25);
+        }
+        .inner {
+            z-index: 2; gap: 8px; position: relative; color: white;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; font-weight: 600; letter-spacing: 0.02em;
+        }
+        .points_wrapper { overflow: hidden; width: 100%; height: 100%; pointer-events: none; position: absolute; z-index: 1; }
+        .points_wrapper .point {
+            bottom: -10px; position: absolute; pointer-events: none;
+            width: 2px; height: 2px; background-color: rgba(255,255,255,0.8); border-radius: 9999px;
+            animation: floating-points infinite ease-in-out;
+        }
+        @keyframes floating-points {
+            0% { transform: translateY(0); opacity: 1; }
+            85% { opacity: 0; }
+            100% { transform: translateY(-55px); opacity: 0; }
+        }
+        .points_wrapper .point:nth-child(1) { left: 10%; animation-duration: 2.35s; animation-delay: 0.2s; }
+        .points_wrapper .point:nth-child(2) { left: 28%; opacity: 0.7; animation-duration: 2.5s; animation-delay: 0.5s; }
+        .points_wrapper .point:nth-child(3) { left: 42%; opacity: 0.8; animation-duration: 2.2s; animation-delay: 0.1s; }
+        .points_wrapper .point:nth-child(4) { left: 56%; opacity: 0.6; animation-duration: 2.05s; }
+        .points_wrapper .point:nth-child(5) { left: 70%; animation-duration: 1.9s; }
+        .points_wrapper .point:nth-child(6) { left: 85%; opacity: 0.5; animation-duration: 1.5s; animation-delay: 1.5s; }
+        .points_wrapper .point:nth-child(7) { left: 95%; opacity: 0.9; animation-duration: 2.2s; animation-delay: 0.2s; }
+
+        /* ═══════════════════════════════════════
+           SHIMMER BORDER BUTTON (Canvas)
+           ═══════════════════════════════════════ */
+        .shimmer-btn {
+            position: relative; isolation: isolate;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            overflow: hidden; padding: 12px 28px;
+            font-size: 0.85rem; font-weight: 600;
+            color: var(--text);
+            transition: all 0.3s ease;
+            border-radius: 9999px;
+        }
+        .shimmer-btn .shimmer-spin {
+            position: absolute; inset: 0; z-index: -2; overflow: hidden; border-radius: 9999px;
+        }
+        .shimmer-btn .shimmer-spin > div {
+            position: absolute; inset: -100%; width: 300%; height: 300%;
+            animation: spin-glow 4s linear infinite;
+            background: conic-gradient(from 270deg, transparent 0deg, transparent 80deg, var(--accent) 180deg, transparent 280deg, transparent 360deg);
+        }
+        .shimmer-btn .shimmer-fill {
+            position: absolute; inset: 1.5px; z-index: -1;
+            background-color: var(--bg);
+            border-radius: 9999px;
+            transition: background-color 0.3s ease;
+        }
+        .shimmer-btn:hover .shimmer-fill { background-color: #fff; }
+        .shimmer-btn:hover {
+            box-shadow: 0 0 30px rgba(119, 32, 210, 0.15);
+            color: var(--accent);
+        }
+        @keyframes spin-glow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ═══════════════════════════════════════
+           FLOATING CARD (Canvas)
+           ═══════════════════════════════════════ */
+        .floating-card {
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease;
+            will-change: transform;
+        }
+        .floating-card:hover {
+            transform: scale(1.05) translateY(-6px) !important;
+            z-index: 50;
+            box-shadow: 0 25px 60px -12px rgba(119, 32, 210, 0.25);
+        }
+
+        /* ═══════════════════════════════════════
+           VIDEO FRAME
+           ═══════════════════════════════════════ */
+        .video-frame { position: relative; }
+        .video-frame::before {
+            content: '';
+            position: absolute; inset: -2px; border-radius: 20px;
+            overflow: hidden; z-index: 0;
+        }
+
+        /* ═══════════════════════════════════════
+           GRID BACKGROUND with MASK
+           ═══════════════════════════════════════ */
+        .grid-bg-light {
+            background-image:
+                linear-gradient(to right, rgba(119,32,210,0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(119,32,210,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+        }
+
+        /* ═══════════════════════════════════════
+           MARQUEE (Digital Architect)
+           ═══════════════════════════════════════ */
+        .marquee-container { display: flex; overflow: hidden; user-select: none; }
+        .marquee-content {
+            flex-shrink: 0; display: flex; align-items: center;
+            min-width: 100%; animation: marquee-scroll 50s linear infinite;
+        }
+        @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+        /* ═══════════════════════════════════════
+           SECTION BEAM
+           ═══════════════════════════════════════ */
+        .section-beam { position: relative; overflow: hidden; }
+        .section-beam::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            animation: beam-slide 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        /* ═══════════════════════════════════════
+           NAV
+           ═══════════════════════════════════════ */
+        .nav-load { opacity: 0; transform: translateY(-10px); transition: all 0.8s ease-out; }
+        .nav-load.loaded { opacity: 1; transform: translateY(0); }
+
+        /* ═══════════════════════════════════════
+           FEATURE PILL
+           ═══════════════════════════════════════ */
+        .feature-pill { transition: all 0.3s ease; }
+        .feature-pill:hover {
+            background-color: rgba(119, 32, 210, 0.08);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px -8px rgba(119, 32, 210, 0.15);
+        }
+
+        /* ═══════════════════════════════════════
+           FLOATING DOTS
+           ═══════════════════════════════════════ */
+        @keyframes float-y {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes float-x {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(15px); }
+        }
+        .float-slow { animation: float-y 6s ease-in-out infinite; }
+        .float-medium { animation: float-y 4s ease-in-out infinite; }
+        .float-x { animation: float-x 8s ease-in-out infinite; }
+
+        /* ═══════════════════════════════════════
+           COUNTER ANIMATION
+           ═══════════════════════════════════════ */
+        @keyframes count-up {
+            0% { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        /* ═══════════════════════════════════════
+           PARALLAX
+           ═══════════════════════════════════════ */
+        .parallax-element { will-change: transform; }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <section class="relative min-h-screen flex flex-col overflow-hidden">
+
+        <!-- ═══ BACKGROUND LAYERS ═══ -->
+        <div class="absolute inset-0 grid-bg-light pointer-events-none"></div>
+
+        <!-- Glow orbs -->
+        <div class="absolute top-[5%] left-[-8%] w-[55vw] h-[55vw] rounded-full blur-[180px] pointer-events-none glow-bg" style="background: rgba(119, 32, 210, 0.05);"></div>
+        <div class="absolute bottom-[-15%] right-[-10%] w-[45vw] h-[45vw] rounded-full blur-[140px] pointer-events-none" style="background: rgba(119, 32, 210, 0.07); animation: glow-pulse 5s ease-in-out infinite; animation-delay: 2s;"></div>
+        <div class="absolute top-[40%] left-[50%] w-[25vw] h-[25vw] rounded-full blur-[120px] pointer-events-none" style="background: rgba(119, 32, 210, 0.03); animation: glow-pulse 7s ease-in-out infinite; animation-delay: 3s;"></div>
+
+        <!-- Beam borders (vertical) -->
+        <div class="beam-border-v absolute" style="left: 8%;"></div>
+        <div class="beam-border-v absolute" style="left: 33%;"></div>
+        <div class="beam-border-v absolute" style="left: 50%; animation-delay: 1.5s;"></div>
+        <div class="beam-border-v absolute" style="left: 67%; animation-delay: 3s;"></div>
+        <div class="beam-border-v absolute" style="left: 92%; animation-delay: 4.5s;"></div>
+
+        <!-- Beam fall (Lumina) -->
+        <div class="absolute top-0 w-[1px] h-48 bg-gradient-to-b from-transparent via-accent/40 to-transparent animate-beam-1 pointer-events-none" style="left: 20%;"></div>
+        <div class="absolute top-0 w-[1px] h-64 bg-gradient-to-b from-transparent via-accent/30 to-transparent animate-beam-2 pointer-events-none" style="left: 75%;"></div>
+        <div class="absolute top-0 w-[1px] h-40 bg-gradient-to-b from-transparent via-accent/25 to-transparent animate-beam-3 pointer-events-none" style="left: 45%;"></div>
+
+        <!-- Floating decorative dots -->
+        <div class="absolute top-[15%] right-[12%] w-2 h-2 rounded-full bg-accent/20 float-slow pointer-events-none"></div>
+        <div class="absolute top-[25%] left-[15%] w-1.5 h-1.5 rounded-full bg-accent/30 float-medium pointer-events-none" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-[30%] right-[25%] w-1 h-1 rounded-full bg-accent/25 float-slow pointer-events-none" style="animation-delay: 2s;"></div>
+        <div class="absolute top-[60%] left-[8%] w-2.5 h-2.5 rounded-full bg-accent/10 float-x pointer-events-none"></div>
+        <div class="absolute top-[45%] right-[5%] w-1.5 h-1.5 rounded-full bg-stone-400/20 float-medium pointer-events-none" style="animation-delay: 3s;"></div>
+
+        <!-- Horizontal beam -->
+        <div class="beam-border-h absolute" style="top: 50%;"></div>
+
+        <!-- ═══ NAVIGATION ═══ -->
+        <nav class="relative z-50 px-6 md:px-12 py-5 flex justify-between items-center nav-load section-beam">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center">
+                    <div class="w-2.5 h-2.5 bg-white rounded-full"></div>
+                </div>
+                <span class="font-bold tracking-tighter text-lg text-stone-900">PREMIUM AUTO</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-xs font-medium tracking-widest uppercase text-stone-500">
+                <a class="hover:text-accent transition-colors duration-300 cursor-pointer">Serviços</a>
+                <a class="hover:text-accent transition-colors duration-300 cursor-pointer">Sobre</a>
+                <a class="hover:text-accent transition-colors duration-300 cursor-pointer">Galeria</a>
+            </div>
+            <a href="#" class="shimmer-btn hidden sm:inline-flex">
+                <div class="shimmer-spin"><div></div></div>
+                <div class="shimmer-fill"></div>
+                Contato
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg>
+            </a>
+        </nav>
+
+        <!-- ═══ MAIN CONTENT ═══ -->
+        <div class="flex-1 flex items-center relative z-10">
+            <div class="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-10 md:py-0">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-center">
+
+                    <!-- LEFT: COPY -->
+                    <div class="lg:col-span-6 xl:col-span-5 flex flex-col">
+
+                        <!-- Badge -->
+                        <div class="reveal delay-100 mb-8">
+                            <span class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-accent/25 text-xs font-semibold tracking-widest uppercase bg-white/40 backdrop-blur-sm" style="color: var(--accent)">
+                                <span class="relative flex h-2 w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-60"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                                </span>
+                                Estética Automotiva Premium
+                            </span>
+                        </div>
+
+                        <!-- Headline — outlined text effect -->
+                        <h1 class="mb-8" id="hero-headline">
+                            <span class="text-reveal-wrapper">
+                                <span class="text-reveal-content delay-200 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-[0.9] text-stone-900">Proteção</span>
+                            </span>
+                            <br/>
+                            <span class="text-reveal-wrapper">
+                                <span class="text-reveal-content delay-300 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-[0.9] text-outline">invisível.</span>
+                            </span>
+                            <br/>
+                            <span class="text-reveal-wrapper">
+                                <span class="text-reveal-content delay-400 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-[0.9] text-outline">Brilho</span>
+                            </span>
+                            <br/>
+                            <span class="text-reveal-wrapper">
+                                <span class="text-reveal-content delay-500 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-[0.9] text-stone-900">absoluto.</span>
+                            </span>
+                        </h1>
+
+                        <!-- Subheadline — fadeSlideIn with blur -->
+                        <div class="mb-10 opacity-0" id="subheadline">
+                            <p class="text-lg leading-relaxed text-stone-500 max-w-lg">
+                                Vitrificação automotiva, coating cerâmico e PPF de alta performance. Proteção prolongada contra riscos, pedriscos e agentes agressivos
+                                — com <span class="text-stone-800 font-medium">brilho intenso</span>, <span class="text-stone-800 font-medium">hidrorepelência</span> e <span class="text-stone-800 font-medium">valorização garantida</span>.
+                            </p>
+                        </div>
+
+                        <!-- CTAs -->
+                        <div class="flex flex-wrap items-center gap-5 mb-10 opacity-0" id="cta-group">
+                            <button class="button-custom" type="button">
+                                <div class="points_wrapper">
+                                    <i class="point"></i><i class="point"></i><i class="point"></i>
+                                    <i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i>
+                                </div>
+                                <span class="inner">
+                                    Solicitar Orçamento
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                </span>
+                            </button>
+                            <a href="#" class="shimmer-btn">
+                                <div class="shimmer-spin"><div></div></div>
+                                <div class="shimmer-fill"></div>
+                                Conhecer a Proteção
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg>
+                            </a>
+                        </div>
+
+                        <!-- Trust indicators -->
+                        <div class="flex flex-wrap gap-3 opacity-0" id="trust-pills">
+                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-300 bg-white/50 backdrop-blur-sm text-xs font-medium text-stone-600 cursor-default">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                Até 10 anos de proteção
+                            </span>
+                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-300 bg-white/50 backdrop-blur-sm text-xs font-medium text-stone-600 cursor-default">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
+                                Autorreparo inteligente
+                            </span>
+                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-300 bg-white/50 backdrop-blur-sm text-xs font-medium text-stone-600 cursor-default">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                Brilho certificado
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: VIDEO -->
+                    <div class="lg:col-span-6 xl:col-span-7 flex justify-center lg:justify-end relative">
+                        <div class="relative w-full max-w-[560px] opacity-0" id="video-area">
+
+                            <!-- Glow behind -->
+                            <div class="absolute -inset-16 rounded-full pointer-events-none glow-bg" style="background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%); opacity: 0.2;"></div>
+
+                            <!-- Video Container with rotating shimmer border -->
+                            <div class="relative rounded-2xl overflow-visible">
+                                <!-- Rotating border ring -->
+                                <div class="absolute inset-[-2px] rounded-2xl overflow-hidden z-0">
+                                    <div class="absolute inset-[-100%] w-[300%] h-[300%]" style="animation: spin-glow 6s linear infinite; background: conic-gradient(from 0deg, transparent 0deg, transparent 100deg, var(--accent-light) 180deg, transparent 260deg, transparent 360deg);"></div>
+                                </div>
+                                <!-- Inner background -->
+                                <div class="absolute inset-[1px] rounded-2xl bg-[#EAEAE5] z-[1]"></div>
+
+                                <!-- Video -->
+                                <div class="relative z-[2] rounded-2xl overflow-hidden m-[2px]">
+                                    <video
+                                        class="w-full aspect-[4/3] object-cover rounded-[14px]"
+                                        autoplay loop muted playsinline
+                                    >
+                                        <source src="assets/VideoWash.mp4" type="video/mp4"/>
+                                    </video>
+
+                                    <!-- Glass overlay bottom -->
+                                    <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-stone-900/90 via-stone-900/50 to-transparent">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2.5">
+                                                <span class="relative flex h-2 w-2">
+                                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                                                </span>
+                                                <span class="text-[11px] font-mono uppercase tracking-widest text-white/70">Premium Coating</span>
+                                            </div>
+                                            <div class="flex items-center gap-3 text-white/40">
+                                                <span class="text-[10px] font-mono uppercase tracking-wider">PPF</span>
+                                                <span class="w-px h-3 bg-white/20"></span>
+                                                <span class="text-[10px] font-mono uppercase tracking-wider">Vitrificação</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Purple accent line at top -->
+                                    <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent to-transparent opacity-60"></div>
+                                </div>
+                            </div>
+
+                            <!-- Floating stat card — bottom left -->
+                            <div class="absolute -bottom-5 -left-3 md:-left-10 z-40 floating-card opacity-0" id="stat-card-1">
+                                <div class="bg-white/90 backdrop-blur-md border border-stone-200 rounded-xl px-5 py-4 shadow-xl shadow-stone-900/5">
+                                    <div class="flex items-baseline gap-1">
+                                        <span class="text-3xl font-bold tracking-tighter text-stone-900" id="counter-years">0</span>
+                                        <span class="text-lg font-bold tracking-tighter text-stone-400">-10</span>
+                                    </div>
+                                    <div class="text-[10px] font-mono uppercase tracking-widest text-stone-500 mt-0.5">Anos de proteção</div>
+                                    <div class="mt-2 w-full h-[2px] rounded-full bg-stone-200 overflow-hidden">
+                                        <div class="h-full rounded-full transition-all duration-[2s] ease-out" id="stat-bar" style="width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-light));"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Floating stat card — top right -->
+                            <div class="absolute -top-4 -right-2 md:-right-8 z-40 floating-card opacity-0" id="stat-card-2">
+                                <div class="bg-white/90 backdrop-blur-md border border-stone-200 rounded-xl px-4 py-3 shadow-xl shadow-stone-900/5 flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-full flex items-center justify-center relative" style="background-color: var(--accent)">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                        <div class="absolute inset-0 rounded-full animate-ping opacity-20" style="background-color: var(--accent);"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-stone-900">Hidrorepelente</div>
+                                        <div class="text-[10px] text-stone-400">Repele água e sujeira</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Decorative circle -->
+                            <div class="absolute -bottom-8 right-[15%] w-16 h-16 rounded-full border border-accent/15 pointer-events-none float-slow" style="animation-delay: 1s;"></div>
+                            <div class="absolute -top-6 left-[20%] w-10 h-10 rounded-full border border-stone-300/30 pointer-events-none float-medium" style="animation-delay: 2s;"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ BOTTOM MARQUEE BAR ═══ -->
+        <div class="relative z-10 border-t border-stone-300 bg-[#EAEAE5]/80 backdrop-blur-sm section-beam">
+            <div class="py-4 overflow-hidden">
+                <div class="marquee-container">
+                    <div class="marquee-content">
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Vitrificação Automotiva</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Coating Cerâmico</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">PPF — Paint Protection Film</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Proteção Premium</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Brilho Intenso</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Hidrorepelência</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Autorreparo</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Durabilidade 5-10 Anos</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                    </div>
+                    <div class="marquee-content">
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Vitrificação Automotiva</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Coating Cerâmico</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">PPF — Paint Protection Film</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Proteção Premium</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Brilho Intenso</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Hidrorepelência</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Autorreparo</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Durabilidade 5-10 Anos</span>
+                        <span class="text-[10px] mx-4" style="color: var(--accent)">◆</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ── Sequenced reveal timeline ──
+        const timeline = [
+            { delay: 200,  action: () => document.querySelector('nav')?.classList.add('loaded') },
+            { delay: 600,  action: () => document.getElementById('hero-headline')?.classList.add('reveal-active') },
+            { delay: 1400, action: () => {
+                const sub = document.getElementById('subheadline');
+                if (sub) { sub.style.animation = 'fadeSlideIn 1s ease-out forwards'; }
+            }},
+            { delay: 1700, action: () => {
+                const cta = document.getElementById('cta-group');
+                if (cta) { cta.style.animation = 'fadeSlideIn 1s ease-out 0.1s forwards'; }
+            }},
+            { delay: 2000, action: () => {
+                const pills = document.getElementById('trust-pills');
+                if (pills) { pills.style.animation = 'fadeSlideIn 1s ease-out 0.1s forwards'; }
+            }},
+            { delay: 1200, action: () => {
+                const vid = document.getElementById('video-area');
+                if (vid) { vid.style.animation = 'fadeSlideIn 1.2s ease-out forwards'; }
+            }},
+            { delay: 2200, action: () => {
+                const s1 = document.getElementById('stat-card-1');
+                if (s1) { s1.style.animation = 'fadeSlideIn 0.8s ease-out forwards'; }
+            }},
+            { delay: 2500, action: () => {
+                const s2 = document.getElementById('stat-card-2');
+                if (s2) { s2.style.animation = 'fadeSlideIn 0.8s ease-out forwards'; }
+            }},
+            { delay: 300,  action: () => {
+                document.querySelectorAll('.reveal').forEach((el, i) => {
+                    setTimeout(() => el.classList.add('active'), i * 80);
+                });
+            }},
+        ];
+
+        timeline.forEach(({ delay, action }) => setTimeout(action, delay));
+
+        // ── Counter animation ──
+        setTimeout(() => {
+            const counter = document.getElementById('counter-years');
+            const bar = document.getElementById('stat-bar');
+            if (!counter) return;
+            let current = 0;
+            const target = 5;
+            const interval = setInterval(() => {
+                current++;
+                counter.textContent = current;
+                if (current >= target) clearInterval(interval);
+            }, 200);
+            if (bar) bar.style.width = '70%';
+        }, 2600);
+
+        // ── Parallax on mouse move ──
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+            const vid = document.getElementById('video-area');
+            if (vid) {
+                vid.style.transform = `translate(${x * 8}px, ${y * 5}px)`;
+                vid.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            }
+
+            document.querySelectorAll('.float-slow, .float-medium').forEach(dot => {
+                dot.style.transform = `translate(${x * 12}px, ${y * 12}px)`;
+                dot.style.transition = 'transform 1s ease-out';
+            });
+        });
+    });
+    </script>
+
+</body>
+</html>
