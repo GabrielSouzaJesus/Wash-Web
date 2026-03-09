@@ -313,7 +313,7 @@
                     </div>
                 </div>
                 <div class="gallery-card rounded-2xl relative reveal delay-200 group cursor-pointer aspect-[4/5] md:aspect-[3/4]">
-                    <video class="w-full h-full object-cover rounded-2xl" loop muted playsinline preload="none" data-lazy-video="assets/gallery/video-01.mp4"></video>
+                    <video class="w-full h-full object-cover rounded-2xl" autoplay loop muted playsinline preload="none" data-lazy-video="assets/gallery/video-01.mp4"></video>
                     <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent rounded-2xl flex flex-col justify-end p-6">
                         <span class="text-xs font-mono uppercase tracking-widest text-accent mb-2">Processo ao Vivo</span>
                         <span class="text-white font-semibold text-lg tracking-tight">Aplicação Profissional</span>
@@ -341,7 +341,7 @@
                     </div>
                 </div>
                 <div class="md:col-span-2 gallery-card rounded-2xl relative reveal delay-200 group cursor-pointer aspect-[16/9]">
-                    <video class="w-full h-full object-cover rounded-2xl" loop muted playsinline preload="none" data-lazy-video="assets/gallery/video-02.mp4"></video>
+                    <video class="w-full h-full object-cover rounded-2xl" autoplay loop muted playsinline preload="none" data-lazy-video="assets/gallery/video-02.mp4"></video>
                     <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent rounded-2xl flex flex-col justify-end p-6">
                         <span class="text-xs font-mono uppercase tracking-widest text-accent mb-2">Resultado Final</span>
                         <span class="text-white font-semibold text-lg tracking-tight">Brilho Espelhado</span>
@@ -528,14 +528,21 @@
                 if (entry.isIntersecting) {
                     const video = entry.target;
                     const src = video.dataset.lazyVideo;
-                    if (src && !video.src) {
-                        video.src = src;
-                        video.play().catch(() => {});
+                    if (src && !video.getAttribute('src')) {
+                        video.setAttribute('src', src);
+                        video.load();
+                        const tryPlay = () => {
+                            video.play().catch(() => {
+                                video.addEventListener('canplay', () => video.play().catch(() => {}), { once: true });
+                            });
+                        };
+                        if (video.readyState >= 2) tryPlay();
+                        else video.addEventListener('loadeddata', tryPlay, { once: true });
                     }
                     videoObserver.unobserve(video);
                 }
             });
-        }, { rootMargin: '200px' });
+        }, { rootMargin: '300px' });
         document.querySelectorAll('[data-lazy-video]').forEach(v => videoObserver.observe(v));
 
         // ── PARALLAX: mouse move (hero only) ──
