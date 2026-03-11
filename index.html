@@ -8,14 +8,15 @@
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-    <meta name="theme-color" content="#EAEAE5"/>
+    <meta name="theme-color" content="#7720D2"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        accent: { DEFAULT: '#7720D2', light: '#9B4DEB', dark: '#5A13A5', glow: 'rgba(119,32,210,0.4)' }
+                        accent: { DEFAULT: '#FFFFFF', light: '#EAEAE5', dark: '#D4D4CF', glow: 'rgba(255,255,255,0.35)' },
+                        brand: { DEFAULT: '#7720D2', light: '#9B4DEB', dark: '#5A13A5' }
                     }
                 }
             }
@@ -24,16 +25,19 @@
 
     <style>
         :root {
-            --accent: #7720D2;
-            --accent-light: #9B4DEB;
-            --accent-dark: #5A13A5;
-            --accent-glow: rgba(119, 32, 210, 0.4);
-            --bg: #EAEAE5;
-            --text: #1C1C1C;
-            --border: #d6d3d1;
+            --brand: #7720D2;
+            --brand-light: #9B4DEB;
+            --brand-dark: #5A13A5;
+            --accent: #FFFFFF;
+            --accent-light: #EAEAE5;
+            --accent-dark: #D4D4CF;
+            --accent-glow: rgba(255, 255, 255, 0.35);
+            --bg: #7720D2;
+            --text: #FFFFFF;
+            --border: rgba(255, 255, 255, 0.15);
         }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); overflow-x: hidden; margin: 0; }
-        ::selection { background: var(--accent); color: white; }
+        ::selection { background: rgba(255,255,255,0.3); color: white; }
 
         .text-outline { color: transparent; -webkit-text-stroke: 1.5px var(--text); }
         @media (min-width: 768px) { .text-outline { -webkit-text-stroke-width: 2px; } }
@@ -51,10 +55,10 @@
 
         @keyframes fadeSlideIn { 0% { opacity: 0; transform: translateY(30px); filter: blur(8px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
 
-        .beam-border-v { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(119,32,210,0.06); overflow: hidden; z-index: 5; }
-        .beam-border-v::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, var(--accent), transparent); transform: translateY(-100%); animation: beam-drop 5s cubic-bezier(0.4,0,0.2,1) infinite; opacity: 0.6; }
-        .beam-border-h { position: absolute; left: 0; right: 0; height: 1px; background: rgba(119,32,210,0.06); overflow: hidden; z-index: 5; }
-        .beam-border-h::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent, var(--accent), transparent); transform: translateX(-100%); animation: beam-slide 7s cubic-bezier(0.4,0,0.2,1) infinite; animation-delay: 2.5s; opacity: 0.6; }
+        .beam-border-v { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.08); overflow: hidden; z-index: 5; }
+        .beam-border-v::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.6), transparent); transform: translateY(-100%); animation: beam-drop 5s cubic-bezier(0.4,0,0.2,1) infinite; opacity: 0.6; }
+        .beam-border-h { position: absolute; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.08); overflow: hidden; z-index: 5; }
+        .beam-border-h::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent); transform: translateX(-100%); animation: beam-slide 7s cubic-bezier(0.4,0,0.2,1) infinite; animation-delay: 2.5s; opacity: 0.6; }
         @keyframes beam-drop { 0% { transform: translateY(-100%); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(100%); opacity: 0; } }
         @keyframes beam-slide { 0% { transform: translateX(-100%); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateX(100%); opacity: 0; } }
 
@@ -66,13 +70,13 @@
         @keyframes glow-pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.08); } }
         .glow-bg { animation: glow-pulse 4s ease-in-out infinite; }
 
-        .button-custom { cursor: pointer; position: relative; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; transition: all 0.3s ease; background: radial-gradient(65% 65% at 50% 100%, rgba(155,77,235,0.8) 0%, rgba(155,77,235,0) 100%), linear-gradient(0deg, var(--accent), var(--accent)); border-radius: 9999px; border: none; padding: 14px 36px; min-height: 52px; }
-        .button-custom::before { content: ""; position: absolute; inset: 1px; background: linear-gradient(178deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); border-radius: 9999px; z-index: 0; }
-        .button-custom::after { content: ""; position: absolute; inset: 2px; background: radial-gradient(65% 65% at 50% 100%, rgba(155,77,235,0.8) 0%, rgba(155,77,235,0) 100%), linear-gradient(0deg, var(--accent), var(--accent)); border-radius: 9999px; z-index: 0; }
-        .button-custom:hover { transform: scale(1.04); box-shadow: 0 0 60px var(--accent-glow), 0 12px 40px rgba(119,32,210,0.25); }
-        .inner { z-index: 2; gap: 8px; position: relative; color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.02em; }
+        .button-custom { cursor: pointer; position: relative; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; transition: all 0.3s ease; background: radial-gradient(65% 65% at 50% 100%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 100%), linear-gradient(0deg, #FFFFFF, #FFFFFF); border-radius: 9999px; border: none; padding: 14px 36px; min-height: 52px; }
+        .button-custom::before { content: ""; position: absolute; inset: 1px; background: linear-gradient(178deg, rgba(119,32,210,0.08) 0%, rgba(119,32,210,0) 100%); border-radius: 9999px; z-index: 0; }
+        .button-custom::after { content: ""; position: absolute; inset: 2px; background: radial-gradient(65% 65% at 50% 100%, rgba(234,234,229,0.5) 0%, rgba(234,234,229,0) 100%), linear-gradient(0deg, #FFFFFF, #FFFFFF); border-radius: 9999px; z-index: 0; }
+        .button-custom:hover { transform: scale(1.04); box-shadow: 0 0 60px rgba(255,255,255,0.3), 0 12px 40px rgba(0,0,0,0.15); }
+        .inner { z-index: 2; gap: 8px; position: relative; color: var(--brand); display: inline-flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.02em; }
         .points_wrapper { overflow: hidden; width: 100%; height: 100%; pointer-events: none; position: absolute; z-index: 1; }
-        .points_wrapper .point { bottom: -10px; position: absolute; pointer-events: none; width: 2px; height: 2px; background-color: rgba(255,255,255,0.8); border-radius: 9999px; animation: floating-points infinite ease-in-out; }
+        .points_wrapper .point { bottom: -10px; position: absolute; pointer-events: none; width: 2px; height: 2px; background-color: rgba(119,32,210,0.5); border-radius: 9999px; animation: floating-points infinite ease-in-out; }
         @keyframes floating-points { 0% { transform: translateY(0); opacity: 1; } 85% { opacity: 0; } 100% { transform: translateY(-55px); opacity: 0; } }
         .points_wrapper .point:nth-child(1) { left: 10%; animation-duration: 2.35s; animation-delay: 0.2s; }
         .points_wrapper .point:nth-child(2) { left: 28%; opacity: 0.7; animation-duration: 2.5s; animation-delay: 0.5s; }
@@ -82,31 +86,33 @@
         .points_wrapper .point:nth-child(6) { left: 85%; opacity: 0.5; animation-duration: 1.5s; animation-delay: 1.5s; }
         .points_wrapper .point:nth-child(7) { left: 95%; opacity: 0.9; animation-duration: 2.2s; animation-delay: 0.2s; }
 
-        .shimmer-btn { position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; gap: 8px; overflow: hidden; padding: 12px 28px; font-size: 0.85rem; font-weight: 600; color: var(--text); transition: all 0.3s ease; border-radius: 9999px; }
+        .shimmer-btn { position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; gap: 8px; overflow: hidden; padding: 12px 28px; font-size: 0.85rem; font-weight: 600; color: #FFFFFF; transition: all 0.3s ease; border-radius: 9999px; }
         .shimmer-btn .shimmer-spin { position: absolute; inset: 0; z-index: -2; overflow: hidden; border-radius: 9999px; }
-        .shimmer-btn .shimmer-spin > div { position: absolute; inset: -100%; width: 300%; height: 300%; animation: spin-glow 4s linear infinite; background: conic-gradient(from 270deg, transparent 0deg, transparent 80deg, var(--accent) 180deg, transparent 280deg, transparent 360deg); }
-        .shimmer-btn .shimmer-fill { position: absolute; inset: 1.5px; z-index: -1; background-color: var(--bg); border-radius: 9999px; transition: background-color 0.3s ease; }
-        .shimmer-btn:hover .shimmer-fill { background-color: #fff; }
-        .shimmer-btn:hover { box-shadow: 0 0 30px rgba(119,32,210,0.15); color: var(--accent); }
+        .shimmer-btn .shimmer-spin > div { position: absolute; inset: -100%; width: 300%; height: 300%; animation: spin-glow 4s linear infinite; background: conic-gradient(from 270deg, transparent 0deg, transparent 80deg, rgba(255,255,255,0.8) 180deg, transparent 280deg, transparent 360deg); }
+        .shimmer-btn .shimmer-fill { position: absolute; inset: 1.5px; z-index: -1; background-color: var(--brand); border-radius: 9999px; transition: background-color 0.3s ease; }
+        .shimmer-btn:hover .shimmer-fill { background-color: var(--brand-light); }
+        .shimmer-btn:hover { box-shadow: 0 0 30px rgba(255,255,255,0.2); color: #FFFFFF; }
         @keyframes spin-glow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .floating-card { transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.5s ease; will-change: transform; }
-        .floating-card:hover { transform: scale(1.05) translateY(-6px) !important; z-index: 50; box-shadow: 0 25px 60px -12px rgba(119,32,210,0.25); }
+        .floating-card:hover { transform: scale(1.05) translateY(-6px) !important; z-index: 50; box-shadow: 0 25px 60px -12px rgba(0,0,0,0.25); }
 
-        .grid-bg-light { background-image: linear-gradient(to right, rgba(119,32,210,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(119,32,210,0.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%); }
+        .grid-bg-light { background-image: linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%); }
 
         .marquee-container { display: flex; overflow: hidden; user-select: none; }
         .marquee-content { flex-shrink: 0; display: flex; align-items: center; min-width: 100%; animation: marquee-scroll 50s linear infinite; }
         @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 
         .section-beam { position: relative; overflow: hidden; }
-        .section-beam::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 1px; background: linear-gradient(to right, transparent, var(--accent), transparent); animation: beam-slide 8s cubic-bezier(0.4,0,0.2,1) infinite; }
+        .section-beam::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent); animation: beam-slide 8s cubic-bezier(0.4,0,0.2,1) infinite; }
+
+        #hero-bg-video { transform: scale(1.08); will-change: transform; }
 
         .nav-load { opacity: 0; transform: translateY(-10px); transition: all 0.8s ease-out; }
         .nav-load.loaded { opacity: 1; transform: translateY(0); }
 
         .feature-pill { transition: all 0.3s ease; }
-        .feature-pill:hover { background-color: rgba(119,32,210,0.08); border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px -8px rgba(119,32,210,0.15); }
+        .feature-pill:hover { background-color: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4); transform: translateY(-2px); box-shadow: 0 8px 24px -8px rgba(0,0,0,0.15); }
 
         @keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
         @keyframes float-x { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(15px); } }
@@ -116,18 +122,38 @@
         .gallery-card { overflow: hidden; position: relative; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.6s ease; }
         .gallery-card img, .gallery-card video { transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
         .gallery-card:hover img, .gallery-card:hover video { transform: scale(1.06); }
-        .gallery-card:hover { box-shadow: 0 30px 80px -20px rgba(119,32,210,0.2); transform: translateY(-4px); }
-        .gallery-card .gallery-overlay { opacity: 0; transition: opacity 0.4s ease; }
-        .gallery-card:hover .gallery-overlay { opacity: 1; }
+        .gallery-card:hover { box-shadow: 0 30px 80px -20px rgba(0,0,0,0.3); transform: translateY(-4px); }
+        .gallery-card .gallery-overlay { opacity: 1; transition: opacity 0.4s ease; }
+        @media (min-width: 768px) { .gallery-card .gallery-overlay { opacity: 0; } .gallery-card:hover .gallery-overlay { opacity: 1; } }
 
         .service-card { transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease; }
-        .service-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -15px rgba(119,32,210,0.15); border-color: var(--accent) !important; }
+        .service-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15); border-color: var(--brand) !important; }
         .service-card .service-icon { transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), background 0.4s ease; }
-        .service-card:hover .service-icon { transform: scale(1.1) rotate(-5deg); background: var(--accent) !important; }
+        .service-card:hover .service-icon { transform: scale(1.1) rotate(-5deg); background: var(--brand) !important; }
         .service-card:hover .service-icon svg { stroke: white; }
 
         .stat-item { transition: transform 0.3s ease; }
         .stat-item:hover { transform: scale(1.05); }
+
+        @media (max-width: 767px) {
+            #hero-section { min-height: auto; }
+            #hero-section > .flex-1 { padding-top: 1rem; padding-bottom: 2rem; }
+            .feature-pill { font-size: 10px; padding: 8px 12px; }
+            .beam-border-v, .beam-border-h, .float-slow, .float-medium { display: none; }
+            .service-card { padding: 1.5rem; }
+        }
+        @media (max-width: 639px) {
+            .button-custom { min-height: 48px; padding: 12px 28px; }
+            .shimmer-btn { min-height: 48px; padding: 12px 28px; }
+        }
+
+        #mobile-menu.open { display: block !important; pointer-events: auto; opacity: 1; }
+        #mobile-menu .mobile-nav-link { opacity: 0; transform: translateY(20px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+        #mobile-menu.open .mobile-nav-link { opacity: 1; transform: translateY(0); }
+        #mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.1s; }
+        #mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.2s; }
+        #mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.3s; }
+        #mobile-menu.open .mobile-nav-link > * { transition-delay: 0.4s; }
     </style>
 </head>
 
@@ -136,132 +162,197 @@
     <!-- ════════════════════════════════════════
          HERO SECTION
          ════════════════════════════════════════ -->
-    <section class="relative min-h-screen flex flex-col overflow-hidden" id="hero-section">
-        <div class="absolute inset-0 grid-bg-light pointer-events-none"></div>
-        <div class="absolute top-[5%] left-[-8%] w-[55vw] h-[55vw] rounded-full blur-[180px] pointer-events-none glow-bg" style="background: rgba(119,32,210,0.05);"></div>
-        <div class="absolute bottom-[-15%] right-[-10%] w-[45vw] h-[45vw] rounded-full blur-[140px] pointer-events-none" style="background: rgba(119,32,210,0.07); animation: glow-pulse 5s ease-in-out infinite; animation-delay: 2s;"></div>
+    <section class="relative min-h-[100svh] flex flex-col overflow-hidden" id="hero-section">
 
-        <div class="beam-border-v absolute" style="left: 8%;"></div>
-        <div class="beam-border-v absolute" style="left: 33%;"></div>
-        <div class="beam-border-v absolute" style="left: 50%; animation-delay: 1.5s;"></div>
-        <div class="beam-border-v absolute" style="left: 67%; animation-delay: 3s;"></div>
-        <div class="beam-border-v absolute" style="left: 92%; animation-delay: 4.5s;"></div>
+        <!-- VIDEO BACKGROUND (lado esquerdo com fade) -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <video class="absolute top-0 left-0 w-full lg:w-[75%] h-full object-cover" autoplay loop muted playsinline id="hero-bg-video" style="object-position: center;">
+                <source src="assets/VideoWash2.mp4" type="video/mp4"/>
+            </video>
+            <div class="absolute top-0 right-0 w-full lg:w-[55%] h-full z-[1]" style="background: linear-gradient(to right, transparent 0%, #7720D2 60%);"></div>
+            <div class="absolute top-0 left-0 w-full h-full z-[1]" style="background: linear-gradient(to bottom, rgba(119,32,210,0.3) 0%, transparent 25%, transparent 75%, rgba(119,32,210,0.4) 100%);"></div>
+        </div>
 
-        <div class="absolute top-0 w-[1px] h-48 bg-gradient-to-b from-transparent via-accent/40 to-transparent animate-beam-1 pointer-events-none" style="left: 20%;"></div>
-        <div class="absolute top-0 w-[1px] h-64 bg-gradient-to-b from-transparent via-accent/30 to-transparent animate-beam-2 pointer-events-none" style="left: 75%;"></div>
-        <div class="absolute top-0 w-[1px] h-40 bg-gradient-to-b from-transparent via-accent/25 to-transparent animate-beam-3 pointer-events-none" style="left: 45%;"></div>
+        <!-- OVERLAY: roxo para legibilidade do texto -->
+        <div class="absolute inset-0 z-[1]" style="background: linear-gradient(135deg, rgba(119,32,210,0.75) 0%, rgba(90,19,165,0.7) 35%, rgba(119,32,210,0.5) 60%, rgba(119,32,210,0.95) 100%);"></div>
 
-        <div class="absolute top-[15%] right-[12%] w-2 h-2 rounded-full bg-accent/20 float-slow pointer-events-none"></div>
-        <div class="absolute top-[25%] left-[15%] w-1.5 h-1.5 rounded-full bg-accent/30 float-medium pointer-events-none" style="animation-delay: 1s;"></div>
-        <div class="absolute bottom-[30%] right-[25%] w-1 h-1 rounded-full bg-accent/25 float-slow pointer-events-none" style="animation-delay: 2s;"></div>
-        <div class="beam-border-h absolute" style="top: 50%;"></div>
+        <!-- EFEITOS DECORATIVOS -->
+        <div class="absolute inset-0 grid-bg-light pointer-events-none z-[2]"></div>
+        <div class="absolute top-[5%] left-[-8%] w-[55vw] h-[55vw] rounded-full blur-[180px] pointer-events-none glow-bg z-[2]" style="background: rgba(255,255,255,0.05);"></div>
+        <div class="absolute bottom-[-15%] right-[-10%] w-[45vw] h-[45vw] rounded-full blur-[140px] pointer-events-none z-[2]" style="background: rgba(155,77,235,0.15); animation: glow-pulse 5s ease-in-out infinite; animation-delay: 2s;"></div>
 
+        <div class="beam-border-v absolute z-[3]" style="left: 8%;"></div>
+        <div class="beam-border-v absolute z-[3]" style="left: 33%;"></div>
+        <div class="beam-border-v absolute z-[3]" style="left: 50%; animation-delay: 1.5s;"></div>
+        <div class="beam-border-v absolute z-[3]" style="left: 67%; animation-delay: 3s;"></div>
+        <div class="beam-border-v absolute z-[3]" style="left: 92%; animation-delay: 4.5s;"></div>
+
+        <div class="absolute top-0 w-[1px] h-48 bg-gradient-to-b from-transparent via-white/30 to-transparent animate-beam-1 pointer-events-none z-[3]" style="left: 20%;"></div>
+        <div class="absolute top-0 w-[1px] h-64 bg-gradient-to-b from-transparent via-white/20 to-transparent animate-beam-2 pointer-events-none z-[3]" style="left: 75%;"></div>
+        <div class="absolute top-0 w-[1px] h-40 bg-gradient-to-b from-transparent via-white/15 to-transparent animate-beam-3 pointer-events-none z-[3]" style="left: 45%;"></div>
+
+        <div class="absolute top-[15%] right-[12%] w-2 h-2 rounded-full bg-white/20 float-slow pointer-events-none z-[3]"></div>
+        <div class="absolute top-[25%] left-[15%] w-1.5 h-1.5 rounded-full bg-white/25 float-medium pointer-events-none z-[3]" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-[30%] right-[25%] w-1 h-1 rounded-full bg-white/20 float-slow pointer-events-none z-[3]" style="animation-delay: 2s;"></div>
+        <div class="beam-border-h absolute z-[3]" style="top: 50%;"></div>
+
+        <!-- NAV -->
         <nav class="relative z-50 px-6 md:px-12 py-5 flex justify-between items-center nav-load section-beam">
+            <div class="flex items-center gap-3"></div>
+            <div class="hidden md:flex items-center gap-8 text-xs font-medium tracking-widest uppercase text-white/60">
+                <a class="hover:text-white transition-colors duration-300 cursor-pointer" href="#resultados">Galeria</a>
+                <a class="hover:text-white transition-colors duration-300 cursor-pointer" href="#servicos">Serviços</a>
+                <a class="hover:text-white transition-colors duration-300 cursor-pointer" href="#cta-final">Sobre</a>
+            </div>
             <div class="flex items-center gap-3">
+                <a href="#cta-final" class="shimmer-btn hidden sm:inline-flex">
+                    <div class="shimmer-spin"><div></div></div>
+                    <div class="shimmer-fill"></div>
+                    Contato
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg>
+                </a>
+                <button id="mobile-menu-btn" type="button" class="md:hidden w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center" aria-label="Menu">
+                    <svg id="menu-icon-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    <svg id="menu-icon-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
             </div>
-            <div class="hidden md:flex items-center gap-8 text-xs font-medium tracking-widest uppercase text-stone-500">
-                <a class="hover:text-accent transition-colors duration-300 cursor-pointer" href="#resultados">Galeria</a>
-                <a class="hover:text-accent transition-colors duration-300 cursor-pointer" href="#servicos">Serviços</a>
-                <a class="hover:text-accent transition-colors duration-300 cursor-pointer" href="#cta-final">Sobre</a>
-            </div>
-            <a href="#cta-final" class="shimmer-btn hidden sm:inline-flex">
-                <div class="shimmer-spin"><div></div></div>
-                <div class="shimmer-fill"></div>
-                Contato
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg>
-            </a>
         </nav>
+        <!-- MOBILE MENU -->
+        <div id="mobile-menu" class="md:hidden fixed inset-0 z-[60] pointer-events-none opacity-0 transition-opacity duration-300" style="display:none">
+            <div class="absolute inset-0 bg-brand-dark/95 backdrop-blur-xl" style="background: rgba(90,19,165,0.97);"></div>
+            <div class="relative z-10 flex flex-col items-center justify-center h-full gap-8">
+                <a href="#resultados" class="mobile-nav-link text-2xl font-bold tracking-tight text-white/90 hover:text-white transition-colors">Galeria</a>
+                <a href="#servicos" class="mobile-nav-link text-2xl font-bold tracking-tight text-white/90 hover:text-white transition-colors">Serviços</a>
+                <a href="#cta-final" class="mobile-nav-link text-2xl font-bold tracking-tight text-white/90 hover:text-white transition-colors">Sobre</a>
+                <div class="mt-4">
+                    <a href="#cta-final" class="button-custom mobile-nav-link" style="padding: 14px 36px;">
+                        <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
+                        <span class="inner">Contato <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg></span>
+                    </a>
+                </div>
+            </div>
+        </div>
 
+        <!-- HERO CONTENT -->
         <div class="flex-1 flex items-center relative z-10">
-            <div class="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-10 md:py-0">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-center">
-                    <div class="lg:col-span-6 xl:col-span-5 flex flex-col">
-                        <div class="hero-reveal mb-8" style="opacity:0">
-                            <span class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-accent/25 text-xs font-semibold tracking-widest uppercase bg-white/40 backdrop-blur-sm" style="color: var(--accent)">
-                                <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-60"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span></span>
+            <div class="w-full max-w-[1400px] mx-auto px-5 md:px-12 py-6 md:py-0">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+
+                    <!-- COLUNA ESQUERDA: Texto -->
+                    <div class="lg:col-span-7 flex flex-col">
+                        <div class="hero-reveal mb-5 lg:mb-8" style="opacity:0">
+                            <span class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase bg-white/10 backdrop-blur-md text-white/90">
+                                <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span></span>
                                 Estética Automotiva Premium
                             </span>
                         </div>
-                        <h1 class="mb-8" id="hero-headline">
-                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-[0.9] text-stone-900">Proteção</span></span><br/>
-                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-[0.9] text-outline">invisível.</span></span><br/>
-                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-400 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-[0.9] text-outline">Brilho</span></span><br/>
-                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-500 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-[0.9] text-stone-900">absoluto.</span></span>
+                        <h1 class="mb-5 lg:mb-8" id="hero-headline">
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-white drop-shadow-lg">Proteção</span></span><br/>
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-outline drop-shadow-lg">invisível.</span></span><br/>
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-400 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-outline drop-shadow-lg">Brilho</span></span><br/>
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-500 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-white drop-shadow-lg">absoluto.</span></span>
                         </h1>
-                        <div class="mb-10 hero-reveal" style="opacity:0">
-                            <p class="text-lg leading-relaxed text-stone-500 max-w-lg">
+                        <div class="mb-6 lg:mb-10 hero-reveal" style="opacity:0">
+                            <p class="text-base lg:text-lg leading-relaxed text-white/70 max-w-lg" style="text-shadow: 0 1px 8px rgba(0,0,0,0.3);">
                                 Vitrificação automotiva, coating cerâmico e PPF de alta performance. Proteção prolongada contra riscos, pedriscos e agentes agressivos
-                                — com <span class="text-stone-800 font-medium">brilho intenso</span>, <span class="text-stone-800 font-medium">hidrorepelência</span> e <span class="text-stone-800 font-medium">valorização garantida</span>.
+                                — com <span class="text-white font-medium">brilho intenso</span>, <span class="text-white font-medium">hidrorepelência</span> e <span class="text-white font-medium">valorização garantida</span>.
                             </p>
                         </div>
-                        <div class="flex flex-wrap items-center gap-5 mb-10 hero-reveal" style="opacity:0">
-                            <button class="button-custom" type="button">
+                        <div class="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 sm:gap-5 mb-8 lg:mb-10 hero-reveal" style="opacity:0">
+                            <button class="button-custom w-full sm:w-auto" type="button">
                                 <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
                                 <span class="inner">Solicitar Orçamento <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
                             </button>
-                            <a href="#servicos" class="shimmer-btn">
+                            <a href="#servicos" class="shimmer-btn w-full sm:w-auto text-center">
                                 <div class="shimmer-spin"><div></div></div>
                                 <div class="shimmer-fill"></div>
                                 Conhecer a Proteção
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg>
                             </a>
                         </div>
-                        <div class="flex flex-wrap gap-3 hero-reveal" style="opacity:0">
-                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-300 bg-white/50 backdrop-blur-sm text-xs font-medium text-stone-600 cursor-default">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <div class="hidden sm:flex flex-wrap gap-3 hero-reveal" style="opacity:0">
+                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-xs font-medium text-white/80 cursor-default">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                                 Até 10 anos de proteção
                             </span>
-                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-300 bg-white/50 backdrop-blur-sm text-xs font-medium text-stone-600 cursor-default">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
+                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-xs font-medium text-white/80 cursor-default">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
                                 Autorreparo inteligente
                             </span>
-                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-300 bg-white/50 backdrop-blur-sm text-xs font-medium text-stone-600 cursor-default">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-xs font-medium text-white/80 cursor-default">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                                 Brilho certificado
                             </span>
                         </div>
                     </div>
-                    <div class="lg:col-span-6 xl:col-span-7 flex justify-center lg:justify-end relative">
-                        <div class="relative w-full max-w-[560px] hero-reveal" style="opacity:0" id="video-area">
-                            <div class="absolute -inset-16 rounded-full pointer-events-none glow-bg" style="background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%); opacity: 0.2;"></div>
-                            <div class="relative rounded-2xl overflow-visible">
-                                <div class="absolute inset-[-2px] rounded-2xl overflow-hidden z-0"><div class="absolute inset-[-100%] w-[300%] h-[300%]" style="animation: spin-glow 6s linear infinite; background: conic-gradient(from 0deg, transparent 0deg, transparent 100deg, var(--accent-light) 180deg, transparent 260deg, transparent 360deg);"></div></div>
-                                <div class="absolute inset-[1px] rounded-2xl bg-[#EAEAE5] z-[1]"></div>
-                                <div class="relative z-[2] rounded-2xl overflow-hidden m-[2px]">
-                                    <video class="w-full aspect-[4/3] object-cover rounded-[14px]" autoplay loop muted playsinline><source src="assets/VideoWash.mp4" type="video/mp4"/></video>
-                                    <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-stone-900/90 via-stone-900/50 to-transparent">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center gap-2.5"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span></span><span class="text-[11px] font-mono uppercase tracking-widest text-white/70">Premium Coating</span></div>
-                                            <div class="flex items-center gap-3 text-white/40"><span class="text-[10px] font-mono uppercase tracking-wider">PPF</span><span class="w-px h-3 bg-white/20"></span><span class="text-[10px] font-mono uppercase tracking-wider">Vitrificação</span></div>
+
+                    <!-- COLUNA DIREITA: Vídeo vertical do Allan -->
+                    <div class="lg:col-span-5 flex justify-center lg:justify-end relative hero-reveal" style="opacity:0" id="allan-video-area">
+                        <div class="relative w-[200px] sm:w-[240px] lg:w-[300px]">
+                            <!-- Glow atrás -->
+                            <div class="absolute -inset-12 rounded-full pointer-events-none glow-bg" style="background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%); opacity: 0.4;"></div>
+
+                            <!-- Moldura com borda giratória -->
+                            <div class="relative rounded-[28px] overflow-visible">
+                                <div class="absolute inset-[-2px] rounded-[28px] overflow-hidden z-0">
+                                    <div class="absolute inset-[-100%] w-[300%] h-[300%]" style="animation: spin-glow 5s linear infinite; background: conic-gradient(from 0deg, transparent 0deg, transparent 80deg, rgba(255,255,255,0.6) 180deg, transparent 280deg, transparent 360deg);"></div>
+                                </div>
+                                <div class="absolute inset-[1px] rounded-[28px] z-[1]" style="background: rgba(119,32,210,0.6);"></div>
+
+                                <!-- Vídeo -->
+                                <div class="relative z-[2] rounded-[26px] overflow-hidden m-[2px]">
+                                    <video class="w-full aspect-[9/16] object-cover rounded-[24px]" id="allan-video" autoplay loop muted playsinline>
+                                        <source src="VideosEFotos/VideoAllan.mp4" type="video/mp4"/>
+                                    </video>
+
+                                    <!-- Overlay topo: indicador -->
+                                    <div class="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/50 to-transparent">
+                                        <div class="flex items-center gap-2 bg-white/15 backdrop-blur-md rounded-full px-3 py-1.5 w-fit">
+                                            <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span>
+                                            <span class="text-[10px] font-mono uppercase tracking-widest text-white/90">Depoimento</span>
                                         </div>
                                     </div>
-                                    <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent to-transparent opacity-60"></div>
+
+                                    <!-- Overlay base: info do dono + botão de som -->
+                                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center flex-shrink-0">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                                </div>
+                                                <div>
+                                                    <div class="text-xs font-semibold text-white leading-tight">Allan</div>
+                                                    <div class="text-[10px] text-white/60">Fundador — Wash Concept</div>
+                                                </div>
+                                            </div>
+                                            <button id="allan-sound-btn" type="button" class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center cursor-pointer hover:bg-white/35 transition-all duration-300 flex-shrink-0" title="Ativar som">
+                                                <svg id="icon-muted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                                                <svg id="icon-unmuted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="absolute -bottom-5 -left-3 md:-left-10 z-40 floating-card hero-reveal" style="opacity:0" id="stat-card-1">
-                                <div class="bg-white/90 backdrop-blur-md border border-stone-200 rounded-xl px-5 py-4 shadow-xl shadow-stone-900/5">
-                                    <div class="flex items-baseline gap-1"><span class="text-3xl font-bold tracking-tighter text-stone-900" id="counter-years">0</span><span class="text-lg font-bold tracking-tighter text-stone-400">-10</span></div>
-                                    <div class="text-[10px] font-mono uppercase tracking-widest text-stone-500 mt-0.5">Anos de proteção</div>
-                                    <div class="mt-2 w-full h-[2px] rounded-full bg-stone-200 overflow-hidden"><div class="h-full rounded-full transition-all duration-[2s] ease-out" id="stat-bar" style="width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-light));"></div></div>
-                                </div>
-                            </div>
-                            <div class="absolute -top-4 -right-2 md:-right-8 z-40 floating-card hero-reveal" style="opacity:0" id="stat-card-2">
-                                <div class="bg-white/90 backdrop-blur-md border border-stone-200 rounded-xl px-4 py-3 shadow-xl shadow-stone-900/5 flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-full flex items-center justify-center relative" style="background-color: var(--accent)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><div class="absolute inset-0 rounded-full animate-ping opacity-20" style="background-color: var(--accent);"></div></div>
-                                    <div><div class="text-xs font-semibold text-stone-900">Hidrorepelente</div><div class="text-[10px] text-stone-400">Repele água e sujeira</div></div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="relative z-10 border-t border-stone-300 bg-[#EAEAE5]/80 backdrop-blur-sm section-beam">
+        <!-- SCROLL INDICATOR -->
+        <div class="absolute bottom-4 md:bottom-20 left-1/2 -translate-x-1/2 z-20 hero-reveal hidden lg:block" style="opacity:0">
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-5 h-8 rounded-full border border-white/25 flex justify-center pt-1.5"><div class="w-1 h-2 rounded-full bg-white/60" style="animation: float-y 2s ease-in-out infinite;"></div></div>
+            </div>
+        </div>
+
+        <!-- MARQUEE -->
+        <div class="relative z-10 border-t border-white/10 bg-black/10 backdrop-blur-sm section-beam">
             <div class="py-4 overflow-hidden">
                 <div class="marquee-container">
-                    <div class="marquee-content"><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Vitrificação Automotiva</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Coating Cerâmico</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">PPF — Paint Protection Film</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Proteção Premium</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Brilho Intenso</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Hidrorepelência</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span></div>
-                    <div class="marquee-content"><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Vitrificação Automotiva</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Coating Cerâmico</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">PPF — Paint Protection Film</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Proteção Premium</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Brilho Intenso</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400 mx-6">Hidrorepelência</span><span class="text-[10px] mx-4" style="color: var(--accent)">◆</span></div>
+                    <div class="marquee-content"><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Vitrificação Automotiva</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Coating Cerâmico</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">PPF — Paint Protection Film</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Proteção Premium</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Brilho Intenso</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Hidrorepelência</span><span class="text-[10px] mx-4 text-white/25">◆</span></div>
+                    <div class="marquee-content"><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Vitrificação Automotiva</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Coating Cerâmico</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">PPF — Paint Protection Film</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Proteção Premium</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Brilho Intenso</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Hidrorepelência</span><span class="text-[10px] mx-4 text-white/25">◆</span></div>
                 </div>
             </div>
         </div>
@@ -270,34 +361,34 @@
     <!-- ════════════════════════════════════════
          SEGUNDA DOBRA — Light Theme
          ════════════════════════════════════════ -->
-    <section class="relative overflow-hidden bg-[#EAEAE5]" id="resultados">
+    <section class="relative overflow-hidden bg-[#7720D2]" id="resultados">
         <div class="absolute inset-0 grid-bg-light pointer-events-none" style="mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);"></div>
-        <div class="absolute top-[10%] right-[-8%] w-[40vw] h-[40vw] rounded-full blur-[180px] pointer-events-none glow-bg" style="background: rgba(119,32,210,0.04);"></div>
-        <div class="absolute bottom-[10%] left-[-5%] w-[30vw] h-[30vw] rounded-full blur-[140px] pointer-events-none" style="background: rgba(119,32,210,0.05); animation: glow-pulse 6s ease-in-out infinite; animation-delay: 2s;"></div>
+        <div class="absolute top-[10%] right-[-8%] w-[40vw] h-[40vw] rounded-full blur-[180px] pointer-events-none glow-bg" style="background: rgba(255,255,255,0.05);"></div>
+        <div class="absolute bottom-[10%] left-[-5%] w-[30vw] h-[30vw] rounded-full blur-[140px] pointer-events-none" style="background: rgba(155,77,235,0.15); animation: glow-pulse 6s ease-in-out infinite; animation-delay: 2s;"></div>
 
         <div class="beam-border-v absolute" style="left: 25%;"></div>
         <div class="beam-border-v absolute" style="left: 50%; animation-delay: 2s;"></div>
         <div class="beam-border-v absolute" style="left: 75%; animation-delay: 4s;"></div>
 
-        <div class="absolute top-0 w-[1px] h-48 bg-gradient-to-b from-transparent via-accent/25 to-transparent animate-beam-2 pointer-events-none" style="left: 18%;"></div>
-        <div class="absolute top-0 w-[1px] h-56 bg-gradient-to-b from-transparent via-accent/20 to-transparent animate-beam-3 pointer-events-none" style="left: 82%;"></div>
+        <div class="absolute top-0 w-[1px] h-48 bg-gradient-to-b from-transparent via-white/20 to-transparent animate-beam-2 pointer-events-none" style="left: 18%;"></div>
+        <div class="absolute top-0 w-[1px] h-56 bg-gradient-to-b from-transparent via-white/15 to-transparent animate-beam-3 pointer-events-none" style="left: 82%;"></div>
 
-        <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-accent/30 to-transparent"></div>
+        <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
         <div class="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
 
             <!-- Header -->
             <div class="pt-20 md:pt-28 pb-14 md:pb-18">
                 <div class="flex items-center gap-4 mb-8 reveal">
-                    <span class="text-xs font-mono uppercase tracking-widest text-accent">01 / Resultados</span>
-                    <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-accent/40 to-transparent"></div>
+                    <span class="text-xs font-mono uppercase tracking-widest text-white/70">01 / Resultados</span>
+                    <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-white/30 to-transparent"></div>
                 </div>
                 <h2 class="reveal delay-100" id="section2-headline">
-                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-stone-900">O acabamento</span></span><br/>
+                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-white">O acabamento</span></span><br/>
                     <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-outline">que seu veículo</span></span><br/>
-                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-400 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-stone-900">merece.</span></span>
+                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-400 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-white">merece.</span></span>
                 </h2>
-                <p class="reveal delay-500 text-stone-500 text-lg leading-relaxed max-w-xl mt-8">
+                <p class="reveal delay-500 text-white/55 text-lg leading-relaxed max-w-xl mt-8">
                     Cada veículo que passa pela nossa equipe recebe um tratamento exclusivo. Veja o resultado de quem confiou na proteção que realmente funciona.
                 </p>
             </div>
@@ -354,41 +445,41 @@
             </div>
 
             <!-- Marquee -->
-            <div class="border-t border-b border-stone-200 py-5 overflow-hidden section-beam">
+            <div class="border-t border-b border-white/10 py-5 overflow-hidden section-beam">
                 <div class="marquee-container">
-                    <div class="marquee-content" style="animation-duration: 35s;"><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">Vitrificação</span><span class="text-accent/40 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">Coating Cerâmico</span><span class="text-accent/40 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">PPF</span><span class="text-accent/40 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">Proteção Premium</span><span class="text-accent/40 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">Brilho Intenso</span><span class="text-accent/40 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">Hidrorepelência</span><span class="text-accent/40 mx-6">✦</span></div>
-                    <div class="marquee-content" style="animation-duration: 35s;"><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">Vitrificação</span><span class="text-accent/40 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">Coating Cerâmico</span><span class="text-accent/40 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">PPF</span><span class="text-accent/40 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">Proteção Premium</span><span class="text-accent/40 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">Brilho Intenso</span><span class="text-accent/40 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-stone-300 mx-8">Hidrorepelência</span><span class="text-accent/40 mx-6">✦</span></div>
+                    <div class="marquee-content" style="animation-duration: 35s;"><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Vitrificação</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Coating Cerâmico</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">PPF</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Proteção Premium</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Brilho Intenso</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Hidrorepelência</span><span class="text-white/10 mx-6">✦</span></div>
+                    <div class="marquee-content" style="animation-duration: 35s;"><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Vitrificação</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Coating Cerâmico</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">PPF</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Proteção Premium</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Brilho Intenso</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Hidrorepelência</span><span class="text-white/10 mx-6">✦</span></div>
                 </div>
             </div>
 
             <!-- Services -->
             <div class="pt-16 md:pt-24 pb-16 md:pb-20" id="servicos">
                 <div class="flex items-center gap-4 mb-6 reveal">
-                    <span class="text-xs font-mono uppercase tracking-widest text-accent">02 / Serviços</span>
-                    <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-accent/40 to-transparent"></div>
+                    <span class="text-xs font-mono uppercase tracking-widest text-white/70">02 / Serviços</span>
+                    <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-white/30 to-transparent"></div>
                 </div>
-                <h3 class="text-3xl md:text-5xl font-bold tracking-tighter text-stone-900 mb-4 reveal delay-100">
+                <h3 class="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-4 reveal delay-100">
                     Duas proteções. <span class="text-outline">Um padrão.</span>
                 </h3>
-                <p class="text-stone-500 text-base max-w-lg mb-12 reveal delay-200">
+                <p class="text-white/55 text-base max-w-lg mb-12 reveal delay-200">
                     Escolha a proteção ideal — ou combine as duas para o máximo de performance e durabilidade.
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <!-- Vitrificação -->
-                    <div class="service-card bg-white border border-stone-200 rounded-2xl p-8 md:p-10 relative overflow-hidden reveal delay-200">
-                        <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent"></div>
-                        <div class="absolute top-[20%] right-[-10%] w-32 h-32 bg-accent/5 rounded-full blur-[60px] pointer-events-none"></div>
+                    <div class="service-card bg-white border border-white/20 rounded-2xl p-8 md:p-10 relative overflow-hidden reveal delay-200">
+                        <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand/30 to-transparent"></div>
+                        <div class="absolute top-[20%] right-[-10%] w-32 h-32 bg-brand/5 rounded-full blur-[60px] pointer-events-none"></div>
                         <div class="flex items-center gap-4 mb-6">
-                            <div class="service-icon w-12 h-12 rounded-xl bg-[#EAEAE5] border border-stone-200 flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                            <div class="service-icon w-12 h-12 rounded-xl bg-brand/10 border border-brand/15 flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                             <div><h4 class="text-stone-900 font-bold text-xl tracking-tight">Vitrificação</h4><span class="text-xs font-mono text-stone-400 uppercase tracking-wider">Coating Cerâmico</span></div>
                         </div>
                         <p class="text-stone-500 text-sm leading-relaxed mb-8">Revestimento cerâmico de alta performance à base de sílica que cria uma camada vítrea protetora sobre a pintura.</p>
                         <div class="space-y-3 mb-8">
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Brilho intenso e profundo</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Hidrorepelência avançada</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Proteção UV, seiva e chuva ácida</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Facilidade de limpeza extrema</span></div>
+                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Brilho intenso e profundo</span></div>
+                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Hidrorepelência avançada</span></div>
+                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Proteção UV, seiva e chuva ácida</span></div>
+                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Facilidade de limpeza extrema</span></div>
                         </div>
                         <div class="flex items-center justify-between pt-6 border-t border-stone-200">
                             <div><span class="text-2xl font-bold tracking-tighter text-stone-900">1-5</span><span class="text-sm text-stone-400 ml-1">anos</span></div>
@@ -396,20 +487,20 @@
                         </div>
                     </div>
                     <!-- PPF -->
-                    <div class="service-card bg-white border border-stone-200 rounded-2xl p-8 md:p-10 relative overflow-hidden reveal delay-300">
-                        <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent"></div>
-                        <div class="absolute bottom-[10%] left-[-10%] w-32 h-32 bg-accent/5 rounded-full blur-[60px] pointer-events-none"></div>
-                        <div class="absolute top-4 right-4"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-white" style="background: linear-gradient(135deg, var(--accent), var(--accent-light));"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Mais Procurado</span></div>
+                    <div class="service-card bg-white border border-white/20 rounded-2xl p-8 md:p-10 relative overflow-hidden reveal delay-300">
+                        <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand/30 to-transparent"></div>
+                        <div class="absolute bottom-[10%] left-[-10%] w-32 h-32 bg-brand/5 rounded-full blur-[60px] pointer-events-none"></div>
+                        <div class="absolute top-4 right-4"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-white" style="background: linear-gradient(135deg, #7720D2, #9B4DEB);"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Mais Procurado</span></div>
                         <div class="flex items-center gap-4 mb-6">
-                            <div class="service-icon w-12 h-12 rounded-xl bg-[#EAEAE5] border border-stone-200 flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+                            <div class="service-icon w-12 h-12 rounded-xl bg-brand/10 border border-brand/15 flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
                             <div><h4 class="text-stone-900 font-bold text-xl tracking-tight">PPF</h4><span class="text-xs font-mono text-stone-400 uppercase tracking-wider">Paint Protection Film</span></div>
                         </div>
                         <p class="text-stone-500 text-sm leading-relaxed mb-8">Película transparente de poliuretano de alta resistência para proteção física contra impactos do dia a dia.</p>
                         <div class="space-y-3 mb-8">
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Proteção contra riscos e pedriscos</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Tecnologia de autorreparo térmico</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Aumenta brilho e valoriza revenda</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Película transparente invisível</span></div>
+                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Proteção contra riscos e pedriscos</span></div>
+                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Tecnologia de autorreparo térmico</span></div>
+                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Aumenta brilho e valoriza revenda</span></div>
+                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Película transparente invisível</span></div>
                         </div>
                         <div class="flex items-center justify-between pt-6 border-t border-stone-200">
                             <div><span class="text-2xl font-bold tracking-tighter text-stone-900">5-10</span><span class="text-sm text-stone-400 ml-1">anos</span></div>
@@ -420,29 +511,29 @@
             </div>
 
             <!-- Stats -->
-            <div class="border-t border-stone-200 py-12 md:py-16">
+            <div class="border-t border-white/10 py-12 md:py-16">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
-                    <div class="stat-item text-center reveal" id="stat-veiculos"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-stone-900 mb-1"><span class="counter" data-target="500">0</span><span class="text-accent">+</span></div><div class="text-xs font-mono uppercase tracking-widest text-stone-400">Veículos Protegidos</div></div>
-                    <div class="stat-item text-center reveal delay-100"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-stone-900 mb-1"><span class="counter" data-target="99">0</span><span class="text-accent">%</span></div><div class="text-xs font-mono uppercase tracking-widest text-stone-400">Satisfação</div></div>
-                    <div class="stat-item text-center reveal delay-200"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-stone-900 mb-1"><span class="text-accent">5</span><span class="text-stone-900">★</span></div><div class="text-xs font-mono uppercase tracking-widest text-stone-400">Google Reviews</div></div>
-                    <div class="stat-item text-center reveal delay-300"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-stone-900 mb-1"><span class="counter" data-target="10">0</span><span class="text-accent">+</span></div><div class="text-xs font-mono uppercase tracking-widest text-stone-400">Anos no Mercado</div></div>
+                    <div class="stat-item text-center reveal" id="stat-veiculos"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-1"><span class="counter" data-target="500">0</span><span class="text-white/50">+</span></div><div class="text-xs font-mono uppercase tracking-widest text-white/40">Veículos Protegidos</div></div>
+                    <div class="stat-item text-center reveal delay-100"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-1"><span class="counter" data-target="99">0</span><span class="text-white/50">%</span></div><div class="text-xs font-mono uppercase tracking-widest text-white/40">Satisfação</div></div>
+                    <div class="stat-item text-center reveal delay-200"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-1"><span class="text-white">5</span><span class="text-white/50">★</span></div><div class="text-xs font-mono uppercase tracking-widest text-white/40">Google Reviews</div></div>
+                    <div class="stat-item text-center reveal delay-300"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-1"><span class="counter" data-target="10">0</span><span class="text-white/50">+</span></div><div class="text-xs font-mono uppercase tracking-widest text-white/40">Anos no Mercado</div></div>
                 </div>
             </div>
 
             <!-- CTA -->
-            <div class="border-t border-stone-200 py-16 md:py-24" id="cta-final">
+            <div class="border-t border-white/10 py-16 md:py-24" id="cta-final">
                 <div class="max-w-2xl mx-auto text-center">
-                    <h3 class="text-3xl md:text-5xl font-bold tracking-tighter text-stone-900 mb-4 reveal">
+                    <h3 class="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-4 reveal">
                         Seu veículo merece <span class="text-outline">o melhor.</span>
                     </h3>
-                    <p class="text-stone-500 text-base leading-relaxed mb-10 reveal delay-100">
+                    <p class="text-white/55 text-base leading-relaxed mb-10 reveal delay-100">
                         Agende uma avaliação gratuita e descubra qual proteção é ideal para o seu carro. Atendimento exclusivo e personalizado.
                     </p>
-                    <div class="flex flex-wrap justify-center gap-5 reveal delay-200">
-                        <button class="button-custom" type="button" style="padding: 16px 40px; min-height: 54px;"><div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div><span class="inner" style="font-size: 0.95rem;">Solicitar Orçamento Gratuito <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
-                        <a href="#" class="shimmer-btn">
+                    <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-5 reveal delay-200">
+                        <button class="button-custom w-full sm:w-auto" type="button" style="padding: 16px 40px; min-height: 54px;"><div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div><span class="inner" style="font-size: 0.95rem;">Solicitar Orçamento Gratuito <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+                        <a href="#" class="shimmer-btn w-full sm:w-auto text-center">
                             <div class="shimmer-spin"><div></div></div>
-                            <div class="shimmer-fill" style="background-color: #EAEAE5;"></div>
+                            <div class="shimmer-fill"></div>
                             Falar com Especialista
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         </a>
@@ -451,7 +542,7 @@
             </div>
         </div>
 
-        <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-accent/30 to-transparent"></div>
+        <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
     </section>
 
     <script>
@@ -466,20 +557,13 @@
             { delay: 1400, action: () => heroEls[1] && (heroEls[1].style.animation = 'fadeSlideIn 1s ease-out forwards') },
             { delay: 1700, action: () => heroEls[2] && (heroEls[2].style.animation = 'fadeSlideIn 1s ease-out 0.05s forwards') },
             { delay: 2000, action: () => heroEls[3] && (heroEls[3].style.animation = 'fadeSlideIn 1s ease-out 0.05s forwards') },
-            { delay: 1100, action: () => heroEls[4] && (heroEls[4].style.animation = 'fadeSlideIn 1.2s ease-out forwards') },
+            { delay: 900,  action: () => heroEls[4] && (heroEls[4].style.animation = 'fadeSlideIn 1.4s ease-out forwards') },
             { delay: 2200, action: () => heroEls[5] && (heroEls[5].style.animation = 'fadeSlideIn 0.8s ease-out forwards') },
             { delay: 2500, action: () => heroEls[6] && (heroEls[6].style.animation = 'fadeSlideIn 0.8s ease-out forwards') },
+            { delay: 2800, action: () => heroEls[7] && (heroEls[7].style.animation = 'fadeSlideIn 0.8s ease-out forwards') },
         ];
         heroTimeline.forEach(({ delay, action }) => setTimeout(action, delay));
 
-        setTimeout(() => {
-            const counter = document.getElementById('counter-years');
-            const bar = document.getElementById('stat-bar');
-            if (!counter) return;
-            let c = 0;
-            const iv = setInterval(() => { c++; counter.textContent = c; if (c >= 5) clearInterval(iv); }, 200);
-            if (bar) bar.style.width = '70%';
-        }, 2600);
 
         // ── SCROLL: IntersectionObserver for ALL .reveal outside hero ──
         const scrollObserver = new IntersectionObserver((entries) => {
@@ -545,13 +629,66 @@
         }, { rootMargin: '300px' });
         document.querySelectorAll('[data-lazy-video]').forEach(v => videoObserver.observe(v));
 
+        // ── SOUND TOGGLE: Allan video ──
+        const allanVideo = document.getElementById('allan-video');
+        const soundBtn = document.getElementById('allan-sound-btn');
+        const iconMuted = document.getElementById('icon-muted');
+        const iconUnmuted = document.getElementById('icon-unmuted');
+        if (soundBtn && allanVideo) {
+            function updateSoundIcon() {
+                iconMuted.style.display = allanVideo.muted ? 'block' : 'none';
+                iconUnmuted.style.display = allanVideo.muted ? 'none' : 'block';
+            }
+            soundBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                allanVideo.muted = !allanVideo.muted;
+                updateSoundIcon();
+            });
+            document.addEventListener('click', () => {
+                if (allanVideo.muted) {
+                    allanVideo.muted = false;
+                    allanVideo.play().catch(() => {});
+                    updateSoundIcon();
+                }
+            }, { once: true });
+        }
+
+        // ── MOBILE MENU ──
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.contains('open');
+                if (isOpen) {
+                    mobileMenu.classList.remove('open');
+                    setTimeout(() => { mobileMenu.style.display = 'none'; }, 300);
+                    iconOpen.style.display = 'block'; iconClose.style.display = 'none';
+                } else {
+                    mobileMenu.style.display = 'block';
+                    requestAnimationFrame(() => mobileMenu.classList.add('open'));
+                    iconOpen.style.display = 'none'; iconClose.style.display = 'block';
+                }
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    setTimeout(() => { mobileMenu.style.display = 'none'; }, 300);
+                    iconOpen.style.display = 'block'; iconClose.style.display = 'none';
+                });
+            });
+        }
+
         // ── PARALLAX: mouse move (hero only) ──
         document.addEventListener('mousemove', (e) => {
             if (window.scrollY > window.innerHeight) return;
             const x = (e.clientX / window.innerWidth - 0.5) * 2;
             const y = (e.clientY / window.innerHeight - 0.5) * 2;
-            const vid = document.getElementById('video-area');
-            if (vid) { vid.style.transform = `translate(${x * 8}px, ${y * 5}px)`; vid.style.transition = 'transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)'; }
+            const bgVid = document.getElementById('hero-bg-video');
+            if (bgVid) { bgVid.style.transform = `scale(1.05) translate(${x * 4}px, ${y * 3}px)`; bgVid.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; }
+            const allanVid = document.getElementById('allan-video-area');
+            if (allanVid) { allanVid.style.transform = `translate(${x * 6}px, ${y * 4}px)`; allanVid.style.transition = 'transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94)'; }
         });
     });
     </script>
