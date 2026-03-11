@@ -148,12 +148,15 @@
         }
 
         #mobile-menu.open { display: block !important; pointer-events: auto; opacity: 1; }
-        #mobile-menu .mobile-nav-link { opacity: 0; transform: translateY(20px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+        #mobile-menu .mobile-nav-link { opacity: 0; transform: translateY(16px); transition: all 0.5s cubic-bezier(0.16,1,0.3,1); }
         #mobile-menu.open .mobile-nav-link { opacity: 1; transform: translateY(0); }
-        #mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.1s; }
-        #mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.2s; }
-        #mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.3s; }
-        #mobile-menu.open .mobile-nav-link > * { transition-delay: 0.4s; }
+        #mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.08s; }
+        #mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.14s; }
+        #mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.20s; }
+        #mobile-menu.open .mobile-nav-link:nth-child(4) { transition-delay: 0.26s; }
+        #mobile-menu.open .mobile-nav-link:nth-child(5) { transition-delay: 0.32s; }
+        #mobile-menu.open .mobile-nav-link:nth-child(6) { transition-delay: 0.38s; }
+        #mobile-menu.open .mobile-nav-link:nth-child(7) { transition-delay: 0.44s; }
     </style>
 </head>
 
@@ -174,7 +177,8 @@
         </div>
 
         <!-- OVERLAY: roxo para legibilidade do texto -->
-        <div class="absolute inset-0 z-[1]" style="background: linear-gradient(135deg, rgba(119,32,210,0.75) 0%, rgba(90,19,165,0.7) 35%, rgba(119,32,210,0.5) 60%, rgba(119,32,210,0.95) 100%);"></div>
+        <div class="absolute inset-0 z-[1] hidden lg:block" style="background: linear-gradient(135deg, rgba(119,32,210,0.75) 0%, rgba(90,19,165,0.7) 35%, rgba(119,32,210,0.5) 60%, rgba(119,32,210,0.95) 100%);"></div>
+        <div class="absolute inset-0 z-[1] lg:hidden" style="background: linear-gradient(180deg, rgba(119,32,210,0.55) 0%, rgba(90,19,165,0.45) 40%, rgba(119,32,210,0.6) 70%, rgba(119,32,210,0.85) 100%);"></div>
 
         <!-- EFEITOS DECORATIVOS -->
         <div class="absolute inset-0 grid-bg-light pointer-events-none z-[2]"></div>
@@ -219,15 +223,37 @@
         </nav>
         <!-- MOBILE MENU -->
         <div id="mobile-menu" class="md:hidden fixed inset-0 z-[60] pointer-events-none opacity-0 transition-opacity duration-300" style="display:none">
-            <div class="absolute inset-0 bg-brand-dark/95 backdrop-blur-xl" style="background: rgba(90,19,165,0.97);"></div>
-            <div class="relative z-10 flex flex-col items-center justify-center h-full gap-8">
-                <a href="#resultados" class="mobile-nav-link text-2xl font-bold tracking-tight text-white/90 hover:text-white transition-colors">Galeria</a>
-                <a href="#servicos" class="mobile-nav-link text-2xl font-bold tracking-tight text-white/90 hover:text-white transition-colors">Serviços</a>
-                <a href="#cta-final" class="mobile-nav-link text-2xl font-bold tracking-tight text-white/90 hover:text-white transition-colors">Sobre</a>
-                <div class="mt-4">
-                    <a href="#cta-final" class="button-custom mobile-nav-link" style="padding: 14px 36px;">
+            <div class="absolute inset-0 backdrop-blur-xl" style="background: rgba(90,19,165,0.97);"></div>
+            <div class="relative z-10 flex flex-col h-full">
+                <!-- Header do menu com botão fechar -->
+                <div class="flex justify-between items-center px-6 py-5">
+                    <span class="text-xs font-mono uppercase tracking-widest text-white/40">Menu</span>
+                    <button id="mobile-menu-close" type="button" class="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center" aria-label="Fechar menu">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <!-- Links -->
+                <div class="flex-1 flex flex-col items-center justify-center gap-2 -mt-10">
+                    <a href="#resultados" class="mobile-nav-link w-full text-center py-4">
+                        <span class="text-3xl font-bold tracking-tight text-white/90">Galeria</span>
+                        <span class="block text-xs font-mono text-white/30 uppercase tracking-widest mt-1">Nossos trabalhos</span>
+                    </a>
+                    <div class="w-16 h-px bg-white/10 mobile-nav-link"></div>
+                    <a href="#servicos" class="mobile-nav-link w-full text-center py-4">
+                        <span class="text-3xl font-bold tracking-tight text-white/90">Serviços</span>
+                        <span class="block text-xs font-mono text-white/30 uppercase tracking-widest mt-1">Vitrificação & PPF</span>
+                    </a>
+                    <div class="w-16 h-px bg-white/10 mobile-nav-link"></div>
+                    <a href="#cta-final" class="mobile-nav-link w-full text-center py-4">
+                        <span class="text-3xl font-bold tracking-tight text-white/90">Sobre</span>
+                        <span class="block text-xs font-mono text-white/30 uppercase tracking-widest mt-1">Quem somos</span>
+                    </a>
+                </div>
+                <!-- CTA no rodapé do menu -->
+                <div class="px-6 pb-10 mobile-nav-link">
+                    <a href="#cta-final" class="button-custom w-full" style="padding: 16px 36px;">
                         <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
-                        <span class="inner">Contato <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg></span>
+                        <span class="inner">Solicitar Orçamento <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg></span>
                     </a>
                 </div>
             </div>
@@ -656,27 +682,28 @@
         // ── MOBILE MENU ──
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const mobileCloseBtn = document.getElementById('mobile-menu-close');
         const iconOpen = document.getElementById('menu-icon-open');
         const iconClose = document.getElementById('menu-icon-close');
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            setTimeout(() => { mobileMenu.style.display = 'none'; }, 300);
+            iconOpen.style.display = 'block'; iconClose.style.display = 'none';
+        }
+        function openMobileMenu() {
+            mobileMenu.style.display = 'block';
+            requestAnimationFrame(() => mobileMenu.classList.add('open'));
+            iconOpen.style.display = 'none'; iconClose.style.display = 'block';
+        }
+
         if (mobileBtn && mobileMenu) {
             mobileBtn.addEventListener('click', () => {
-                const isOpen = mobileMenu.classList.contains('open');
-                if (isOpen) {
-                    mobileMenu.classList.remove('open');
-                    setTimeout(() => { mobileMenu.style.display = 'none'; }, 300);
-                    iconOpen.style.display = 'block'; iconClose.style.display = 'none';
-                } else {
-                    mobileMenu.style.display = 'block';
-                    requestAnimationFrame(() => mobileMenu.classList.add('open'));
-                    iconOpen.style.display = 'none'; iconClose.style.display = 'block';
-                }
+                mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
             });
+            if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
             mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('open');
-                    setTimeout(() => { mobileMenu.style.display = 'none'; }, 300);
-                    iconOpen.style.display = 'block'; iconClose.style.display = 'none';
-                });
+                link.addEventListener('click', closeMobileMenu);
             });
         }
 
