@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Estética Automotiva Premium — Vitrificação & PPF</title>
-    <meta name="description" content="Proteção premium para veículos de alto padrão. Vitrificação automotiva, coating cerâmico e PPF com tecnologia de ponta."/>
+    <title>Wash Concept — Vitrificação Automotiva Premium</title>
+    <meta name="description" content="Vitrificação automotiva com coating cerâmico de alta performance. Brilho espelhado, hidrorrepelência e proteção por até 5 anos. Venha viver essa experiência."/>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -134,6 +134,35 @@
 
         .stat-item { transition: transform 0.3s ease; }
         .stat-item:hover { transform: scale(1.05); }
+
+        /* Floating CTA */
+        #floating-cta {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 55;
+            transform: translateY(120px);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease;
+            pointer-events: none;
+        }
+        #floating-cta.visible {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        @media (max-width: 639px) {
+            #floating-cta {
+                bottom: 0; right: 0; left: 0;
+                transform: translateY(100%);
+                padding: 12px 16px;
+                background: rgba(90,19,165,0.95);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border-top: 1px solid rgba(255,255,255,0.12);
+            }
+            #floating-cta.visible { transform: translateY(0); }
+        }
 
         @media (max-width: 767px) {
             #hero-section { min-height: auto; }
@@ -267,47 +296,46 @@
                     <!-- COLUNA ESQUERDA: Texto -->
                     <div class="lg:col-span-7 flex flex-col">
                         <div class="hero-reveal mb-5 lg:mb-8" style="opacity:0">
-                            <span class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/20 text-xs font-semibold tracking-widest uppercase bg-white/10 backdrop-blur-md text-white/90">
+                            <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md">
                                 <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span></span>
-                                Estética Automotiva Premium
-                            </span>
+                                <span class="text-sm sm:text-base font-light italic tracking-wide text-white/90" style="font-style: italic; letter-spacing: 0.04em;">"Venha viver essa experiência"</span>
+                            </div>
                         </div>
                         <h1 class="mb-5 lg:mb-8" id="hero-headline">
-                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-white drop-shadow-lg">Proteção</span></span><br/>
-                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-outline drop-shadow-lg">invisível.</span></span><br/>
-                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-400 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-outline drop-shadow-lg">Brilho</span></span><br/>
-                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-500 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-white drop-shadow-lg">absoluto.</span></span>
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-outline drop-shadow-lg">Seu carro</span></span><br/>
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-white drop-shadow-lg">nunca</span></span>
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-400 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-outline drop-shadow-lg">brilhou</span></span><br/>
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-500 text-[2.6rem] sm:text-6xl md:text-[5.5rem] lg:text-[6rem] font-bold tracking-tighter leading-[0.9] text-white drop-shadow-lg">assim.</span></span>
                         </h1>
                         <div class="mb-6 lg:mb-10 hero-reveal" style="opacity:0">
                             <p class="text-base lg:text-lg leading-relaxed text-white/70 max-w-lg" style="text-shadow: 0 1px 8px rgba(0,0,0,0.3);">
-                                Vitrificação automotiva, coating cerâmico e PPF de alta performance. Proteção prolongada contra riscos, pedriscos e agentes agressivos
-                                — com <span class="text-white font-medium">brilho intenso</span>, <span class="text-white font-medium">hidrorepelência</span> e <span class="text-white font-medium">valorização garantida</span>.
+                                Vitrificação automotiva com coating cerâmico de alta performance. Uma camada invisível que transforma a pintura — <span class="text-white font-medium">brilho espelhado</span>, <span class="text-white font-medium">água que desliza</span> e <span class="text-white font-medium">proteção por até 5 anos</span>, sem polimento constante.
                             </p>
                         </div>
                         <div class="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 sm:gap-5 mb-8 lg:mb-10 hero-reveal" style="opacity:0">
                             <button class="button-custom w-full sm:w-auto" type="button">
                                 <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
-                                <span class="inner">Solicitar Orçamento <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                                <span class="inner">Quero Vitrificar Meu Carro <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
                             </button>
-                            <a href="#servicos" class="shimmer-btn w-full sm:w-auto text-center">
+                            <a href="#resultados" class="shimmer-btn w-full sm:w-auto text-center">
                                 <div class="shimmer-spin"><div></div></div>
                                 <div class="shimmer-fill"></div>
-                                Conhecer a Proteção
+                                Ver Resultados
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg>
                             </a>
                         </div>
                         <div class="hidden sm:flex flex-wrap gap-3 hero-reveal" style="opacity:0">
                             <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-xs font-medium text-white/80 cursor-default">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                                Até 10 anos de proteção
-                            </span>
-                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-xs font-medium text-white/80 cursor-default">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
-                                Autorreparo inteligente
-                            </span>
-                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-xs font-medium text-white/80 cursor-default">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                                Brilho certificado
+                                Brilho espelhado por anos
+                            </span>
+                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-xs font-medium text-white/80 cursor-default">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                Hidrorrepelência total
+                            </span>
+                            <span class="feature-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-xs font-medium text-white/80 cursor-default">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                                Proteção UV e química
                             </span>
                         </div>
                     </div>
@@ -377,8 +405,8 @@
         <div class="relative z-10 border-t border-white/10 bg-black/10 backdrop-blur-sm section-beam">
             <div class="py-4 overflow-hidden">
                 <div class="marquee-container">
-                    <div class="marquee-content"><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Vitrificação Automotiva</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Coating Cerâmico</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">PPF — Paint Protection Film</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Proteção Premium</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Brilho Intenso</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Hidrorepelência</span><span class="text-[10px] mx-4 text-white/25">◆</span></div>
-                    <div class="marquee-content"><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Vitrificação Automotiva</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Coating Cerâmico</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">PPF — Paint Protection Film</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Proteção Premium</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Brilho Intenso</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Hidrorepelência</span><span class="text-[10px] mx-4 text-white/25">◆</span></div>
+                    <div class="marquee-content"><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Vitrificação Automotiva</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Coating Cerâmico</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Brilho Espelhado</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Proteção Premium</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Hidrorrepelência</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Proteção UV</span><span class="text-[10px] mx-4 text-white/25">◆</span></div>
+                    <div class="marquee-content"><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Vitrificação Automotiva</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Coating Cerâmico</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Brilho Espelhado</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Proteção Premium</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Hidrorrepelência</span><span class="text-[10px] mx-4 text-white/25">◆</span><span class="text-[10px] font-mono uppercase tracking-[0.2em] text-white/50 mx-6">Proteção UV</span><span class="text-[10px] mx-4 text-white/25">◆</span></div>
                 </div>
             </div>
         </div>
@@ -571,6 +599,20 @@
         <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
     </section>
 
+    <!-- FLOATING CTA -->
+    <div id="floating-cta">
+        <!-- Desktop: botão compacto -->
+        <button class="button-custom hidden sm:inline-flex" type="button" style="padding: 14px 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 60px rgba(119,32,210,0.15);">
+            <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
+            <span class="inner">Quero Vitrificar <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </button>
+        <!-- Mobile: barra full-width -->
+        <button class="button-custom sm:hidden w-full" type="button">
+            <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
+            <span class="inner">Quero Vitrificar Meu Carro <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+        </button>
+    </div>
+
     <script>
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -705,6 +747,26 @@
             mobileMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', closeMobileMenu);
             });
+        }
+
+        // ── FLOATING CTA: show/hide on scroll ──
+        const floatingCta = document.getElementById('floating-cta');
+        const heroSection = document.getElementById('hero-section');
+        const ctaFinal = document.getElementById('cta-final');
+        if (floatingCta && heroSection) {
+            const floatingObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.target === heroSection) {
+                        if (!entry.isIntersecting) floatingCta.classList.add('visible');
+                        else floatingCta.classList.remove('visible');
+                    }
+                    if (entry.target === ctaFinal && entry.isIntersecting) {
+                        floatingCta.classList.remove('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            floatingObserver.observe(heroSection);
+            if (ctaFinal) floatingObserver.observe(ctaFinal);
         }
 
         // ── PARALLAX: mouse move (hero only) ──
