@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <meta name="theme-color" content="#7720D2"/>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -96,6 +97,7 @@
 
         .floating-card { transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.5s ease; will-change: transform; }
         .floating-card:hover { transform: scale(1.05) translateY(-6px) !important; z-index: 50; box-shadow: 0 25px 60px -12px rgba(0,0,0,0.25); }
+        @media (max-width: 767px) { .floating-card:hover { transform: none !important; box-shadow: none; } }
 
         .grid-bg-light { background-image: linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%); }
 
@@ -126,6 +128,9 @@
         .gallery-card .gallery-overlay { opacity: 1; transition: opacity 0.4s ease; }
         @media (min-width: 768px) { .gallery-card .gallery-overlay { opacity: 0; } .gallery-card:hover .gallery-overlay { opacity: 1; } }
 
+        #gallery-carousel::-webkit-scrollbar { display: none; }
+        .carousel-item { background: rgba(255,255,255,0.05); }
+
         .service-card { transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease; }
         .service-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15); border-color: var(--brand) !important; }
         .service-card .service-icon { transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), background 0.4s ease; }
@@ -151,6 +156,29 @@
             opacity: 1;
             pointer-events: auto;
         }
+        #floating-cta.visible .floating-cta-btn {
+            animation: floatingPulse 3s ease-in-out 0.6s infinite;
+        }
+        @keyframes floatingPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 0 0 rgba(255,255,255,0.4); }
+            15% { transform: scale(1.06); box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 8px rgba(255,255,255,0.15); }
+            30% { transform: scale(1); box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 0 16px rgba(255,255,255,0); }
+            50% { transform: scale(1); }
+        }
+        #floating-cta .pulse-ring {
+            position: absolute;
+            inset: -4px;
+            border-radius: 9999px;
+            border: 2px solid rgba(255,255,255,0.3);
+            animation: ringExpand 3s ease-out 0.6s infinite;
+            pointer-events: none;
+        }
+        #floating-cta .pulse-ring:nth-child(2) { animation-delay: 1.1s; }
+        @keyframes ringExpand {
+            0% { transform: scale(1); opacity: 0.6; }
+            40% { transform: scale(1.15); opacity: 0; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
         @media (max-width: 639px) {
             #floating-cta {
                 bottom: 0; right: 0; left: 0;
@@ -162,6 +190,15 @@
                 border-top: 1px solid rgba(255,255,255,0.12);
             }
             #floating-cta.visible { transform: translateY(0); }
+            #floating-cta .pulse-ring { display: none; }
+            #floating-cta.visible .floating-cta-btn {
+                animation: mobileGlow 3s ease-in-out 0.6s infinite;
+            }
+            @keyframes mobileGlow {
+                0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+                15% { box-shadow: 0 4px 24px rgba(0,0,0,0.2), 0 0 30px rgba(255,255,255,0.15); }
+                30% { box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+            }
         }
 
         @media (max-width: 767px) {
@@ -170,6 +207,8 @@
             .feature-pill { font-size: 10px; padding: 8px 12px; }
             .beam-border-v, .beam-border-h, .float-slow, .float-medium { display: none; }
             .service-card { padding: 1.5rem; }
+            .floating-card .hover-tagline { opacity: 1 !important; }
+            footer { padding-bottom: 80px; }
         }
         @media (max-width: 639px) {
             .button-custom { min-height: 48px; padding: 12px 28px; }
@@ -238,7 +277,7 @@
                 <a class="hover:text-white transition-colors duration-300 cursor-pointer" href="#cta-final">Sobre</a>
             </div>
             <div class="flex items-center gap-3">
-                <a href="#cta-final" class="shimmer-btn hidden sm:inline-flex">
+                <a href="https://wa.me/5573999937471?text=Ol%C3%A1!" target="_blank" rel="noopener noreferrer" class="shimmer-btn hidden sm:inline-flex">
                     <div class="shimmer-spin"><div></div></div>
                     <div class="shimmer-fill"></div>
                     Contato
@@ -270,7 +309,7 @@
                     <div class="w-16 h-px bg-white/10 mobile-nav-link"></div>
                     <a href="#servicos" class="mobile-nav-link w-full text-center py-4">
                         <span class="text-3xl font-bold tracking-tight text-white/90">Serviços</span>
-                        <span class="block text-xs font-mono text-white/30 uppercase tracking-widest mt-1">Vitrificação & PPF</span>
+                        <span class="block text-xs font-mono text-white/30 uppercase tracking-widest mt-1">Vitrificação Automotiva</span>
                     </a>
                     <div class="w-16 h-px bg-white/10 mobile-nav-link"></div>
                     <a href="#cta-final" class="mobile-nav-link w-full text-center py-4">
@@ -280,7 +319,7 @@
                 </div>
                 <!-- CTA no rodapé do menu -->
                 <div class="px-6 pb-10 mobile-nav-link">
-                    <a href="#cta-final" class="button-custom w-full" style="padding: 16px 36px;">
+                    <a href="https://wa.me/5573999937471?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento!" target="_blank" rel="noopener noreferrer" class="button-custom w-full" style="padding: 16px 36px;">
                         <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
                         <span class="inner">Solicitar Orçamento <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></svg></span>
                     </a>
@@ -313,10 +352,10 @@
                             </p>
                         </div>
                         <div class="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 sm:gap-5 mb-8 lg:mb-10 hero-reveal" style="opacity:0">
-                            <button class="button-custom w-full sm:w-auto" type="button">
+                            <a href="https://wa.me/5573999937471?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20vitrifica%C3%A7%C3%A3o%20automotiva!" target="_blank" rel="noopener noreferrer" class="button-custom w-full sm:w-auto">
                                 <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
                                 <span class="inner">Quero Vitrificar Meu Carro <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-                            </button>
+                            </a>
                             <a href="#resultados" class="shimmer-btn w-full sm:w-auto text-center">
                                 <div class="shimmer-spin"><div></div></div>
                                 <div class="shimmer-fill"></div>
@@ -413,7 +452,7 @@
     </section>
 
     <!-- ════════════════════════════════════════
-         SEGUNDA DOBRA — Light Theme
+         SEGUNDA DOBRA — Resultados Vitrificação
          ════════════════════════════════════════ -->
     <section class="relative overflow-hidden bg-[#7720D2]" id="resultados">
         <div class="absolute inset-0 grid-bg-light pointer-events-none" style="mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);"></div>
@@ -421,145 +460,108 @@
         <div class="absolute bottom-[10%] left-[-5%] w-[30vw] h-[30vw] rounded-full blur-[140px] pointer-events-none" style="background: rgba(155,77,235,0.15); animation: glow-pulse 6s ease-in-out infinite; animation-delay: 2s;"></div>
 
         <div class="beam-border-v absolute" style="left: 25%;"></div>
-        <div class="beam-border-v absolute" style="left: 50%; animation-delay: 2s;"></div>
         <div class="beam-border-v absolute" style="left: 75%; animation-delay: 4s;"></div>
-
-        <div class="absolute top-0 w-[1px] h-48 bg-gradient-to-b from-transparent via-white/20 to-transparent animate-beam-2 pointer-events-none" style="left: 18%;"></div>
-        <div class="absolute top-0 w-[1px] h-56 bg-gradient-to-b from-transparent via-white/15 to-transparent animate-beam-3 pointer-events-none" style="left: 82%;"></div>
 
         <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
-        <div class="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
-
+        <div class="relative z-10">
             <!-- Header -->
-            <div class="pt-20 md:pt-28 pb-14 md:pb-18">
-                <div class="flex items-center gap-4 mb-8 reveal">
-                    <span class="text-xs font-mono uppercase tracking-widest text-white/70">01 / Resultados</span>
-                    <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-white/30 to-transparent"></div>
+            <div class="max-w-[1400px] mx-auto px-6 md:px-12 pt-20 md:pt-28 pb-10 md:pb-14">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div>
+                        <div class="flex items-center gap-4 mb-8 reveal">
+                            <span class="text-xs font-mono uppercase tracking-widest text-white/70">01 / Resultados</span>
+                            <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-white/30 to-transparent"></div>
+                        </div>
+                        <h2 class="reveal delay-100" id="section2-headline">
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-white">Vitrificação</span></span><br/>
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-outline">na prática.</span></span>
+                        </h2>
+                        <p class="reveal delay-500 text-white/55 text-lg leading-relaxed max-w-xl mt-8">
+                            Cada veículo recebe tratamento exclusivo. Deslize para ver o antes, durante e depois da vitrificação — o brilho fala por si.
+                        </p>
+                    </div>
+                    <div class="hidden md:flex items-center gap-3 reveal delay-500">
+                        <button id="carousel-prev" class="w-11 h-11 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center justify-center hover:bg-white/15 transition-all cursor-pointer">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <button id="carousel-next" class="w-11 h-11 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center justify-center hover:bg-white/15 transition-all cursor-pointer">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
                 </div>
-                <h2 class="reveal delay-100" id="section2-headline">
-                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-white">O acabamento</span></span><br/>
-                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-outline">que seu veículo</span></span><br/>
-                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-400 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-white">merece.</span></span>
-                </h2>
-                <p class="reveal delay-500 text-white/55 text-lg leading-relaxed max-w-xl mt-8">
-                    Cada veículo que passa pela nossa equipe recebe um tratamento exclusivo. Veja o resultado de quem confiou na proteção que realmente funciona.
-                </p>
             </div>
 
-            <!-- Gallery -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 pb-4">
-                <div class="gallery-card rounded-2xl relative reveal delay-100 group cursor-pointer aspect-[4/5] md:aspect-[3/4]">
-                    <img src="assets/gallery/gallery-01.jpg" alt="Toyota SW4 vitrificada" class="w-full h-full object-cover rounded-2xl" loading="lazy" decoding="async"/>
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent rounded-2xl flex flex-col justify-end p-6">
-                        <span class="text-xs font-mono uppercase tracking-widest text-accent mb-2">Vitrificação Completa</span>
-                        <span class="text-white font-semibold text-lg tracking-tight">Toyota SW4</span>
-                        <span class="text-stone-400 text-sm mt-1">Coating cerâmico 5 camadas</span>
-                    </div>
+            <!-- CARROSSEL -->
+            <div class="relative reveal delay-300">
+                <div id="gallery-carousel" class="flex gap-4 overflow-x-auto pb-8 px-6 md:px-12 scroll-smooth" style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;">
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-01.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/><div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-2xl flex items-end p-5"><span class="text-xs font-mono uppercase tracking-widest text-white/80">Vitrificação</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><video class="w-full h-full object-cover" loop muted playsinline preload="none" data-lazy-video="assets/gallery/vid-02.mp4"></video><div class="absolute top-4 left-4 flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 py-1.5"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span><span class="text-[10px] font-mono uppercase tracking-widest text-white/80">Video</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-02.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/><div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-2xl flex items-end p-5"><span class="text-xs font-mono uppercase tracking-widest text-white/80">Coating Cerâmico</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><video class="w-full h-full object-cover" loop muted playsinline preload="none" data-lazy-video="assets/gallery/vid-04.mp4"></video><div class="absolute top-4 left-4 flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 py-1.5"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span><span class="text-[10px] font-mono uppercase tracking-widest text-white/80">Video</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-04.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/><div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-2xl flex items-end p-5"><span class="text-xs font-mono uppercase tracking-widest text-white/80">Brilho Espelhado</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><video class="w-full h-full object-cover" loop muted playsinline preload="none" data-lazy-video="assets/gallery/vid-09.mp4"></video><div class="absolute top-4 left-4 flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 py-1.5"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span><span class="text-[10px] font-mono uppercase tracking-widest text-white/80">Video</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><video class="w-full h-full object-cover" loop muted playsinline preload="none" data-lazy-video="assets/gallery/vid-13.mp4"></video><div class="absolute top-4 left-4 flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 py-1.5"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span><span class="text-[10px] font-mono uppercase tracking-widest text-white/80">Video</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-10.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/><div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-2xl flex items-end p-5"><span class="text-xs font-mono uppercase tracking-widest text-white/80">Hidrorrepelência</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><video class="w-full h-full object-cover" loop muted playsinline preload="none" data-lazy-video="assets/gallery/vid-18.mp4"></video><div class="absolute top-4 left-4 flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 py-1.5"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span><span class="text-[10px] font-mono uppercase tracking-widest text-white/80">Video</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-12.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><video class="w-full h-full object-cover" loop muted playsinline preload="none" data-lazy-video="assets/gallery/vid-21.mp4"></video><div class="absolute top-4 left-4 flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 py-1.5"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span><span class="text-[10px] font-mono uppercase tracking-widest text-white/80">Video</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-16.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><video class="w-full h-full object-cover" loop muted playsinline preload="none" data-lazy-video="assets/gallery/vid-23.mp4"></video><div class="absolute top-4 left-4 flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 py-1.5"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span><span class="text-[10px] font-mono uppercase tracking-widest text-white/80">Video</span></div></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-18.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/></div>     
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-20.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-22.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-24.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-27.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/></div>
+                    <div class="carousel-item flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] aspect-[3/4] rounded-2xl relative group cursor-pointer overflow-hidden" style="scroll-snap-align: start;"><img data-lazy-src="assets/gallery/img-30.jpeg" alt="Vitrificação" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async"/></div>
                 </div>
-                <div class="gallery-card rounded-2xl relative reveal delay-200 group cursor-pointer aspect-[4/5] md:aspect-[3/4]">
-                    <video class="w-full h-full object-cover rounded-2xl" autoplay loop muted playsinline preload="none" data-lazy-video="assets/gallery/video-01.mp4"></video>
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent rounded-2xl flex flex-col justify-end p-6">
-                        <span class="text-xs font-mono uppercase tracking-widest text-accent mb-2">Processo ao Vivo</span>
-                        <span class="text-white font-semibold text-lg tracking-tight">Aplicação Profissional</span>
-                    </div>
-                    <div class="absolute top-4 left-4 flex items-center gap-2 bg-stone-900/60 backdrop-blur-md rounded-full px-3 py-1.5">
-                        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span>
-                        <span class="text-[10px] font-mono uppercase tracking-widest text-white/80">Video</span>
-                    </div>
-                </div>
-                <div class="gallery-card rounded-2xl relative reveal delay-300 group cursor-pointer aspect-[4/5] md:aspect-[3/4]">
-                    <img src="assets/gallery/gallery-02.jpg" alt="Chevrolet S10 com PPF" class="w-full h-full object-cover rounded-2xl" loading="lazy" decoding="async"/>
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent rounded-2xl flex flex-col justify-end p-6">
-                        <span class="text-xs font-mono uppercase tracking-widest text-accent mb-2">PPF Completo</span>
-                        <span class="text-white font-semibold text-lg tracking-tight">Chevrolet S10</span>
-                        <span class="text-stone-400 text-sm mt-1">Proteção total contra riscos</span>
-                    </div>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 md:gap-4 pb-16 md:pb-20">
-                <div class="md:col-span-3 gallery-card rounded-2xl relative reveal delay-100 group cursor-pointer aspect-[16/9]">
-                    <img src="assets/gallery/gallery-03.jpg" alt="RAM com vitrificação e PPF" class="w-full h-full object-cover rounded-2xl" loading="lazy" decoding="async"/>
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/10 to-transparent rounded-2xl flex flex-col justify-end p-6">
-                        <span class="text-xs font-mono uppercase tracking-widest text-accent mb-2">Vitrificação + PPF</span>
-                        <span class="text-white font-semibold text-lg tracking-tight">RAM 3500</span>
-                    </div>
-                </div>
-                <div class="md:col-span-2 gallery-card rounded-2xl relative reveal delay-200 group cursor-pointer aspect-[16/9]">
-                    <video class="w-full h-full object-cover rounded-2xl" autoplay loop muted playsinline preload="none" data-lazy-video="assets/gallery/video-02.mp4"></video>
-                    <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent rounded-2xl flex flex-col justify-end p-6">
-                        <span class="text-xs font-mono uppercase tracking-widest text-accent mb-2">Resultado Final</span>
-                        <span class="text-white font-semibold text-lg tracking-tight">Brilho Espelhado</span>
-                    </div>
-                    <div class="absolute top-4 left-4 flex items-center gap-2 bg-stone-900/60 backdrop-blur-md rounded-full px-3 py-1.5">
-                        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span>
-                        <span class="text-[10px] font-mono uppercase tracking-widest text-white/80">Video</span>
-                    </div>
-                </div>
+                <div class="absolute top-0 left-0 w-12 md:w-24 h-full pointer-events-none z-10" style="background: linear-gradient(to right, #7720D2, transparent);"></div>
+                <div class="absolute top-0 right-0 w-12 md:w-24 h-full pointer-events-none z-10" style="background: linear-gradient(to left, #7720D2, transparent);"></div>
             </div>
 
             <!-- Marquee -->
-            <div class="border-t border-b border-white/10 py-5 overflow-hidden section-beam">
-                <div class="marquee-container">
-                    <div class="marquee-content" style="animation-duration: 35s;"><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Vitrificação</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Coating Cerâmico</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">PPF</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Proteção Premium</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Brilho Intenso</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Hidrorepelência</span><span class="text-white/10 mx-6">✦</span></div>
-                    <div class="marquee-content" style="animation-duration: 35s;"><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Vitrificação</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Coating Cerâmico</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">PPF</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Proteção Premium</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Brilho Intenso</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Hidrorepelência</span><span class="text-white/10 mx-6">✦</span></div>
+            <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+                <div class="border-t border-b border-white/10 py-5 overflow-hidden section-beam mt-8">
+                    <div class="marquee-container">
+                        <div class="marquee-content" style="animation-duration: 35s;"><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Vitrificação</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Coating Cerâmico</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Brilho Espelhado</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Proteção Premium</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Hidrorrepelência</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Proteção UV</span><span class="text-white/10 mx-6">✦</span></div>
+                        <div class="marquee-content" style="animation-duration: 35s;"><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Vitrificação</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Coating Cerâmico</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Brilho Espelhado</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Proteção Premium</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Hidrorrepelência</span><span class="text-white/10 mx-6">✦</span><span class="text-sm font-bold uppercase tracking-[0.3em] text-white/20 mx-8">Proteção UV</span><span class="text-white/10 mx-6">✦</span></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Services -->
-            <div class="pt-16 md:pt-24 pb-16 md:pb-20" id="servicos">
+            <!-- Serviço: Vitrificação (único) -->
+            <div class="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 md:pt-24 pb-16 md:pb-20" id="servicos">
                 <div class="flex items-center gap-4 mb-6 reveal">
-                    <span class="text-xs font-mono uppercase tracking-widest text-white/70">02 / Serviços</span>
+                    <span class="text-xs font-mono uppercase tracking-widest text-white/70">02 / O Serviço</span>
                     <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-white/30 to-transparent"></div>
                 </div>
                 <h3 class="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-4 reveal delay-100">
-                    Duas proteções. <span class="text-outline">Um padrão.</span>
+                    Vitrificação automotiva. <span class="text-outline">O padrão ouro.</span>
                 </h3>
                 <p class="text-white/55 text-base max-w-lg mb-12 reveal delay-200">
-                    Escolha a proteção ideal — ou combine as duas para o máximo de performance e durabilidade.
+                    Coating cerâmico de alta performance que transforma e protege a pintura do seu veículo por anos.
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    <!-- Vitrificação -->
-                    <div class="service-card bg-white border border-white/20 rounded-2xl p-8 md:p-10 relative overflow-hidden reveal delay-200">
-                        <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand/30 to-transparent"></div>
-                        <div class="absolute top-[20%] right-[-10%] w-32 h-32 bg-brand/5 rounded-full blur-[60px] pointer-events-none"></div>
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="service-icon w-12 h-12 rounded-xl bg-brand/10 border border-brand/15 flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-                            <div><h4 class="text-stone-900 font-bold text-xl tracking-tight">Vitrificação</h4><span class="text-xs font-mono text-stone-400 uppercase tracking-wider">Coating Cerâmico</span></div>
-                        </div>
-                        <p class="text-stone-500 text-sm leading-relaxed mb-8">Revestimento cerâmico de alta performance à base de sílica que cria uma camada vítrea protetora sobre a pintura.</p>
-                        <div class="space-y-3 mb-8">
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Brilho intenso e profundo</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Hidrorepelência avançada</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Proteção UV, seiva e chuva ácida</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Facilidade de limpeza extrema</span></div>
-                        </div>
-                        <div class="flex items-center justify-between pt-6 border-t border-stone-200">
-                            <div><span class="text-2xl font-bold tracking-tighter text-stone-900">1-5</span><span class="text-sm text-stone-400 ml-1">anos</span></div>
-                            <button class="button-custom" type="button" style="padding: 10px 24px; min-height: 42px;"><div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div><span class="inner" style="font-size: 0.8rem;">Quero vitrificar <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
-                        </div>
+                <div class="service-card bg-white border border-white/20 rounded-2xl p-8 md:p-10 relative overflow-hidden reveal delay-200 max-w-3xl">
+                    <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand/30 to-transparent"></div>
+                    <div class="absolute top-[20%] right-[-10%] w-32 h-32 bg-brand/5 rounded-full blur-[60px] pointer-events-none"></div>
+                    <div class="absolute top-4 right-4"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-white" style="background: linear-gradient(135deg, #7720D2, #9B4DEB);"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Serviço Premium</span></div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="service-icon w-12 h-12 rounded-xl bg-brand/10 border border-brand/15 flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                        <div><h4 class="text-stone-900 font-bold text-xl tracking-tight">Vitrificação</h4><span class="text-xs font-mono text-stone-400 uppercase tracking-wider">Coating Cerâmico</span></div>
                     </div>
-                    <!-- PPF -->
-                    <div class="service-card bg-white border border-white/20 rounded-2xl p-8 md:p-10 relative overflow-hidden reveal delay-300">
-                        <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand/30 to-transparent"></div>
-                        <div class="absolute bottom-[10%] left-[-10%] w-32 h-32 bg-brand/5 rounded-full blur-[60px] pointer-events-none"></div>
-                        <div class="absolute top-4 right-4"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-white" style="background: linear-gradient(135deg, #7720D2, #9B4DEB);"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Mais Procurado</span></div>
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="service-icon w-12 h-12 rounded-xl bg-brand/10 border border-brand/15 flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
-                            <div><h4 class="text-stone-900 font-bold text-xl tracking-tight">PPF</h4><span class="text-xs font-mono text-stone-400 uppercase tracking-wider">Paint Protection Film</span></div>
-                        </div>
-                        <p class="text-stone-500 text-sm leading-relaxed mb-8">Película transparente de poliuretano de alta resistência para proteção física contra impactos do dia a dia.</p>
-                        <div class="space-y-3 mb-8">
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Proteção contra riscos e pedriscos</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Tecnologia de autorreparo térmico</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Aumenta brilho e valoriza revenda</span></div>
-                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Película transparente invisível</span></div>
-                        </div>
-                        <div class="flex items-center justify-between pt-6 border-t border-stone-200">
-                            <div><span class="text-2xl font-bold tracking-tighter text-stone-900">5-10</span><span class="text-sm text-stone-400 ml-1">anos</span></div>
-                            <button class="button-custom" type="button" style="padding: 10px 24px; min-height: 42px;"><div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div><span class="inner" style="font-size: 0.8rem;">Quero proteger <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
-                        </div>
+                    <p class="text-stone-500 text-sm leading-relaxed mb-8">Revestimento cerâmico à base de sílica que cria uma camada vítrea protetora sobre a pintura. Resultado imediato e proteção de longo prazo.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                        <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Brilho espelhado intenso</span></div>
+                        <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Hidrorrepelência avançada</span></div>
+                        <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Proteção UV, seiva e chuva ácida</span></div>
+                        <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Facilidade de limpeza extrema</span></div>
+                        <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Valorização do veículo</span></div>
+                        <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7720D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="text-stone-700 text-sm">Sem polimento constante</span></div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-stone-200">
+                        <div><span class="text-2xl font-bold tracking-tighter text-stone-900">1–5</span><span class="text-sm text-stone-400 ml-1">anos de proteção</span></div>
+                        <a href="https://wa.me/5573999937471?text=Ol%C3%A1%2C%20quero%20vitrificar%20meu%20carro!" target="_blank" rel="noopener noreferrer" class="button-custom w-full sm:w-auto" style="padding: 10px 24px; min-height: 42px;"><div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div><span class="inner" style="font-size: 0.8rem;">Quero vitrificar <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
                     </div>
                 </div>
             </div>
@@ -574,6 +576,103 @@
                 </div>
             </div>
 
+            <!-- Outros Serviços -->
+            <div class="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 md:pt-24 pb-16 md:pb-20 relative overflow-hidden">
+                <div class="absolute inset-0 grid-bg-light pointer-events-none"></div>
+                <div class="absolute top-[30%] left-[15%] w-[35%] h-[40%] bg-white/8 rounded-full blur-[120px] pointer-events-none glow-bg"></div>
+                <div class="absolute bottom-[10%] right-[10%] w-[25%] h-[30%] bg-white/5 rounded-full blur-[100px] pointer-events-none glow-bg" style="animation-delay: 2s;"></div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-6 reveal">
+                        <span class="text-xs font-mono uppercase tracking-widest text-white/70">03 / Também fazemos</span>
+                        <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-white/30 to-transparent"></div>
+                    </div>
+                    <h3 class="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-4 reveal delay-100">
+                        Mais do que <span class="text-white/40">vitrificação.</span>
+                    </h3>
+                    <p class="text-white/55 text-base max-w-lg mb-12 reveal delay-200">
+                        Além da vitrificação, oferecemos um portfólio completo de serviços para manter seu veículo impecável.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/[0.06] rounded-2xl overflow-hidden reveal delay-300">
+
+                        <!-- Micro Pintura — large -->
+                        <div class="md:col-span-7 bg-brand-dark/30 backdrop-blur-sm p-8 md:p-10 group relative overflow-hidden floating-card cursor-default">
+                            <div class="beam-border-v" style="right: 0; left: auto;"></div>
+                            <div class="absolute -top-6 -right-6 w-28 h-28 bg-white/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div class="flex items-start justify-between mb-8">
+                                <span class="text-[3.5rem] md:text-[4.5rem] font-bold tracking-tighter leading-none text-white/[0.06]">01</span>
+                                <div class="w-14 h-14 rounded-xl border border-white/15 bg-white/[0.07] flex items-center justify-center group-hover:border-white/30 group-hover:bg-white/15 transition-all duration-500">
+                                    <iconify-icon icon="solar:magic-stick-3-linear" class="text-2xl text-white/60 group-hover:text-white transition-colors duration-500"></iconify-icon>
+                                </div>
+                            </div>
+                            <h4 class="text-xl md:text-2xl font-semibold tracking-tight text-white mb-2 group-hover:translate-x-1 transition-transform duration-500">Micro Pintura</h4>
+                            <p class="text-white/45 text-sm leading-relaxed max-w-sm">Retoque profissional de pintura localizada — correções pontuais sem repintura total do painel.</p>
+                            <div class="hover-tagline mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div class="h-px w-6 bg-white/30"></div>
+                                <span class="text-xs font-mono text-white/40 uppercase tracking-widest">Acabamento perfeito</span>
+                            </div>
+                        </div>
+
+                        <!-- PPF -->
+                        <div class="md:col-span-5 bg-brand-dark/20 backdrop-blur-sm p-8 md:p-10 group relative overflow-hidden floating-card cursor-default">
+                            <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-white/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div class="flex items-start justify-between mb-8">
+                                <span class="text-[3.5rem] md:text-[4.5rem] font-bold tracking-tighter leading-none text-white/[0.06]">02</span>
+                                <div class="w-14 h-14 rounded-xl border border-white/15 bg-white/[0.07] flex items-center justify-center group-hover:border-white/30 group-hover:bg-white/15 transition-all duration-500">
+                                    <iconify-icon icon="solar:shield-check-linear" class="text-2xl text-white/60 group-hover:text-white transition-colors duration-500"></iconify-icon>
+                                </div>
+                            </div>
+                            <h4 class="text-xl md:text-2xl font-semibold tracking-tight text-white mb-2 group-hover:translate-x-1 transition-transform duration-500">PPF</h4>
+                            <p class="text-white/45 text-sm leading-relaxed">Película de proteção de pintura — blindagem invisível contra riscos, pedriscos e intempéries.</p>
+                            <div class="hover-tagline mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div class="h-px w-6 bg-white/30"></div>
+                                <span class="text-xs font-mono text-white/40 uppercase tracking-widest">Proteção invisível</span>
+                            </div>
+                        </div>
+
+                        <!-- Higienização -->
+                        <div class="md:col-span-5 bg-brand-dark/20 backdrop-blur-sm p-8 md:p-10 group relative overflow-hidden floating-card cursor-default">
+                            <div class="beam-border-h" style="top: 0; bottom: auto;"></div>
+                            <div class="absolute -top-4 -right-4 w-20 h-20 bg-white/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div class="flex items-start justify-between mb-8">
+                                <span class="text-[3.5rem] md:text-[4.5rem] font-bold tracking-tighter leading-none text-white/[0.06]">03</span>
+                                <div class="w-14 h-14 rounded-xl border border-white/15 bg-white/[0.07] flex items-center justify-center group-hover:border-white/30 group-hover:bg-white/15 transition-all duration-500">
+                                    <iconify-icon icon="solar:star-shine-linear" class="text-2xl text-white/60 group-hover:text-white transition-colors duration-500"></iconify-icon>
+                                </div>
+                            </div>
+                            <h4 class="text-xl md:text-2xl font-semibold tracking-tight text-white mb-2 group-hover:translate-x-1 transition-transform duration-500">Higienização</h4>
+                            <p class="text-white/45 text-sm leading-relaxed">Limpeza interna profunda com eliminação de odores, bactérias e revitalização completa.</p>
+                            <div class="hover-tagline mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div class="h-px w-6 bg-white/30"></div>
+                                <span class="text-xs font-mono text-white/40 uppercase tracking-widest">Interior impecável</span>
+                            </div>
+                        </div>
+
+                        <!-- Limpeza Detalhada — large -->
+                        <div class="md:col-span-7 bg-brand-dark/30 backdrop-blur-sm p-8 md:p-10 group relative overflow-hidden floating-card cursor-default">
+                            <div class="absolute -bottom-6 -right-6 w-28 h-28 bg-white/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div class="flex items-start justify-between mb-8">
+                                <span class="text-[3.5rem] md:text-[4.5rem] font-bold tracking-tighter leading-none text-white/[0.06]">04</span>
+                                <div class="w-14 h-14 rounded-xl border border-white/15 bg-white/[0.07] flex items-center justify-center group-hover:border-white/30 group-hover:bg-white/15 transition-all duration-500">
+                                    <iconify-icon icon="solar:hand-stars-linear" class="text-2xl text-white/60 group-hover:text-white transition-colors duration-500"></iconify-icon>
+                                </div>
+                            </div>
+                            <h4 class="text-xl md:text-2xl font-semibold tracking-tight text-white mb-2 group-hover:translate-x-1 transition-transform duration-500">Limpeza Detalhada</h4>
+                            <p class="text-white/45 text-sm leading-relaxed max-w-sm">Detailing completo externo e interno — polimento, descontaminação e acabamento premium em cada detalhe.</p>
+                            <div class="hover-tagline mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div class="h-px w-6 bg-white/30"></div>
+                                <span class="text-xs font-mono text-white/40 uppercase tracking-widest">Cada detalhe importa</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 text-center reveal delay-300">
+                        <p class="text-white/30 text-xs font-mono uppercase tracking-widest">Todos os serviços com padrão premium &nbsp;·&nbsp; Agende sua visita</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- CTA -->
             <div class="border-t border-white/10 py-16 md:py-24" id="cta-final">
                 <div class="max-w-2xl mx-auto text-center">
@@ -584,8 +683,8 @@
                         Agende uma avaliação gratuita e descubra qual proteção é ideal para o seu carro. Atendimento exclusivo e personalizado.
                     </p>
                     <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-5 reveal delay-200">
-                        <button class="button-custom w-full sm:w-auto" type="button" style="padding: 16px 40px; min-height: 54px;"><div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div><span class="inner" style="font-size: 0.95rem;">Solicitar Orçamento Gratuito <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
-                        <a href="#" class="shimmer-btn w-full sm:w-auto text-center">
+                        <a href="https://wa.me/5573999937471?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20gratuito!" target="_blank" rel="noopener noreferrer" class="button-custom w-full sm:w-auto" style="padding: 16px 40px; min-height: 54px;"><div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div><span class="inner" style="font-size: 0.95rem;">Solicitar Orçamento Gratuito <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+                        <a href="https://wa.me/5573999937471?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista!" target="_blank" rel="noopener noreferrer" class="shimmer-btn w-full sm:w-auto text-center">
                             <div class="shimmer-spin"><div></div></div>
                             <div class="shimmer-fill"></div>
                             Falar com Especialista
@@ -599,18 +698,94 @@
         <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
     </section>
 
+    <!-- FOOTER -->
+    <footer class="relative z-10 overflow-hidden border-t border-white/10" style="background: linear-gradient(180deg, var(--brand-dark) 0%, #3D0E6E 100%);">
+        <div class="absolute inset-0 grid-bg-light pointer-events-none opacity-50"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[60%] bg-white/5 rounded-full blur-[140px] pointer-events-none glow-bg"></div>
+
+        <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12">
+
+            <div class="py-16 md:py-20 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-start">
+                <!-- Endereço -->
+                <div class="reveal">
+                    <div class="flex items-center gap-2 mb-4">
+                        <iconify-icon icon="solar:map-point-linear" class="text-lg text-white/50"></iconify-icon>
+                        <span class="text-xs font-mono uppercase tracking-widest text-white/50">Localização</span>
+                    </div>
+                    <address class="not-italic text-white/80 text-sm leading-relaxed">
+                        R. São Sebastião, 109<br/>
+                        Alto Maron, Itabuna — BA<br/>
+                        <span class="text-white/40">CEP 45604-003</span>
+                    </address>
+                    <a href="https://www.google.com/maps/place/Wash+Concept+Brasil+-+PPF+%2F+VITRIFICA%C3%87%C3%83O%2F+HIGIENIZAC%C3%83O%2F+LAVAGEM+ESPECIALIZADA/data=!4m2!3m1!1s0x0:0xc536c9b3790f36e4?sa=X&ved=1t:2428&ictx=111" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-4 text-xs font-medium text-white/50 hover:text-white transition-colors group">
+                        Ver no mapa
+                        <iconify-icon icon="solar:arrow-right-up-linear" class="text-sm group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></iconify-icon>
+                    </a>
+                </div>
+
+                <!-- Contato -->
+                <div class="reveal delay-200">
+                    <div class="flex items-center gap-2 mb-4">
+                        <iconify-icon icon="solar:phone-calling-linear" class="text-lg text-white/50"></iconify-icon>
+                        <span class="text-xs font-mono uppercase tracking-widest text-white/50">Contato</span>
+                    </div>
+                    <div class="space-y-3">
+                        <a href="https://wa.me/5573999937471?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20vitrifica%C3%A7%C3%A3o%20automotiva!" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-white/80 text-sm hover:text-white transition-colors group">
+                            <iconify-icon icon="mdi:whatsapp" class="text-xl text-white/40 group-hover:text-green-400 transition-colors"></iconify-icon>
+                            (73) 99993-7471
+                        </a>
+                        <a href="https://www.instagram.com/washconceptbr?igsh=a2RzaXhvZGR2bTR2" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-white/80 text-sm hover:text-white transition-colors group">
+                            <iconify-icon icon="mdi:instagram" class="text-xl text-white/40 group-hover:text-pink-400 transition-colors"></iconify-icon>
+                            @washconceptbr
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Horário -->
+                <div class="reveal delay-300">
+                    <div class="flex items-center gap-2 mb-4">
+                        <iconify-icon icon="solar:clock-circle-linear" class="text-lg text-white/50"></iconify-icon>
+                        <span class="text-xs font-mono uppercase tracking-widest text-white/50">Atendimento</span>
+                    </div>
+                    <p class="text-white/80 text-sm leading-relaxed">
+                        Seg — Sáb<br/>
+                        <span class="text-white/40">Agende pelo WhatsApp</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="h-px bg-white/10 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent" style="animation: beam-slide 8s cubic-bezier(0.4,0,0.2,1) infinite;"></div>
+            </div>
+
+            <!-- Bottom -->
+            <div class="py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <span class="text-xs font-mono text-white/25 uppercase tracking-widest">&copy; 2026 Wash Concept. Todos os direitos reservados.</span>
+                <span class="text-xs font-mono text-white/20 uppercase tracking-widest">Itabuna — Bahia — Brasil</span>
+            </div>
+        </div>
+
+        <!-- Giant brand watermark -->
+        <div class="text-center overflow-hidden pointer-events-none select-none -mt-6 md:-mt-10 pb-4">
+            <span class="text-[5rem] sm:text-[8rem] md:text-[12rem] lg:text-[16rem] font-bold leading-none tracking-tighter whitespace-nowrap text-white/[0.03]">WASH CONCEPT</span>
+        </div>
+    </footer>
+
     <!-- FLOATING CTA -->
     <div id="floating-cta">
-        <!-- Desktop: botão compacto -->
-        <button class="button-custom hidden sm:inline-flex" type="button" style="padding: 14px 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 60px rgba(119,32,210,0.15);">
-            <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
-            <span class="inner">Quero Vitrificar <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-        </button>
-        <!-- Mobile: barra full-width -->
-        <button class="button-custom sm:hidden w-full" type="button">
+        <div class="relative hidden sm:block">
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+            <a href="https://wa.me/5573999937471?text=Ol%C3%A1%2C%20quero%20vitrificar%20meu%20carro!" target="_blank" rel="noopener noreferrer" class="floating-cta-btn button-custom" style="padding: 14px 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 60px rgba(119,32,210,0.15);">
+                <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
+                <span class="inner">Quero Vitrificar <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            </a>
+        </div>
+        <a href="https://wa.me/5573999937471?text=Ol%C3%A1%2C%20quero%20vitrificar%20meu%20carro!" target="_blank" rel="noopener noreferrer" class="floating-cta-btn button-custom sm:hidden w-full">
             <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
             <span class="inner">Quero Vitrificar Meu Carro <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-        </button>
+        </a>
     </div>
 
     <script>
@@ -645,7 +820,7 @@
             });
         }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
-        document.querySelectorAll('#resultados .reveal, #resultados h2, #resultados h3').forEach(el => {
+        document.querySelectorAll('#resultados .reveal, #resultados h2, #resultados h3, footer .reveal').forEach(el => {
             scrollObserver.observe(el);
         });
 
@@ -673,6 +848,29 @@
         }, { threshold: 0.5 });
         const statEl = document.getElementById('stat-veiculos');
         if (statEl) counterObserver.observe(statEl);
+
+        // ── CAROUSEL: prev/next buttons ──
+        const carousel = document.getElementById('gallery-carousel');
+        const prevBtn = document.getElementById('carousel-prev');
+        const nextBtn = document.getElementById('carousel-next');
+        if (carousel) {
+            const scrollAmt = 400;
+            if (prevBtn) prevBtn.addEventListener('click', () => carousel.scrollBy({ left: -scrollAmt, behavior: 'smooth' }));
+            if (nextBtn) nextBtn.addEventListener('click', () => carousel.scrollBy({ left: scrollAmt, behavior: 'smooth' }));
+        }
+
+        // ── LAZY IMAGES: load only when visible ──
+        const imgObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const src = img.dataset.lazySrc;
+                    if (src) { img.src = src; img.removeAttribute('data-lazy-src'); }
+                    imgObserver.unobserve(img);
+                }
+            });
+        }, { rootMargin: '400px' });
+        document.querySelectorAll('[data-lazy-src]').forEach(img => imgObserver.observe(img));
 
         // ── LAZY VIDEO: load only when visible ──
         const videoObserver = new IntersectionObserver((entries) => {
@@ -753,20 +951,35 @@
         const floatingCta = document.getElementById('floating-cta');
         const heroSection = document.getElementById('hero-section');
         const ctaFinal = document.getElementById('cta-final');
+        const siteFooter = document.querySelector('footer');
         if (floatingCta && heroSection) {
-            const floatingObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.target === heroSection) {
-                        if (!entry.isIntersecting) floatingCta.classList.add('visible');
-                        else floatingCta.classList.remove('visible');
-                    }
-                    if (entry.target === ctaFinal && entry.isIntersecting) {
-                        floatingCta.classList.remove('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            floatingObserver.observe(heroSection);
-            if (ctaFinal) floatingObserver.observe(ctaFinal);
+            let heroVisible = true;
+            let ctaVisible = false;
+            let footerVisible = false;
+
+            function updateFloatingCta() {
+                if (!heroVisible && !ctaVisible && !footerVisible) floatingCta.classList.add('visible');
+                else floatingCta.classList.remove('visible');
+            }
+
+            new IntersectionObserver((entries) => {
+                entries.forEach(e => { heroVisible = e.isIntersecting; });
+                updateFloatingCta();
+            }, { threshold: 0.05 }).observe(heroSection);
+
+            if (ctaFinal) {
+                new IntersectionObserver((entries) => {
+                    entries.forEach(e => { ctaVisible = e.isIntersecting; });
+                    updateFloatingCta();
+                }, { threshold: 0.2 }).observe(ctaFinal);
+            }
+
+            if (siteFooter) {
+                new IntersectionObserver((entries) => {
+                    entries.forEach(e => { footerVisible = e.isIntersecting; });
+                    updateFloatingCta();
+                }, { threshold: 0.05 }).observe(siteFooter);
+            }
         }
 
         // ── PARALLAX: mouse move (hero only) ──
