@@ -5,12 +5,17 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Wash Concept — Vitrificação Automotiva Premium</title>
     <meta name="description" content="Vitrificação automotiva com coating cerâmico de alta performance. Brilho espelhado, hidrorrepelência e proteção por até 5 anos. Venha viver essa experiência."/>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com"/>
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com"/>
+    <link rel="dns-prefetch" href="https://code.iconify.design"/>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="preload" href="assets/VideoWash2.mp4" as="video" type="video/mp4"/>
     <meta name="theme-color" content="#7720D2"/>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <script defer src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -130,6 +135,8 @@
 
         #gallery-carousel::-webkit-scrollbar { display: none; }
         .carousel-item { background: rgba(255,255,255,0.05); }
+
+        .perf-offscreen { content-visibility: auto; contain-intrinsic-size: auto 800px; }
 
         .service-card { transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease; }
         .service-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15); border-color: var(--brand) !important; }
@@ -454,7 +461,7 @@
     <!-- ════════════════════════════════════════
          SEGUNDA DOBRA — Resultados Vitrificação
          ════════════════════════════════════════ -->
-    <section class="relative overflow-hidden bg-[#7720D2]" id="resultados">
+    <section class="relative overflow-hidden bg-[#7720D2] perf-offscreen" id="resultados">
         <div class="absolute inset-0 grid-bg-light pointer-events-none" style="mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);"></div>
         <div class="absolute top-[10%] right-[-8%] w-[40vw] h-[40vw] rounded-full blur-[180px] pointer-events-none glow-bg" style="background: rgba(255,255,255,0.05);"></div>
         <div class="absolute bottom-[10%] left-[-5%] w-[30vw] h-[30vw] rounded-full blur-[140px] pointer-events-none" style="background: rgba(155,77,235,0.15); animation: glow-pulse 6s ease-in-out infinite; animation-delay: 2s;"></div>
@@ -566,13 +573,91 @@
                 </div>
             </div>
 
+            <!-- Produto: ZR53 -->
+            <div class="max-w-[1400px] mx-auto px-6 md:px-12 pb-16 md:pb-24 relative overflow-hidden">
+                <div class="absolute inset-0 grid-bg-light pointer-events-none"></div>
+                <div class="absolute top-[20%] right-[5%] w-[30%] h-[50%] bg-white/5 rounded-full blur-[120px] pointer-events-none glow-bg"></div>
+
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+
+                    <!-- Texto do produto -->
+                    <div class="lg:col-span-7 order-2 lg:order-1">
+                        <div class="flex items-center gap-3 mb-6 reveal">
+                            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest text-white/80">
+                                <iconify-icon icon="solar:verified-check-bold" class="text-sm text-white"></iconify-icon>
+                                Produto oficial
+                            </span>
+                        </div>
+
+                        <h3 class="reveal delay-100">
+                            <span class="block text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] font-extrabold tracking-tighter leading-[0.85] text-outline">ZR53</span>
+                            <span class="block text-lg sm:text-xl md:text-2xl font-semibold tracking-tight text-white/90 mt-3">Nano Ceramic Coating</span>
+                        </h3>
+
+                        <p class="text-white/50 text-sm sm:text-base leading-relaxed max-w-lg mt-6 mb-8 reveal delay-200">
+                            A tecnologia por trás da nossa vitrificação. Formulação avançada à base de nano partículas cerâmicas que se fundem à superfície da pintura, criando uma barreira cristalina de proteção e brilho incomparáveis.
+                        </p>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 reveal delay-300">
+                            <div class="p-4 rounded-xl border border-white/10 bg-white/[0.04]">
+                                <span class="block text-2xl font-bold tracking-tighter text-white mb-1">9H</span>
+                                <span class="text-[10px] font-mono uppercase tracking-widest text-white/40">Dureza</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-white/10 bg-white/[0.04]">
+                                <span class="block text-2xl font-bold tracking-tighter text-white mb-1">5 anos</span>
+                                <span class="text-[10px] font-mono uppercase tracking-widest text-white/40">Durabilidade</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-white/10 bg-white/[0.04]">
+                                <span class="block text-2xl font-bold tracking-tighter text-white mb-1">Nano</span>
+                                <span class="text-[10px] font-mono uppercase tracking-widest text-white/40">Tecnologia</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vídeo do produto -->
+                    <div class="lg:col-span-5 flex justify-center order-1 lg:order-2 reveal delay-200">
+                        <div class="relative w-[220px] sm:w-[260px] lg:w-[300px]">
+                            <div class="absolute -inset-16 rounded-full pointer-events-none glow-bg" style="background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 65%); opacity: 0.5;"></div>
+
+                            <div class="relative rounded-[28px] overflow-visible">
+                                <!-- Shimmer border spinning -->
+                                <div class="absolute inset-[-2px] rounded-[28px] overflow-hidden z-0">
+                                    <div class="absolute inset-[-100%] w-[300%] h-[300%]" style="animation: spin-glow 6s linear infinite; background: conic-gradient(from 180deg, transparent 0deg, transparent 60deg, rgba(255,255,255,0.5) 180deg, transparent 300deg, transparent 360deg);"></div>
+                                </div>
+                                <div class="absolute inset-[1px] rounded-[28px] z-[1]" style="background: rgba(119,32,210,0.5);"></div>
+
+                                <div class="relative z-[2] rounded-[26px] overflow-hidden m-[2px]">
+                                    <video class="w-full aspect-[9/16] object-cover rounded-[24px]" loop muted playsinline preload="none" data-lazy-video="assets/gallery/VideoProdutoVitrificação.mp4"></video>
+
+                                    <!-- Overlay gradient base -->
+                                    <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/80 via-black/30 to-transparent">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-2 h-2 rounded-full bg-white/60"></div>
+                                            <span class="text-[10px] font-mono uppercase tracking-widest text-white/70">ZR53 — Nano Ceramic</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Badge topo -->
+                                    <div class="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/50 to-transparent">
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[10px] font-mono uppercase tracking-widest text-white/90">
+                                            <iconify-icon icon="solar:shield-check-bold" class="text-xs"></iconify-icon>
+                                            Produto Premium
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Stats -->
             <div class="border-t border-white/10 py-12 md:py-16">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
-                    <div class="stat-item text-center reveal" id="stat-veiculos"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-1"><span class="counter" data-target="500">0</span><span class="text-white/50">+</span></div><div class="text-xs font-mono uppercase tracking-widest text-white/40">Veículos Protegidos</div></div>
+                    <div class="stat-item text-center reveal" id="stat-veiculos"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-1"><span class="counter" data-target="2000">0</span><span class="text-white/50">+</span></div><div class="text-xs font-mono uppercase tracking-widest text-white/40">Veículos Atendidos</div></div>
                     <div class="stat-item text-center reveal delay-100"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-1"><span class="counter" data-target="99">0</span><span class="text-white/50">%</span></div><div class="text-xs font-mono uppercase tracking-widest text-white/40">Satisfação</div></div>
                     <div class="stat-item text-center reveal delay-200"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-1"><span class="text-white">5</span><span class="text-white/50">★</span></div><div class="text-xs font-mono uppercase tracking-widest text-white/40">Google Reviews</div></div>
-                    <div class="stat-item text-center reveal delay-300"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-1"><span class="counter" data-target="10">0</span><span class="text-white/50">+</span></div><div class="text-xs font-mono uppercase tracking-widest text-white/40">Anos no Mercado</div></div>
+                    <div class="stat-item text-center reveal delay-300"><div class="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-1"><span class="counter" data-target="4">0</span><span class="text-white/50">+</span></div><div class="text-xs font-mono uppercase tracking-widest text-white/40">Anos no Mercado</div></div>
                 </div>
             </div>
 
@@ -699,7 +784,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="relative z-10 overflow-hidden border-t border-white/10" style="background: linear-gradient(180deg, var(--brand-dark) 0%, #3D0E6E 100%);">
+    <footer class="relative z-10 overflow-hidden border-t border-white/10 perf-offscreen" style="background: linear-gradient(180deg, var(--brand-dark) 0%, #3D0E6E 100%);">
         <div class="absolute inset-0 grid-bg-light pointer-events-none opacity-50"></div>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[60%] bg-white/5 rounded-full blur-[140px] pointer-events-none glow-bg"></div>
 
@@ -953,33 +1038,31 @@
         const ctaFinal = document.getElementById('cta-final');
         const siteFooter = document.querySelector('footer');
         if (floatingCta && heroSection) {
-            let heroVisible = true;
-            let ctaVisible = false;
-            let footerVisible = false;
+            let ticking = false;
+            function checkFloatingCta() {
+                const scrollY = window.scrollY;
+                const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                const pastHero = scrollY > heroBottom * 0.5;
 
-            function updateFloatingCta() {
-                if (!heroVisible && !ctaVisible && !footerVisible) floatingCta.classList.add('visible');
+                let nearCta = false;
+                if (ctaFinal) {
+                    const r = ctaFinal.getBoundingClientRect();
+                    nearCta = r.top < window.innerHeight && r.bottom > 0;
+                }
+                let nearFooter = false;
+                if (siteFooter) {
+                    const r = siteFooter.getBoundingClientRect();
+                    nearFooter = r.top < window.innerHeight && r.bottom > 0;
+                }
+
+                if (pastHero && !nearCta && !nearFooter) floatingCta.classList.add('visible');
                 else floatingCta.classList.remove('visible');
+                ticking = false;
             }
-
-            new IntersectionObserver((entries) => {
-                entries.forEach(e => { heroVisible = e.isIntersecting; });
-                updateFloatingCta();
-            }, { threshold: 0.05 }).observe(heroSection);
-
-            if (ctaFinal) {
-                new IntersectionObserver((entries) => {
-                    entries.forEach(e => { ctaVisible = e.isIntersecting; });
-                    updateFloatingCta();
-                }, { threshold: 0.2 }).observe(ctaFinal);
-            }
-
-            if (siteFooter) {
-                new IntersectionObserver((entries) => {
-                    entries.forEach(e => { footerVisible = e.isIntersecting; });
-                    updateFloatingCta();
-                }, { threshold: 0.05 }).observe(siteFooter);
-            }
+            window.addEventListener('scroll', () => {
+                if (!ticking) { ticking = true; requestAnimationFrame(checkFloatingCta); }
+            }, { passive: true });
+            checkFloatingCta();
         }
 
         // ── PARALLAX: mouse move (hero only) ──
