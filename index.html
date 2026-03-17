@@ -42,7 +42,9 @@
             --text: #FFFFFF;
             --border: rgba(255, 255, 255, 0.15);
         }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); overflow-x: hidden; margin: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); overflow-x: hidden; margin: 0; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; }
+        img, video { pointer-events: none; -webkit-user-drag: none; -khtml-user-drag: none; -moz-user-drag: none; -o-user-drag: none; }
+        a, button, .button-custom, .shimmer-btn, #allan-sound-btn, #mobile-menu-btn, #mobile-menu-close, #carousel-prev, #carousel-next, #gallery-carousel { pointer-events: auto; cursor: pointer; }
         ::selection { background: rgba(255,255,255,0.3); color: white; }
 
         .text-outline { color: transparent; -webkit-text-stroke: 1.5px var(--text); }
@@ -1076,6 +1078,64 @@
             if (allanVid) { allanVid.style.transform = `translate(${x * 6}px, ${y * 4}px)`; allanVid.style.transition = 'transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94)'; }
         });
     });
+
+    // ══════════════════════════════════════════
+    // PROTEÇÃO ANTI-INSPEÇÃO
+    // ══════════════════════════════════════════
+
+    // Bloquear clique direito
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Bloquear atalhos do DevTools e View Source
+    document.addEventListener('keydown', e => {
+        if (e.key === 'F12') { e.preventDefault(); return; }
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) { e.preventDefault(); return; }
+        if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) { e.preventDefault(); return; }
+        if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) { e.preventDefault(); return; }
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) { e.preventDefault(); return; }
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) { e.preventDefault(); return; }
+        if (e.ctrlKey && (e.key === 'P' || e.key === 'p')) { e.preventDefault(); return; }
+    });
+
+    // Bloquear arrastar imagens e vídeos
+    document.addEventListener('dragstart', e => {
+        if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') e.preventDefault();
+    });
+
+    // Detectar DevTools aberto (redimensionamento suspeito)
+    let devtoolsOpen = false;
+    const threshold = 160;
+    setInterval(() => {
+        const widthDiff = window.outerWidth - window.innerWidth > threshold;
+        const heightDiff = window.outerHeight - window.innerHeight > threshold;
+        if (widthDiff || heightDiff) {
+            if (!devtoolsOpen) {
+                devtoolsOpen = true;
+                document.body.style.filter = 'blur(30px)';
+                document.body.style.pointerEvents = 'none';
+                document.body.style.transition = 'filter 0.5s ease';
+            }
+        } else {
+            if (devtoolsOpen) {
+                devtoolsOpen = false;
+                document.body.style.filter = '';
+                document.body.style.pointerEvents = '';
+            }
+        }
+    }, 1000);
+
+    // Bloquear console logging / debug
+    (function() {
+        const noop = function() {};
+        try {
+            Object.defineProperty(window, 'console', {
+                get: function() {
+                    return { log: noop, warn: noop, error: noop, info: noop, debug: noop, dir: noop, table: noop };
+                },
+                set: noop
+            });
+        } catch(e) {}
+    })();
     </script>
 
 </body>
