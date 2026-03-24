@@ -218,6 +218,15 @@
             .service-card { padding: 1.5rem; }
             .floating-card .hover-tagline { opacity: 1 !important; }
             footer { padding-bottom: 80px; }
+            .glow-bg { animation: none !important; opacity: 0.3; }
+            .grid-bg-light { display: none; }
+            .animate-beam-1, .animate-beam-2, .animate-beam-3 { display: none; }
+            [style*="blur(180px)"], [style*="blur(140px)"], [style*="blur(120px)"], [style*="blur(100px)"] { filter: none !important; opacity: 0.15; }
+            video { transform: none !important; }
+            #hero-bg-video { transform: none !important; will-change: auto !important; }
+            [style*="spin-glow"], [style*="spin_"] { animation: none !important; }
+            .shimmer-btn .shimmer-spin > div { animation-duration: 8s !important; }
+            .perf-offscreen { content-visibility: auto; contain-intrinsic-size: auto 600px; }
         }
         @media (max-width: 639px) {
             .button-custom { min-height: 48px; padding: 12px 28px; }
@@ -244,11 +253,12 @@
          ════════════════════════════════════════ -->
     <section class="relative min-h-[100svh] flex flex-col overflow-hidden" id="hero-section">
 
-        <!-- VIDEO BACKGROUND (lado esquerdo com fade) -->
+        <!-- VIDEO BACKGROUND (desktop only for performance) -->
         <div class="absolute inset-0 z-0 overflow-hidden">
-            <video class="absolute top-0 left-0 w-full lg:w-[75%] h-full object-cover" autoplay loop muted playsinline id="hero-bg-video" style="object-position: center;">
+            <video class="absolute top-0 left-0 w-full lg:w-[75%] h-full object-cover hidden md:block" autoplay loop muted playsinline id="hero-bg-video" style="object-position: center;">
                 <source src="assets/VideoWash2.mp4" type="video/mp4"/>
             </video>
+            <div class="absolute inset-0 md:hidden" style="background: linear-gradient(135deg, #5A13A5 0%, #7720D2 40%, #9B4DEB 100%);"></div>
             <div class="absolute top-0 right-0 w-full lg:w-[55%] h-full z-[1]" style="background: linear-gradient(to right, transparent 0%, #7720D2 60%);"></div>
             <div class="absolute top-0 left-0 w-full h-full z-[1]" style="background: linear-gradient(to bottom, rgba(119,32,210,0.3) 0%, transparent 25%, transparent 75%, rgba(119,32,210,0.4) 100%);"></div>
         </div>
@@ -1172,28 +1182,43 @@
         }, { rootMargin: '400px' });
         document.querySelectorAll('[data-lazy-src]').forEach(img => imgObserver.observe(img));
 
-        // ── LAZY VIDEO: load only when visible ──
-        const videoObserver = new IntersectionObserver((entries) => {
+        // ── SMART VIDEO MANAGER: load, play & pause based on visibility ──
+        const isMobile = window.matchMedia('(max-width: 767px)').matches;
+        const videoMargin = isMobile ? '100px' : '300px';
+
+        const videoPlayObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                const video = entry.target;
+                const src = video.dataset.lazyVideo;
+
                 if (entry.isIntersecting) {
-                    const video = entry.target;
-                    const src = video.dataset.lazyVideo;
                     if (src && !video.getAttribute('src')) {
                         video.setAttribute('src', src);
                         video.load();
-                        const tryPlay = () => {
-                            video.play().catch(() => {
-                                video.addEventListener('canplay', () => video.play().catch(() => {}), { once: true });
-                            });
-                        };
-                        if (video.readyState >= 2) tryPlay();
-                        else video.addEventListener('loadeddata', tryPlay, { once: true });
                     }
-                    videoObserver.unobserve(video);
+                    const tryPlay = () => video.play().catch(() => {});
+                    if (video.readyState >= 2) tryPlay();
+                    else video.addEventListener('loadeddata', tryPlay, { once: true });
+                } else {
+                    if (video.getAttribute('src')) {
+                        video.pause();
+                    }
                 }
             });
-        }, { rootMargin: '300px' });
-        document.querySelectorAll('[data-lazy-video]').forEach(v => videoObserver.observe(v));
+        }, { rootMargin: videoMargin });
+        document.querySelectorAll('[data-lazy-video]').forEach(v => videoPlayObserver.observe(v));
+
+        // Hero + Allan: pause when off-screen on mobile
+        if (isMobile) {
+            const heroVids = [document.getElementById('hero-bg-video'), document.getElementById('allan-video')].filter(Boolean);
+            const heroVidObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.play().catch(() => {});
+                    else entry.target.pause();
+                });
+            }, { rootMargin: '50px' });
+            heroVids.forEach(v => heroVidObserver.observe(v));
+        }
 
         // ── AUDIO MANAGER: um áudio por vez, apenas por botão ──
         (function() {
