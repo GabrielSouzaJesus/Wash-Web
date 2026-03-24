@@ -44,7 +44,7 @@
         }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); overflow-x: hidden; margin: 0; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; }
         img, video { pointer-events: none; -webkit-user-drag: none; -khtml-user-drag: none; -moz-user-drag: none; -o-user-drag: none; }
-        a, button, .button-custom, .shimmer-btn, #allan-sound-btn, #mobile-menu-btn, #mobile-menu-close, #carousel-prev, #carousel-next, #gallery-carousel { pointer-events: auto; cursor: pointer; }
+        a, button, .button-custom, .shimmer-btn, .audio-toggle-btn, #mobile-menu-btn, #mobile-menu-close, #carousel-prev, #carousel-next, #gallery-carousel { pointer-events: auto; cursor: pointer; }
         ::selection { background: rgba(255,255,255,0.3); color: white; }
 
         .text-outline { color: transparent; -webkit-text-stroke: 1.5px var(--text); }
@@ -403,7 +403,7 @@
 
                                 <!-- Vídeo -->
                                 <div class="relative z-[2] rounded-[26px] overflow-hidden m-[2px]">
-                                    <video class="w-full aspect-[9/16] object-cover rounded-[24px]" id="allan-video" autoplay loop muted playsinline>
+                                    <video class="w-full aspect-[9/16] object-cover rounded-[24px] audio-video" id="allan-video" autoplay loop muted playsinline>
                                         <source src="VideosEFotos/VideoAllan.mp4" type="video/mp4"/>
                                     </video>
 
@@ -427,9 +427,9 @@
                                                     <div class="text-[10px] text-white/60">Fundador — Wash Concept</div>
                                                 </div>
                                             </div>
-                                            <button id="allan-sound-btn" type="button" class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center cursor-pointer hover:bg-white/35 transition-all duration-300 flex-shrink-0" title="Ativar som">
-                                                <svg id="icon-muted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                                                <svg id="icon-unmuted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                                            <button type="button" class="audio-toggle-btn w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center cursor-pointer hover:bg-white/35 transition-all duration-300 flex-shrink-0" data-target="allan-video" title="Ativar som">
+                                                <svg class="icon-muted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                                                <svg class="icon-unmuted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
                                             </button>
                                         </div>
                                     </div>
@@ -760,6 +760,219 @@
                 </div>
             </div>
 
+            <!-- ═══════════════════════════════════════
+                 PPF — Paint Protection Film
+                 ═══════════════════════════════════════ -->
+            <div class="border-t border-white/10"></div>
+            <div class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 md:py-28 relative overflow-hidden perf-offscreen">
+                <div class="absolute inset-0 grid-bg-light pointer-events-none"></div>
+                <div class="absolute top-[10%] left-[5%] w-[40%] h-[50%] bg-white/5 rounded-full blur-[140px] pointer-events-none glow-bg"></div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-6 reveal">
+                        <span class="text-xs font-mono uppercase tracking-widest text-white/70">04 / Proteção de Pintura</span>
+                        <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-white/30 to-transparent"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                        <!-- Texto PPF -->
+                        <div class="lg:col-span-7">
+                            <h3 class="reveal delay-100">
+                                <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[0.85] text-outline">PPF</span>
+                                <span class="block text-lg sm:text-xl md:text-2xl font-semibold tracking-tight text-white/90 mt-2">Paint Protection Film</span>
+                            </h3>
+                            <p class="text-white/50 text-sm sm:text-base leading-relaxed max-w-lg mt-6 mb-8 reveal delay-200">
+                                Uma película transparente de poliuretano de alta performance que cria uma blindagem invisível sobre a pintura. Absorve impactos, resiste a riscos e possui tecnologia <span class="text-white font-medium">self-healing</span> — pequenos arranhões desaparecem com o calor.
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 reveal delay-300">
+                                <div class="flex items-center gap-3 p-4 rounded-xl border border-white/10 bg-white/[0.04]">
+                                    <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                                        <iconify-icon icon="solar:shield-check-linear" class="text-xl text-white/70"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm font-semibold text-white">Anti-riscos & pedriscos</span>
+                                        <span class="text-[11px] text-white/40">Proteção contra impactos do dia a dia</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 p-4 rounded-xl border border-white/10 bg-white/[0.04]">
+                                    <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                                        <iconify-icon icon="solar:restart-circle-linear" class="text-xl text-white/70"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm font-semibold text-white">Self-Healing</span>
+                                        <span class="text-[11px] text-white/40">Regeneração térmica de micro-riscos</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 p-4 rounded-xl border border-white/10 bg-white/[0.04]">
+                                    <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                                        <iconify-icon icon="solar:eye-linear" class="text-xl text-white/70"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm font-semibold text-white">Invisível</span>
+                                        <span class="text-[11px] text-white/40">Preserva a cor e o brilho original</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 p-4 rounded-xl border border-white/10 bg-white/[0.04]">
+                                    <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                                        <iconify-icon icon="solar:graph-up-linear" class="text-xl text-white/70"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <span class="block text-sm font-semibold text-white">Valorização</span>
+                                        <span class="text-[11px] text-white/40">Pintura original intacta na revenda</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="https://wa.me/5573999937471?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20PPF!" target="_blank" rel="noopener noreferrer" class="button-custom w-full sm:w-auto reveal delay-400">
+                                <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
+                                <span class="inner">Quero Proteger Meu Carro <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                            </a>
+                        </div>
+
+                        <!-- Vídeo PPF -->
+                        <div class="lg:col-span-5 flex justify-center reveal delay-200">
+                            <div class="relative w-[220px] sm:w-[260px] lg:w-[300px]">
+                                <div class="absolute -inset-16 rounded-full pointer-events-none glow-bg" style="background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 65%);"></div>
+                                <div class="relative rounded-[28px] overflow-visible">
+                                    <div class="absolute inset-[-2px] rounded-[28px] overflow-hidden z-0">
+                                        <div class="absolute inset-[-100%] w-[300%] h-[300%]" style="animation: spin-glow 6s linear infinite; background: conic-gradient(from 90deg, transparent 0deg, transparent 60deg, rgba(255,255,255,0.5) 180deg, transparent 300deg, transparent 360deg);"></div>
+                                    </div>
+                                    <div class="absolute inset-[1px] rounded-[28px] z-[1]" style="background: rgba(119,32,210,0.5);"></div>
+                                    <div class="relative z-[2] rounded-[26px] overflow-hidden m-[2px]">
+                                        <video class="w-full aspect-[9/16] object-cover rounded-[24px] audio-video" id="ppf-video" loop muted playsinline preload="none" data-lazy-video="assets/gallery/PPF.MOV"></video>
+                                        <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/80 via-black/30 to-transparent">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center gap-2">
+                                                    <iconify-icon icon="solar:shield-check-bold" class="text-sm text-white/60"></iconify-icon>
+                                                    <span class="text-[10px] font-mono uppercase tracking-widest text-white/70">PPF — Paint Protection</span>
+                                                </div>
+                                                <button type="button" class="audio-toggle-btn w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center cursor-pointer hover:bg-white/35 transition-all duration-300 flex-shrink-0" data-target="ppf-video" title="Ativar som">
+                                                    <svg class="icon-muted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                                                    <svg class="icon-unmuted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/50 to-transparent">
+                                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[10px] font-mono uppercase tracking-widest text-white/90">
+                                                <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span>
+                                                Aplicação
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════
+                 PELÍCULA DE VIDROS — Insulfilm
+                 ═══════════════════════════════════════ -->
+            <div class="border-t border-white/10"></div>
+            <div class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 md:py-28 relative overflow-hidden perf-offscreen">
+                <div class="absolute inset-0 grid-bg-light pointer-events-none"></div>
+                <div class="absolute bottom-[10%] right-[5%] w-[35%] h-[45%] bg-white/5 rounded-full blur-[140px] pointer-events-none glow-bg" style="animation-delay: 2s;"></div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-6 reveal">
+                        <span class="text-xs font-mono uppercase tracking-widest text-white/70">05 / Película de Vidros</span>
+                        <div class="h-px flex-1 max-w-[120px] bg-gradient-to-r from-white/30 to-transparent"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                        <!-- Vídeo Película (esquerda no desktop) -->
+                        <div class="lg:col-span-5 flex justify-center order-1 reveal delay-200">
+                            <div class="relative w-[220px] sm:w-[260px] lg:w-[300px]">
+                                <div class="absolute -inset-16 rounded-full pointer-events-none glow-bg" style="background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 65%);"></div>
+                                <div class="relative rounded-[28px] overflow-visible">
+                                    <div class="absolute inset-[-2px] rounded-[28px] overflow-hidden z-0">
+                                        <div class="absolute inset-[-100%] w-[300%] h-[300%]" style="animation: spin-glow 7s linear infinite; animation-direction: reverse; background: conic-gradient(from 0deg, transparent 0deg, transparent 70deg, rgba(255,255,255,0.4) 180deg, transparent 290deg, transparent 360deg);"></div>
+                                    </div>
+                                    <div class="absolute inset-[1px] rounded-[28px] z-[1]" style="background: rgba(119,32,210,0.5);"></div>
+                                    <div class="relative z-[2] rounded-[26px] overflow-hidden m-[2px]">
+                                        <video class="w-full aspect-[9/16] object-cover rounded-[24px] audio-video" id="pelicula-video" loop muted playsinline preload="none" data-lazy-video="assets/gallery/Pelicula.MOV"></video>
+                                        <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/80 via-black/30 to-transparent">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center gap-2">
+                                                    <iconify-icon icon="solar:window-frame-linear" class="text-sm text-white/60"></iconify-icon>
+                                                    <span class="text-[10px] font-mono uppercase tracking-widest text-white/70">Película — Window Film</span>
+                                                </div>
+                                                <button type="button" class="audio-toggle-btn w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center cursor-pointer hover:bg-white/35 transition-all duration-300 flex-shrink-0" data-target="pelicula-video" title="Ativar som">
+                                                    <svg class="icon-muted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                                                    <svg class="icon-unmuted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/50 to-transparent">
+                                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[10px] font-mono uppercase tracking-widest text-white/90">
+                                                <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span>
+                                                Instalação
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Texto Película (direita no desktop) -->
+                        <div class="lg:col-span-7 order-2">
+                            <h3 class="reveal delay-100">
+                                <span class="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[0.85] text-white">Película</span>
+                                <span class="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[0.85] text-outline">de Vidros</span>
+                            </h3>
+                            <p class="text-white/50 text-sm sm:text-base leading-relaxed max-w-lg mt-6 mb-8 reveal delay-200">
+                                Proteção, privacidade e conforto térmico com películas de alta performance. Redução de até <span class="text-white font-medium">99% dos raios UV</span>, rejeição de calor e acabamento impecável que valoriza o visual do seu veículo.
+                            </p>
+
+                            <!-- Produtos -->
+                            <div class="flex flex-col sm:flex-row gap-4 mb-8 reveal delay-300">
+                                <div class="flex-1 p-5 rounded-2xl border border-white/10 bg-white/[0.04] relative overflow-hidden group">
+                                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-3 h-3 rounded-full bg-white/80"></div>
+                                        <span class="text-xs font-mono uppercase tracking-widest text-white/50">Linha</span>
+                                    </div>
+                                    <h4 class="text-xl font-bold tracking-tight text-white mb-1">Window Premium</h4>
+                                    <p class="text-white/40 text-xs leading-relaxed">Máxima performance em rejeição de calor e claridade óptica superior.</p>
+                                </div>
+                                <div class="flex-1 p-5 rounded-2xl border border-white/10 bg-white/[0.04] relative overflow-hidden group">
+                                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"></div>
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-3 h-3 rounded-full bg-blue-400/80"></div>
+                                        <span class="text-xs font-mono uppercase tracking-widest text-white/50">Linha</span>
+                                    </div>
+                                    <h4 class="text-xl font-bold tracking-tight text-white mb-1">Window Blue</h4>
+                                    <p class="text-white/40 text-xs leading-relaxed">Tecnologia de ponta com tom azulado sofisticado e alto desempenho.</p>
+                                </div>
+                            </div>
+
+                            <!-- Specs -->
+                            <div class="grid grid-cols-3 gap-3 mb-8 reveal delay-300">
+                                <div class="text-center p-4 rounded-xl border border-white/10 bg-white/[0.04]">
+                                    <span class="block text-2xl font-bold tracking-tighter text-white mb-1">5-70%</span>
+                                    <span class="text-[10px] font-mono uppercase tracking-widest text-white/40">Tonalidades</span>
+                                </div>
+                                <div class="text-center p-4 rounded-xl border border-white/10 bg-white/[0.04]">
+                                    <span class="block text-2xl font-bold tracking-tighter text-white mb-1">∞</span>
+                                    <span class="text-[10px] font-mono uppercase tracking-widest text-white/40">Garantia Vitalícia</span>
+                                </div>
+                                <div class="text-center p-4 rounded-xl border border-white/10 bg-white/[0.04]">
+                                    <span class="block text-2xl font-bold tracking-tighter text-white mb-1">99%</span>
+                                    <span class="text-[10px] font-mono uppercase tracking-widest text-white/40">Rejeição UV</span>
+                                </div>
+                            </div>
+
+                            <a href="https://wa.me/5573999937471?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20pel%C3%ADcula%20de%20vidros!" target="_blank" rel="noopener noreferrer" class="button-custom w-full sm:w-auto reveal delay-400">
+                                <div class="points_wrapper"><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i><i class="point"></i></div>
+                                <span class="inner">Quero Aplicar Película <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- CTA -->
             <div class="border-t border-white/10 py-16 md:py-24" id="cta-final">
                 <div class="max-w-2xl mx-auto text-center">
@@ -982,29 +1195,42 @@
         }, { rootMargin: '300px' });
         document.querySelectorAll('[data-lazy-video]').forEach(v => videoObserver.observe(v));
 
-        // ── SOUND TOGGLE: Allan video ──
-        const allanVideo = document.getElementById('allan-video');
-        const soundBtn = document.getElementById('allan-sound-btn');
-        const iconMuted = document.getElementById('icon-muted');
-        const iconUnmuted = document.getElementById('icon-unmuted');
-        if (soundBtn && allanVideo) {
-            function updateSoundIcon() {
-                iconMuted.style.display = allanVideo.muted ? 'block' : 'none';
-                iconUnmuted.style.display = allanVideo.muted ? 'none' : 'block';
+        // ── AUDIO MANAGER: um áudio por vez, apenas por botão ──
+        (function() {
+            const allBtns = document.querySelectorAll('.audio-toggle-btn');
+            const audioVideos = document.querySelectorAll('.audio-video');
+
+            function updateBtnIcon(btn, isMuted) {
+                const mIcon = btn.querySelector('.icon-muted');
+                const uIcon = btn.querySelector('.icon-unmuted');
+                if (mIcon) mIcon.style.display = isMuted ? 'block' : 'none';
+                if (uIcon) uIcon.style.display = isMuted ? 'none' : 'block';
             }
-            soundBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                allanVideo.muted = !allanVideo.muted;
-                updateSoundIcon();
+
+            function muteAll() {
+                audioVideos.forEach(v => { v.muted = true; });
+                allBtns.forEach(b => updateBtnIcon(b, true));
+            }
+
+            allBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const targetId = btn.getAttribute('data-target');
+                    const video = document.getElementById(targetId);
+                    if (!video) return;
+
+                    if (video.muted) {
+                        muteAll();
+                        video.muted = false;
+                        video.play().catch(() => {});
+                        updateBtnIcon(btn, false);
+                    } else {
+                        video.muted = true;
+                        updateBtnIcon(btn, true);
+                    }
+                });
             });
-            document.addEventListener('click', () => {
-                if (allanVideo.muted) {
-                    allanVideo.muted = false;
-                    allanVideo.play().catch(() => {});
-                    updateSoundIcon();
-                }
-            }, { once: true });
-        }
+        })();
 
         // ── MOBILE MENU ──
         const mobileBtn = document.getElementById('mobile-menu-btn');
