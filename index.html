@@ -1186,7 +1186,7 @@
                     if (src && !video.querySelector('source') && !video.getAttribute('src')) {
                         const source = document.createElement('source');
                         source.src = src;
-                        source.type = src.toLowerCase().endsWith('.mov') ? 'video/quicktime' : 'video/mp4';
+                        source.type = 'video/mp4';
                         video.appendChild(source);
                         video.load();
                     }
